@@ -1,5 +1,5 @@
 package dominio;
 
-public abstract class Cliente {
-
+public interface Cliente {
+	boolean validar();
 }
