@@ -1,5 +1,9 @@
 package controle;
 
-public class GerenciadorClientes {
+import dominio.Cliente;
 
+public class GerenciadorClientes {
+	public void cadastrarCliente(Cliente cliente) {
+		
+	}
 }
