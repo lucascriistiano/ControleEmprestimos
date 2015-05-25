@@ -1,11 +1,13 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Emprestimo {
 	private long numero; // id do empréstimo
 	private Usuario usuario;
 	private Cliente cliente;
+	private Calendar data;
 	private ArrayList<Recurso> recursos;
 	
 	public Emprestimo() {
