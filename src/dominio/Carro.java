@@ -1,18 +1,23 @@
 package dominio;
 
-public class Carro implements Recurso{
+public class Carro extends Recurso {
 	
 	private String placa;
 	private String modelo;
 	private String fabricante;
 	private String cor;
-	private double preco; // referente ao valor do aluguel
-
-	public void alocarRecurso(Recurso recurso) {
-		// TODO Auto-generated method stub
+	private double preco; 		// Referente ao valor do aluguel
+	
+	public Carro(Long codigo, String descricao, String placa, String modelo, String fabricante, String cor, double preco) {
+		super(codigo, descricao);
 		
+		this.placa = placa;
+		this.modelo = modelo;
+		this.fabricante = fabricante;
+		this.cor = cor;
+		this.preco = preco;
 	}
-
+	
 	public String getPlaca() {
 		return placa;
 	}
@@ -51,6 +56,11 @@ public class Carro implements Recurso{
 
 	public void setPreco(double preco) {
 		this.preco = preco;
+	}
+	
+	public void alocarRecurso(Recurso recurso) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

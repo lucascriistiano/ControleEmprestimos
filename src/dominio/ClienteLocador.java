@@ -1,24 +1,19 @@
 package dominio;
 
-public class ClienteLocador implements Cliente{
-	private String nome;
+public class ClienteLocador extends Cliente{
+	
 	private String cpf;
 	private String rg;
 	private String carteiraMotorista;
 
-	public boolean validar() {
-		// TODO Auto-generated method stub
-		return false;
+	public ClienteLocador(Long codigo, String nome, String cpf, String rg, String carteiraMotorista) {
+		super(codigo, nome);
+		
+		this.cpf = cpf;
+		this.rg = rg;
+		this.carteiraMotorista = carteiraMotorista;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -42,4 +37,10 @@ public class ClienteLocador implements Cliente{
 	public void setCarteiraMotorista(String carteiraMotorista) {
 		this.carteiraMotorista = carteiraMotorista;
 	}
+	
+	public boolean validar() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
 }

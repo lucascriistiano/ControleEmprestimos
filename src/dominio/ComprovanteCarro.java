@@ -1,10 +1,10 @@
 package dominio;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class ComprovanteCarro implements Comprovante{
 
-	private Calendar data;
+	private Date data;
 	private Emprestimo emprestimo;
 	
 	public ComprovanteCarro(Emprestimo emprestimo) {
