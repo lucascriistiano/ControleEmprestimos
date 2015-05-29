@@ -8,19 +8,19 @@ import java.util.Set;
 
 import dominio.Usuario;
 
-public class DaoUsuarioMemory implements DaoUsuario {
+public class DaoUsuarioMemoria implements DaoUsuario {
 
 	static DaoUsuario daoUsuario = null;
 	private Set<Usuario> usuarios;
 	
 	public static DaoUsuario getInstance() {
 		if(daoUsuario == null)
-			daoUsuario = new DaoUsuarioMemory();
+			daoUsuario = new DaoUsuarioMemoria();
 		
 		return daoUsuario;
 	}
 	
-	private DaoUsuarioMemory() {
+	private DaoUsuarioMemoria() {
 		usuarios = new HashSet<Usuario>();
 	}
 	

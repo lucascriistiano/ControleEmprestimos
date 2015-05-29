@@ -6,18 +6,26 @@ import java.util.List;
 
 public class Emprestimo {
 	private Long codigo; 			//ID do emprestimo
-	private Date data;				//Data de realizacao do emprestimo
+	private Date dataEmprestimo;	//Data de realizacao do emprestimo
+	private Date dataDevolucao;		//Data de realizacao do emprestimo
 	private Usuario usuario;		//Usuario que efetivou o emprestimo 
 	private Cliente cliente;		//Cliente que realizou o emprestimo
 	private List<Recurso> recursos;//Lista de recursos emprestados
 	
+	private static Long CODIGO_ATUAL = (long) 1;
+	
 	public Emprestimo() {
+		this.codigo = CODIGO_ATUAL;
+		CODIGO_ATUAL++;
+		
 		this.recursos = new ArrayList<Recurso>();
 	}
 	
-	public Emprestimo(Long codigo, Date data, Usuario usuario, Cliente cliente, List<Recurso> recursos) {
-		this.codigo = codigo;
-		this.data = data;
+	public Emprestimo(Date dataEmprestimo, Usuario usuario, Cliente cliente, List<Recurso> recursos) {
+		this.codigo = CODIGO_ATUAL;
+		CODIGO_ATUAL++;
+		
+		this.dataEmprestimo = dataEmprestimo;
 		this.usuario = usuario;
 		this.cliente = cliente;
 		
@@ -27,17 +35,21 @@ public class Emprestimo {
 	public Long getCodigo() {
 		return codigo;
 	}
+	
+	public Date getDataEmprestimo() {
+		return dataEmprestimo;
+	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setDataEmprestimo(Date dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
 	}
 	
-	public Date getData() {
-		return data;
+	public Date getDataDevolucao() {
+		return dataDevolucao;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataDevolucao(Date dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
 	}
 
 	public Usuario getUsuario() {
