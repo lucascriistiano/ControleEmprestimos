@@ -8,19 +8,19 @@ import java.util.Set;
 
 import dominio.Recurso;
 
-public class DaoRecursoMemory implements DaoRecurso {
+public class DaoRecursoMemoria implements DaoRecurso {
 
 	static DaoRecurso daoRecurso = null;
 	private Set<Recurso> recursos;
 	
 	public static DaoRecurso getInstance() {
 		if(daoRecurso == null)
-			daoRecurso = new DaoRecursoMemory();
+			daoRecurso = new DaoRecursoMemoria();
 		
 		return daoRecurso;
 	}
 	
-	private DaoRecursoMemory() {
+	private DaoRecursoMemoria() {
 		recursos = new HashSet<Recurso>();
 	}
 	

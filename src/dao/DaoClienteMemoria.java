@@ -8,19 +8,19 @@ import java.util.Set;
 
 import dominio.Cliente;
 
-public class DaoClienteMemory implements DaoCliente {
+public class DaoClienteMemoria implements DaoCliente {
 
 	static DaoCliente daoCliente = null;
 	private Set<Cliente> clientes;
 	
 	public static DaoCliente getInstance() {
 		if(daoCliente == null)
-			daoCliente = new DaoClienteMemory();
+			daoCliente = new DaoClienteMemoria();
 		
 		return daoCliente;
 	}
 	
-	private DaoClienteMemory() {
+	private DaoClienteMemoria() {
 		clientes = new HashSet<Cliente>();
 	}
 	

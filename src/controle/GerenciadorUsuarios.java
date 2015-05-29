@@ -1,13 +1,14 @@
 package controle;
 
 import dao.DaoUsuario;
+import dao.DaoUsuarioMemoria;
 import dominio.Usuario;
 
 public class GerenciadorUsuarios {
 	private DaoUsuario daoUsuario; 
 	
 	public GerenciadorUsuarios() {
-		this.daoUsuario = new DaoUsuario();
+		this.daoUsuario = DaoUsuarioMemoria.getInstance();
 	}
 	
 	public void cadastrarUsuarios(Usuario usuario) {

@@ -1,5 +1,6 @@
 package dominio;
 
 public interface Notificacao {
-	boolean enviar();
+	boolean notificarPrazoExpirado(Emprestimo emprestimo);
+	boolean notificarPrazoProximo(Emprestimo emprestimo);
 }

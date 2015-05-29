@@ -8,19 +8,19 @@ import java.util.Set;
 
 import dominio.Emprestimo;
 
-public class DaoEmprestimoMemory implements DaoEmprestimo {
+public class DaoEmprestimoMemoria implements DaoEmprestimo {
 
 	static DaoEmprestimo daoEmprestimo = null;
 	private Set<Emprestimo> emprestimos;
 	
 	public static DaoEmprestimo getInstance() {
 		if(daoEmprestimo == null)
-			daoEmprestimo = new DaoEmprestimoMemory();
+			daoEmprestimo = new DaoEmprestimoMemoria();
 		
 		return daoEmprestimo;
 	}
 	
-	private DaoEmprestimoMemory() {
+	private DaoEmprestimoMemoria() {
 		emprestimos = new HashSet<Emprestimo>();
 	}
 	
