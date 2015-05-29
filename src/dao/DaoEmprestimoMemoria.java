@@ -31,13 +31,20 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 
 	@Override
 	public void remove(Emprestimo emprestimo) {
-		emprestimos.remove(emprestimo);
+		Iterator<Emprestimo> it = emprestimos.iterator();
+		while(it.hasNext()) {
+			Emprestimo e = it.next();
+			
+			//Remove o objeto armazenado se o codigo for igual
+			if(e.getCodigo().equals(emprestimo.getCodigo())) {
+				it.remove();
+				return;
+			}
+		}
 	}
 
 	@Override
 	public void update(Emprestimo emprestimo) {
-		emprestimos. add(emprestimo);
-		
 		Iterator<Emprestimo> it = emprestimos.iterator();
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
@@ -56,7 +63,6 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
 			
-			//Atualiza objeto armazenado se o codigo for igual
 			if(e.getCodigo().equals(codigo)) {
 				return e;
 			}

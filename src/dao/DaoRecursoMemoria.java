@@ -31,13 +31,20 @@ public class DaoRecursoMemoria implements DaoRecurso {
 
 	@Override
 	public void remove(Recurso recurso) {
-		recursos.remove(recurso);
+		Iterator<Recurso> it = recursos.iterator();
+		while(it.hasNext()) {
+			Recurso r = it.next();
+			
+			//Remove o objeto armazenado se o codigo for igual
+			if(r.getCodigo().equals(recurso.getCodigo())) {
+				it.remove();
+				return;
+			}
+		}
 	}
 
 	@Override
 	public void update(Recurso recurso) {
-		recursos. add(recurso);
-		
 		Iterator<Recurso> it = recursos.iterator();
 		while(it.hasNext()) {
 			Recurso r = it.next();
@@ -56,7 +63,6 @@ public class DaoRecursoMemoria implements DaoRecurso {
 		while(it.hasNext()) {
 			Recurso r = it.next();
 			
-			//Atualiza objeto armazenado se o numero for igual
 			if(r.getCodigo().equals(codigo)) {
 				return r;
 			}

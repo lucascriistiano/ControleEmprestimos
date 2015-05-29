@@ -14,4 +14,10 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 		
 	}
 
+	@Override
+	public void listarEmprestimos() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

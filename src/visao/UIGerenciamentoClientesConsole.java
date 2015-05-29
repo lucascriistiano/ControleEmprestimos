@@ -14,4 +14,10 @@ public class UIGerenciamentoClientesConsole implements UIGerenciamentoClientes {
 
 	}
 
+	@Override
+	public void listarClientes() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

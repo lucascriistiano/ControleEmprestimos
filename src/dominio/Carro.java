@@ -8,6 +8,10 @@ public class Carro extends Recurso {
 	private String cor;
 	private double preco; 		// Referente ao valor do aluguel
 	
+	public Carro(Long codigo, String descricao) {
+		super(codigo, descricao);
+	}
+	
 	public Carro(Long codigo, String descricao, String placa, String modelo, String fabricante, String cor, double preco) {
 		super(codigo, descricao);
 		

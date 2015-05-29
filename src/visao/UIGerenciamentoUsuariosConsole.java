@@ -1,28 +1,44 @@
 package visao;
 
 import java.util.List;
+import java.util.Scanner;
 
 import controle.GerenciadorUsuarios;
 import dominio.Usuario;
 
 public class UIGerenciamentoUsuariosConsole implements UIGerenciamentoUsuarios {
 
-	GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
+	private GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
+	private Scanner in = new Scanner(System.in);
 	
 	@Override
 	public void cadastrarUsuario() {
-		// TODO Auto-generated method stub
+		Usuario usuario = new Usuario();
+		
+		System.out.println("---------- Cadastrar Usuario ----------");
+		System.out.print("Nome: ");
+		usuario.setNome(in.nextLine());
+		System.out.print("Login: ");
+		usuario.setLogin(in.nextLine());
+		System.out.print("Senha: ");
+		usuario.setSenha(in.nextLine());
+		
+		gerenciadorUsuarios.cadastrarUsuario(usuario);
 	}
 
 	@Override
 	public void removerUsuario() {
-		// TODO Auto-generated method stub
-
+		Usuario usuario = new Usuario();
+		
+		System.out.println("---------- Remover Usuario ----------");
+		System.out.print("Login: ");
+		usuario.setLogin(in.nextLine());
+		
+		gerenciadorUsuarios.removerUsuario(usuario);
 	}
 
 	@Override
 	public void listarUsuarios() {
-		// TODO Auto-generated method stub
 		List<Usuario> usuarios = gerenciadorUsuarios.listarUsuarios();
 		
 		for(Usuario usuario : usuarios) {

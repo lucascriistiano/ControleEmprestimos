@@ -28,6 +28,7 @@ public class Main {
 	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosConsole();
 	
 	public static void main(String [] args) {
+		//************ TEMPORÁRIO ************
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
 		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
@@ -35,7 +36,16 @@ public class Main {
 		daoUsuario.add(usuario1);
 		daoUsuario.add(usuario2);
 		
+		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
+		Carro carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",40.5);
+		Carro carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",50);
+		Carro carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",30);
 		
+		daoRecurso.add(carro1);
+		daoRecurso.add(carro2);
+		//************************************
+		
+		//---------- Implementação do menu de opções ----------
 		int option;
 		
 		do {
@@ -68,22 +78,8 @@ public class Main {
 			
 			clearConsole();
 		} while(option > 0);
-		
-//		
-//		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-//		Carro carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",40.5);
-//		Carro carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",50);
-//		Carro carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",30);
-//		
-//		daoRecurso.add(carro1);
-//		daoRecurso.add(carro2);
-//		
-//		for(Recurso recurso : daoRecurso.list()) {
-//			System.out.println("Codigo: " + recurso.getCodigo());
-//			System.out.println("Descricao: " + recurso.getDescricao());
-//			System.out.println();
-//		}
-//		
+
+		//************ TEMPORÁRIO ************
 //		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
 //		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784");
 //		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(1), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334");
@@ -125,6 +121,7 @@ public class Main {
 //			}
 //			System.out.println();
 //		}
+		//************************************
 	}
  
 	private static void showMenuUIClientes() {
@@ -134,6 +131,7 @@ public class Main {
 			System.out.println("---------- Gerenciamento de Clientes ----------");
 			System.out.println("1 - Cadastrar Novo Cliente");
 			System.out.println("2 - Remover Cliente");
+			System.out.println("3 - Listar Clientes");
 			
 			System.out.println("0 - Voltar");
 			
@@ -146,6 +144,9 @@ public class Main {
 				break;
 			case 2:
 				uiClientes.removerCliente();
+				break;
+			case 3:
+				uiClientes.listarClientes();
 				break;
 			default:
 				return;
@@ -160,6 +161,7 @@ public class Main {
 			System.out.println("---------- Gerenciamento de Emprestimos ----------");
 			System.out.println("1 - Realizar Novo Emprestimo");
 			System.out.println("2 - Realizar Devolucao");
+			System.out.println("3 - Listar Emprestimos");
 			
 			System.out.println("0 - Voltar");
 			
@@ -172,6 +174,9 @@ public class Main {
 				break;
 			case 2:
 				uiEmprestimos.realizarDevolucao();
+				break;
+			case 3:
+				uiEmprestimos.listarEmprestimos();
 				break;
 			default:
 				return;
@@ -186,6 +191,7 @@ public class Main {
 			System.out.println("---------- Gerenciamento de Recursos ----------");
 			System.out.println("1 - Cadastrar Novo Recurso");
 			System.out.println("2 - Remover Recurso");
+			System.out.println("3 - Listar Recursos");
 			
 			System.out.println("0 - Voltar");
 			
@@ -198,6 +204,9 @@ public class Main {
 				break;
 			case 2:
 				uiRecursos.removerRecurso();
+				break;
+			case 3:
+				uiRecursos.listarRecursos();
 				break;
 			default:
 				return;

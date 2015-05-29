@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Cliente;
+import dominio.Recurso;
 
 public class DaoClienteMemoria implements DaoCliente {
 
@@ -31,13 +32,20 @@ public class DaoClienteMemoria implements DaoCliente {
 
 	@Override
 	public void remove(Cliente cliente) {
-		clientes.remove(cliente);
+		Iterator<Cliente> it = clientes.iterator();
+		while(it.hasNext()) {
+			Cliente c = it.next();
+			
+			//Remove o objeto armazenado se o codigo for igual
+			if(c.getCodigo().equals(cliente.getCodigo())) {
+				it.remove();
+				return;
+			}
+		}
 	}
 
 	@Override
 	public void update(Cliente cliente) {
-		clientes. add(cliente);
-		
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
@@ -56,7 +64,6 @@ public class DaoClienteMemoria implements DaoCliente {
 		while(it.hasNext()) {
 			Cliente c = it.next();
 			
-			//Atualiza objeto armazenado se o codigo for igual
 			if(c.getCodigo().equals(codigo)) {
 				return c;
 			}

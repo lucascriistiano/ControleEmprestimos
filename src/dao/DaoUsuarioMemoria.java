@@ -31,18 +31,25 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 
 	@Override
 	public void remove(Usuario usuario) {
-		usuarios.remove(usuario);
-	}
-
-	@Override
-	public void update(Usuario usuario) {
-		usuarios. add(usuario);
-		
 		Iterator<Usuario> it = usuarios.iterator();
 		while(it.hasNext()) {
 			Usuario u = it.next();
 			
-			//Atualiza objeto armazenado se o codigo for igual
+			//Remove o objeto armazenado se o login for igual
+			if(u.getLogin().equals(usuario.getLogin())) {
+				it.remove();
+				return;
+			}
+		}
+	}
+
+	@Override
+	public void update(Usuario usuario) {
+		Iterator<Usuario> it = usuarios.iterator();
+		while(it.hasNext()) {
+			Usuario u = it.next();
+			
+			//Atualiza objeto armazenado se o login for igual
 			if(u.getLogin().equals(usuario.getLogin())) {
 				u = usuario;
 				return;
@@ -56,7 +63,6 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 		while(it.hasNext()) {
 			Usuario u = it.next();
 			
-			//Atualiza objeto armazenado se o codigo for igual
 			if(u.getLogin().equals(login)) {
 				return u;
 			}
