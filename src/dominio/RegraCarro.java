@@ -22,8 +22,11 @@ public class RegraCarro implements RegraEmprestimo{
 
 	@Override
 	public boolean prazoExpirado(Emprestimo emprestimo) {
-		// TODO Auto-generated method stub
-		return false;
+		Date dataAtual = new Date();
+		if((dataAtual.getTime() - emprestimo.getDataDevolucao().getTime()) >= 0)			
+			return false;
+		else
+			return true;
 	}
 
 	@Override
