@@ -43,6 +43,13 @@ public class Main {
 		
 		daoRecurso.add(carro1);
 		daoRecurso.add(carro2);
+		
+		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
+		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784");
+		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334");
+		
+		daoCliente.add(cliente1);
+		daoCliente.add(cliente2);
 		//************************************
 		
 		//---------- Implementação do menu de opções ----------
@@ -80,13 +87,6 @@ public class Main {
 		} while(option > 0);
 
 		//************ TEMPORÁRIO ************
-//		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
-//		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784");
-//		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(1), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334");
-//		
-//		daoCliente.add(cliente1);
-//		daoCliente.add(cliente2);
-//		
 //		ArrayList<Recurso> recursos1 = new ArrayList<Recurso>();
 //		recursos1.add(carro1);
 //		recursos1.add(carro2);

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Cliente;
-import dominio.Recurso;
 
 public class DaoClienteMemoria implements DaoCliente {
 

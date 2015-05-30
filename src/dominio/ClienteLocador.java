@@ -6,6 +6,10 @@ public class ClienteLocador extends Cliente{
 	private String rg;
 	private String carteiraMotorista;
 
+	public ClienteLocador(Long codigo, String nome) {
+		super(codigo, nome);
+	}
+	
 	public ClienteLocador(Long codigo, String nome, String cpf, String rg, String carteiraMotorista) {
 		super(codigo, nome);
 		

@@ -8,8 +8,8 @@ import dominio.Usuario;
 
 public class UIGerenciamentoUsuariosConsole implements UIGerenciamentoUsuarios {
 
-	private GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 	private Scanner in = new Scanner(System.in);
+	private GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 	
 	@Override
 	public void cadastrarUsuario() {
@@ -41,10 +41,12 @@ public class UIGerenciamentoUsuariosConsole implements UIGerenciamentoUsuarios {
 	public void listarUsuarios() {
 		List<Usuario> usuarios = gerenciadorUsuarios.listarUsuarios();
 		
+		System.out.println("---------- Lista de Usuarios ----------");
+		
 		for(Usuario usuario : usuarios) {
-			System.out.println("Nome: " + usuario.getNome());
-			System.out.println("Login: " + usuario.getLogin());
-			System.out.println("Senha: " + usuario.getSenha());
+			System.out.print("Nome: " + usuario.getNome());
+			System.out.print(" - Login: " + usuario.getLogin());
+			System.out.print(" - Senha: " + usuario.getSenha());
 			System.out.println();
 		}
 	}

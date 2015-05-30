@@ -17,6 +17,7 @@ public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
 		System.out.println("---------- Cadastrar Carro ----------");
 		System.out.print("Codigo: ");
 		Long codigo = in.nextLong();
+		in.nextLine();
 		System.out.print("Descricao: ");
 		String descricao = in.nextLine();
 		System.out.print("Placa: ");
@@ -39,6 +40,7 @@ public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
 		System.out.println("---------- Remover Carro ----------");
 		System.out.print("Codigo: ");
 		Long codigo = in.nextLong();
+		in.nextLine();
 		
 		Recurso recurso = new Carro(codigo,"");
 		gerenciadorRecursos.removerRecurso(recurso);
@@ -48,16 +50,19 @@ public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
 	public void listarRecursos() {
 		List<Recurso> recursos = gerenciadorRecursos.listarRecursos();
 		
+		System.out.println("---------- Lista de Carros ----------");
+		
 		for(Recurso recurso : recursos) {
 			Carro carro = (Carro) recurso;
 			
-			System.out.println("Codigo: " + carro.getCodigo());
-			System.out.println("Descricao: " + carro.getDescricao());
-			System.out.print("Placa: " + carro.getPlaca());
-			System.out.print("Modelo: " + carro.getModelo());
-			System.out.print("Fabricante: " + carro.getFabricante());
-			System.out.print("Cor: " + carro.getCor());
-			System.out.print("Preco (de aluguel): " + carro.getPreco());
+			System.out.print("Codigo: " + carro.getCodigo());
+			System.out.print(" - Descricao: " + carro.getDescricao());
+			System.out.print(" - Placa: " + carro.getPlaca());
+			System.out.print(" - Modelo: " + carro.getModelo());
+			System.out.print(" - Fabricante: " + carro.getFabricante());
+			System.out.print(" - Cor: " + carro.getCor());
+			System.out.print(" - Preco (de aluguel): " + carro.getPreco());
+			System.out.println();
 		}
 	}
 
