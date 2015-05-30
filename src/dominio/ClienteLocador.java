@@ -39,8 +39,12 @@ public class ClienteLocador extends Cliente{
 	}
 	
 	public boolean validar() {
-		// TODO Auto-generated method stub
-		return true;
+		if((this.getNome().trim().isEmpty()) 
+				|| (this.getCpf().trim().isEmpty())
+				|| (this.getCarteiraMotorista().trim().isEmpty()))
+			return false;
+		else
+			return true;
 	}
 	
 }

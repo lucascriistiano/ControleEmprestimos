@@ -7,8 +7,11 @@ public class RegraCarro implements RegraEmprestimo{
 
 	@Override
 	public boolean validarCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return true;
+		ClienteLocador c = (ClienteLocador) cliente;
+		if(c.getCarteiraMotorista().trim().isEmpty()) // não tem carteira de motorista
+			return false;
+		else
+			return true;
 	}
 
 	@Override
