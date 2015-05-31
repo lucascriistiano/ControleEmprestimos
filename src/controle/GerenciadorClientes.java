@@ -26,4 +26,8 @@ public class GerenciadorClientes {
 	public List<Cliente> listarClientes() {
 		return this.daoCliente.list();
 	}
+
+	public Cliente getCliente(Long codigo) {
+		return this.daoCliente.get(codigo);
+	}
 }

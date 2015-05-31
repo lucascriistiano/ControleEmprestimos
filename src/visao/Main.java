@@ -1,22 +1,18 @@
 package visao;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Scanner;
 
-import controle.GerenciadorEmprestimos;
+//************ TEMPORARIO ************
 import dao.DaoCliente;
 import dao.DaoClienteMemoria;
-import dao.DaoEmprestimo;
-import dao.DaoEmprestimoMemoria;
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
+//*************************************
+
 import dominio.Carro;
 import dominio.ClienteLocador;
-import dominio.Emprestimo;
 import dominio.Recurso;
 import dominio.Usuario;
 
@@ -28,7 +24,7 @@ public class Main {
 	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosConsole();
 	
 	public static void main(String [] args) {
-		//************ TEMPORÁRIO ************
+		//************ TEMPORARIO ************
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
 		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
@@ -37,9 +33,9 @@ public class Main {
 		daoUsuario.add(usuario2);
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Carro carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",40.5);
-		Carro carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",50);
-		Carro carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",30);
+		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",40.5);
+		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",50);
+		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",30);
 		
 		daoRecurso.add(carro1);
 		daoRecurso.add(carro2);
@@ -52,11 +48,11 @@ public class Main {
 		daoCliente.add(cliente2);
 		//************************************
 		
-		//---------- Implementação do menu de opções ----------
+		//---------- Implementacao do menu de opções ----------
 		int option;
 		
 		do {
-			System.out.println("---------- Gerenciamento de Empréstimos de Veículos ----------");
+			System.out.println("---------- Gerenciamento de Emprestimos de Veiculos ----------");
 			System.out.println("1 - Gerenciar Usuarios");
 			System.out.println("2 - Gerenciar Clientes");
 			System.out.println("3 - Gerenciar Recursos");
@@ -65,6 +61,8 @@ public class Main {
 			
 			System.out.print("Opcao desejada: ");
 			option = in.nextInt();
+			
+			clearConsole();
 			
 			switch (option) {
 			case 1:
@@ -82,46 +80,7 @@ public class Main {
 			default:
 				break;
 			}
-			
-			clearConsole();
 		} while(option > 0);
-
-		//************ TEMPORÁRIO ************
-//		ArrayList<Recurso> recursos1 = new ArrayList<Recurso>();
-//		recursos1.add(carro1);
-//		recursos1.add(carro2);
-//		
-//		ArrayList<Recurso> recursos2 = new ArrayList<Recurso>();
-//		recursos2.add(carro3);
-//		
-//		//SIMULACAO DE EMPRESTIMOS
-//		GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos();
-//		
-//		//----- EMPRESTIMO 01 (SEM DATA DEFINIDA) -----
-//		gerenciadorEmprestimos.realizarEmprestimo(usuario1, cliente1, recursos1);
-//		
-//		//----- EMPRESTIMO 02 (COM DATA DEFINIDA) -----
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.add(Calendar.DAY_OF_MONTH, 30);
-//		
-//		gerenciadorEmprestimos.realizarEmprestimo(usuario2, cliente2, recursos2, calendar.getTime());
-//
-//		//Listagem de emprestimos
-//		DaoEmprestimo daoEmprestimo = DaoEmprestimoMemoria.getInstance();
-//		for(Emprestimo emprestimo : daoEmprestimo.list()) {
-//			System.out.println("Codigo: " + emprestimo.getCodigo());
-//			System.out.println("Data Emprestimo: " + new SimpleDateFormat("dd/MM/yyyy").format(emprestimo.getDataEmprestimo()));
-//			System.out.println("Data Devolução: " + new SimpleDateFormat("dd/MM/yyyy").format(emprestimo.getDataDevolucao()));
-//			System.out.println("Usuario: " + emprestimo.getUsuario().getNome());
-//			System.out.println("Cliente: " + emprestimo.getCliente().getNome());
-//			
-//			System.out.println("Recursos: ");
-//			for(Recurso recurso : emprestimo.getRecursos()) {
-//				System.out.println(" - " + recurso.getDescricao());
-//			}
-//			System.out.println();
-//		}
-		//************************************
 	}
  
 	private static void showMenuUIClientes() {
@@ -137,6 +96,8 @@ public class Main {
 			
 			System.out.print("Opcao desejada: ");
 			option = in.nextInt();
+			
+			clearConsole();
 			
 			switch (option) {
 			case 1:
@@ -168,6 +129,8 @@ public class Main {
 			System.out.print("Opcao desejada: ");
 			option = in.nextInt();
 			
+			clearConsole();
+			
 			switch (option) {
 			case 1:
 				uiEmprestimos.realizarEmprestimo();
@@ -198,6 +161,8 @@ public class Main {
 			System.out.print("Opcao desejada: ");
 			option = in.nextInt();
 			
+			clearConsole();
+			
 			switch (option) {
 			case 1:
 				uiRecursos.cadastrarRecurso();
@@ -227,6 +192,8 @@ public class Main {
 			
 			System.out.print("Opcao desejada: ");
 			option = in.nextInt();
+			
+			clearConsole();
 			
 			switch (option) {
 			case 1:

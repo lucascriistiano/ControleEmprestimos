@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
+import dominio.Carro;
 import dominio.Recurso;
 
 public class GerenciadorRecursos {
@@ -23,5 +24,9 @@ public class GerenciadorRecursos {
 	
 	public List<Recurso> listarRecursos() {
 		return this.daoRecurso.list();
+	}
+
+	public Recurso getRecurso(Long codigo) {
+		return this.daoRecurso.get(codigo);
 	}
 }

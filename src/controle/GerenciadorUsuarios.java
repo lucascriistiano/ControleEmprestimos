@@ -27,6 +27,10 @@ public class GerenciadorUsuarios {
 		return daoUsuario.list();
 	}
 	
+	public Usuario getUsuario(String login) {
+		return daoUsuario.get(login);
+	}
+	
 	public boolean validarUsuario(Usuario usuario) {
 		
 		if(usuario.getLogin().equals("")) {

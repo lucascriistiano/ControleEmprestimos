@@ -28,7 +28,7 @@ public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
 		String fabricante = in.nextLine();
 		System.out.print("Cor: ");
 		String cor = in.nextLine();
-		System.out.print("Preco (de aluguel): ");
+		System.out.print("Preco de aluguel: ");
 		double preco = in.nextDouble();
 		
 		Recurso recurso = new Carro(codigo, descricao, placa, modelo, fabricante, cor, preco);
@@ -61,7 +61,7 @@ public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
 			System.out.print(" - Modelo: " + carro.getModelo());
 			System.out.print(" - Fabricante: " + carro.getFabricante());
 			System.out.print(" - Cor: " + carro.getCor());
-			System.out.print(" - Preco (de aluguel): " + carro.getPreco());
+			System.out.print(" - Preco de aluguel: " + carro.getPreco());
 			System.out.println();
 		}
 	}

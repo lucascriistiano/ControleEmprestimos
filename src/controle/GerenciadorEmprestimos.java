@@ -95,4 +95,16 @@ public class GerenciadorEmprestimos {
 		return null;
 	}
 	
+	public void realizarDevolucao(Emprestimo emprestimo) {
+		//TODO Implementar
+	}
+	
+	public Emprestimo getEmprestimo(Long codigo) {
+		return this.daoEmprestimo.get(codigo);
+	}
+	
+	public List<Emprestimo> listarEmprestimos() {
+		return this.daoEmprestimo.list();
+	}
+	
 }
