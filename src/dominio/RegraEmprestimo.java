@@ -3,8 +3,8 @@ package dominio;
 import java.util.Date;
 
 public interface RegraEmprestimo {
-	boolean validarCliente(Cliente cliente);
-	boolean validarRecurso(Recurso recurso);
-	boolean prazoExpirado(Emprestimo emprestimo);
-	Date calcularDataDeDevolucao(Emprestimo emprestimo);
+	public boolean prazoExpirado(Emprestimo emprestimo);
+	public double calcularValorFinal(Emprestimo emprestimo, double taxaExtra);
+	public Date calcularDataDevolucao(Emprestimo emprestimo);
+	public boolean validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao);
 }

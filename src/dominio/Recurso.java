@@ -27,4 +27,5 @@ public abstract class Recurso {
 	}
 
 	public abstract void alocarRecurso(Recurso recurso);
+	public abstract boolean validar();
 }

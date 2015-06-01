@@ -1,5 +1,8 @@
 package visao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,10 +31,21 @@ public class UIGerenciamentoClientesConsole implements UIGerenciamentoClientes {
 		String rg = in.nextLine();
 		System.out.print("Carteira de Motorista: ");
 		String carteiraMotorista = in.nextLine();
+		System.out.print("Data de Nascimento (dd/mm/aaaa): ");
+		String strDataNascimento = in.nextLine();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataNascimento;
 		
-		Cliente cliente = new ClienteLocador(codigo,nome,cpf,rg,carteiraMotorista);
-		gerenciadorClientes.cadastrarCliente(cliente);
-		
+		try {
+			dataNascimento = dateFormat.parse(strDataNascimento);
+			
+			Cliente cliente = new ClienteLocador(codigo,nome,cpf,rg,carteiraMotorista,dataNascimento);
+			gerenciadorClientes.cadastrarCliente(cliente);
+		} catch (ParseException e) {
+			// TODO Lancar excessao
+			System.out.println("Impossivel cadastrar cliente");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -62,6 +76,8 @@ public class UIGerenciamentoClientesConsole implements UIGerenciamentoClientes {
 			System.out.print(" - CPF: " + clienteLocador.getCpf());
 			System.out.print(" - RG: " + clienteLocador.getRg());
 			System.out.print(" - Carteira de Motorista: " + clienteLocador.getCarteiraMotorista());
+			System.out.print(" - Data de Nascimento: " + new SimpleDateFormat("dd/MM/yyyy").format(clienteLocador.getDataNascimento()));
+			System.out.print(" - Idade: " + clienteLocador.getIdade());
 			System.out.println();
 		}
 		

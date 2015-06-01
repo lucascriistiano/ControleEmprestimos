@@ -1,5 +1,6 @@
 package visao;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 //************ TEMPORARIO ************
@@ -18,6 +19,7 @@ import dominio.Usuario;
 
 public class Main {
 	private static Scanner in = new Scanner(System.in);
+	
 	private static UIGerenciamentoClientes uiClientes = new UIGerenciamentoClientesConsole();
 	private static UIGerenciamentoUsuarios uiUsuarios = new UIGerenciamentoUsuariosConsole();
 	private static UIGerenciamentoRecursos uiRecursos = new UIGerenciamentoRecursosConsole();
@@ -25,30 +27,10 @@ public class Main {
 	
 	public static void main(String [] args) {
 		//************ TEMPORARIO ************
-		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
-		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
-		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
-		
-		daoUsuario.add(usuario1);
-		daoUsuario.add(usuario2);
-		
-		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",30);
-		
-		daoRecurso.add(carro1);
-		daoRecurso.add(carro2);
-		
-		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
-		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784");
-		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334");
-		
-		daoCliente.add(cliente1);
-		daoCliente.add(cliente2);
+		populateDAOs();
 		//************************************
 		
-		//---------- Implementacao do menu de opções ----------
+		//Implementacao do menu de opcoes
 		int option;
 		
 		do {
@@ -83,6 +65,40 @@ public class Main {
 		} while(option > 0);
 	}
  
+	private static void populateDAOs() {
+		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
+		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
+		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
+		
+		daoUsuario.add(usuario1);
+		daoUsuario.add(usuario2);
+		
+		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
+		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
+		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",1000,50);
+		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
+		
+		daoRecurso.add(carro1);
+		daoRecurso.add(carro2);
+		daoRecurso.add(carro3);
+		
+		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, 27);
+		calendar.set(Calendar.MONTH, 5);
+		calendar.set(Calendar.YEAR, 1990);
+		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
+		
+		calendar.set(Calendar.DAY_OF_MONTH, 31);
+		calendar.set(Calendar.MONTH, 4);
+		calendar.set(Calendar.YEAR, 1965);
+		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
+		
+		daoCliente.add(cliente1);
+		daoCliente.add(cliente2);
+	}
+
 	private static void showMenuUIClientes() {
 		int option;
 		

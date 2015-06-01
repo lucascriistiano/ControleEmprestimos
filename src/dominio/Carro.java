@@ -6,19 +6,22 @@ public class Carro extends Recurso {
 	private String modelo;
 	private String fabricante;
 	private String cor;
-	private double preco; 		// Referente ao valor do aluguel
+	private int quilometragemInicial; 	// Quilometragem rodada pelo veiculo antes do momento do emprestimo
+	private int quilometragemFinal; 	// Quilometragem rodada pelo veiculo antes do momento do emprestimo
+	private double preco; 				// Referente ao valor do aluguel
 	
 	public Carro(Long codigo, String descricao) {
 		super(codigo, descricao);
 	}
 	
-	public Carro(Long codigo, String descricao, String placa, String modelo, String fabricante, String cor, double preco) {
+	public Carro(Long codigo, String descricao, String placa, String modelo, String fabricante, String cor, int quilometragemInicial, double preco) {
 		super(codigo, descricao);
 		
 		this.placa = placa;
 		this.modelo = modelo;
 		this.fabricante = fabricante;
 		this.cor = cor;
+		this.quilometragemInicial = quilometragemInicial;
 		this.preco = preco;
 	}
 	
@@ -54,6 +57,22 @@ public class Carro extends Recurso {
 		this.cor = cor;
 	}
 
+	public int getQuilometragemInicial() {
+		return quilometragemInicial;
+	}
+
+	public void setQuilometragemInicial(int quilometragemInicial) {
+		this.quilometragemInicial = quilometragemInicial;
+	}
+
+	public int getQuilometragemFinal() {
+		return quilometragemFinal;
+	}
+
+	public void setQuilometragemFinal(int quilometragemFinal) {
+		this.quilometragemFinal = quilometragemFinal;
+	}
+
 	public double getPreco() {
 		return preco;
 	}
@@ -65,6 +84,12 @@ public class Carro extends Recurso {
 	public void alocarRecurso(Recurso recurso) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean validar() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

@@ -28,6 +28,7 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 	
 	@Override
 	public void realizarEmprestimo() {
+		
 		System.out.println("---------- Realizar Emprestimo ----------");
 		System.out.print("Login do usuario: ");
 		String login = in.nextLine();
@@ -81,8 +82,35 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 
 	@Override
 	public void realizarDevolucao() {
-		// TODO Auto-generated method stub
 		
+		System.out.println("---------- Realizar Devolucao ----------");
+		
+		System.out.print("Codigo do emprestimo: ");
+		Long codigo = in.nextLong();
+		in.nextLine();
+		
+		Emprestimo emprestimo = gerenciadorEmprestimos.getEmprestimo(codigo);
+		
+		for(Recurso recurso : emprestimo.getRecursos()) {
+			int quilometragemInicial = ((Carro) recurso).getQuilometragemInicial();
+			int quilometragemAtual;
+			
+			do {
+				System.out.print("Quilometragem atual do veiculo de placa " + ((Carro) recurso).getPlaca() + ": ");
+				quilometragemAtual = in.nextInt();
+				
+				if(quilometragemAtual < quilometragemInicial)
+					System.out.print("A quilometragem atual do veiculo nao pode ser menor do que no momento do emprestimo.");
+			} while(quilometragemAtual < quilometragemInicial);
+			
+			((Carro) recurso).setQuilometragemFinal(quilometragemAtual);
+		}
+		
+		System.out.print("Taxa extra: R$ ");
+		double taxaExtra = in.nextDouble();
+		
+		gerenciadorEmprestimos.realizarDevolucao(emprestimo,taxaExtra);
+		System.out.println("Emprestimo finalizado");
 	}
 
 	@Override
