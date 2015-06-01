@@ -1,5 +1,12 @@
 package dominio;
 
+import java.util.Calendar;
+
 public interface Comprovante {
-	void imprimir();
+	String getEmpresa();
+    String getLocador();
+    double getValor();
+    Calendar getDevolucao();
+    long getNumero();
+    void imprimir();
 }
