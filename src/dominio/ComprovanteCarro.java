@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class ComprovanteCarro implements Comprovante{
 
@@ -9,14 +10,16 @@ public class ComprovanteCarro implements Comprovante{
     private double valor ;
     private Calendar devolucao ;
     private long numero ;
+    private List<Recurso> recursos;
     
 	public ComprovanteCarro(String empresa, String locador, double valor,
-    		Calendar devolucao, long numero) {
+    		Calendar devolucao, long numero, List<Recurso> recursos) {
 		this.empresa = empresa;
 		this.locador = locador;
 		this.valor = valor;
 		this.devolucao = devolucao;
 		this.numero = numero;
+		this.recursos = recursos;
 	}
     
 	@Override
@@ -51,6 +54,14 @@ public class ComprovanteCarro implements Comprovante{
 		System.out.println("Valor do aluguel: " + this.valor);
 		System.out.println("Data da devolução: " + this.devolucao);
 		System.out.println("Número: " + this.numero);
+		for (Recurso recurso : recursos) {
+			System.out.println(recurso.getDescricao());
+		}
+	}
+
+	@Override
+	public List<Recurso> getRecursos() {
+		return this.recursos;
 	}
 
 }

@@ -16,6 +16,7 @@ public class GeradorDeComprovante {
         this.comprovantebuilder.buildEmpresa(" nome da empresa ");
         this.comprovantebuilder.buildLocador(emprestimo.getCliente().getNome());
         this.comprovantebuilder.buildValor(100); // colocar valor do empréstimo
+        this.comprovantebuilder.buildRecursos(emprestimo.getRecursos());
         Calendar cal = Calendar.getInstance();
         DateFormat format = new SimpleDateFormat("yyyy/mm/dd");
         format.format(emprestimo.getDataDevolucao());
