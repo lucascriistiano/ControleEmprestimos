@@ -232,9 +232,9 @@ public class Main {
 	    try
 	    {
 	        final String os = System.getProperty("os.name");
-
+	        
 	        if (os.contains("Windows"))
-	            Runtime.getRuntime().exec("cls");
+	        	Runtime.getRuntime().exec("cmd /c cls");
 	        else
 	            Runtime.getRuntime().exec("clear");
 	    }
