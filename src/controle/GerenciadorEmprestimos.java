@@ -7,8 +7,11 @@ import java.util.List;
 import dao.DaoEmprestimo;
 import dao.DaoEmprestimoMemoria;
 import dominio.Cliente;
+import dominio.ComprovanteBuilder;
 import dominio.ComprovanteCarro;
+import dominio.ComprovanteCarroBuilder;
 import dominio.Emprestimo;
+import dominio.GeradorDeComprovante;
 import dominio.Recurso;
 import dominio.Comprovante;
 import dominio.RegraLocadoraCarros;
@@ -55,8 +58,12 @@ public class GerenciadorEmprestimos {
 		daoEmprestimo.add(emprestimo);
 		
 		//TODO Emitir comprovante
+		ComprovanteBuilder comprovantebuilder = new ComprovanteCarroBuilder();
+		GeradorDeComprovante geradorDeComprovante = new GeradorDeComprovante(comprovantebuilder);
 		
-		return null;
+		Comprovante comprovante = geradorDeComprovante.geraComprovante(emprestimo);
+		
+		return comprovante;
 	}
 	
 	public Comprovante realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) {
