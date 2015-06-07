@@ -13,8 +13,13 @@ import controle.GerenciadorRecursos;
 import controle.GerenciadorUsuarios;
 import dominio.Carro;
 import dominio.Cliente;
+import dominio.ComprovanteDevolucao;
+import dominio.ComprovanteDevolucaoBuilderCarro;
+import dominio.ComprovanteEmprestimo;
+import dominio.ComprovanteEmprestimoBuilderCarro;
 import dominio.Emprestimo;
 import dominio.Recurso;
+import dominio.RegraLocadoraCarros;
 import dominio.Usuario;
 
 public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprestimos {
@@ -24,7 +29,7 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 	private GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 	private GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
 	private GerenciadorRecursos gerenciadorRecursos = new GerenciadorRecursos();
-	private GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos();
+	private GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(new RegraLocadoraCarros(), new ComprovanteEmprestimoBuilderCarro(), new ComprovanteDevolucaoBuilderCarro());
 	
 	@Override
 	public void realizarEmprestimo() {
@@ -72,7 +77,10 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 		
 		try {
 			dataDevolucao = dateFormat.parse(strDataDevolucao);
-			gerenciadorEmprestimos.realizarEmprestimo(usuario, cliente, recursos, dataDevolucao);
+			ComprovanteEmprestimo comprovanteEmprestimo = gerenciadorEmprestimos.realizarEmprestimo(usuario, cliente, recursos, dataDevolucao);
+			System.out.println("Emprestimo realizado!");
+			System.out.println();
+			comprovanteEmprestimo.imprimir();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Impossivel concretizar o emprestimo");
@@ -109,8 +117,10 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 		System.out.print("Taxa extra: R$ ");
 		double taxaExtra = in.nextDouble();
 		
-		gerenciadorEmprestimos.realizarDevolucao(emprestimo,taxaExtra);
-		System.out.println("Emprestimo finalizado");
+		ComprovanteDevolucao comprovanteDevolucao = gerenciadorEmprestimos.realizarDevolucao(emprestimo,taxaExtra);
+		System.out.println("Emprestimo finalizado!");
+		System.out.println();
+		comprovanteDevolucao.imprimir();
 	}
 
 	@Override

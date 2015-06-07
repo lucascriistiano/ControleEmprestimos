@@ -7,26 +7,29 @@ import java.util.List;
 import dao.DaoEmprestimo;
 import dao.DaoEmprestimoMemoria;
 import dominio.Cliente;
-import dominio.ComprovanteBuilder;
-import dominio.ComprovanteCarro;
-import dominio.ComprovanteCarroBuilder;
+import dominio.ComprovanteDevolucao;
+import dominio.ComprovanteDevolucaoBuilder;
+import dominio.ComprovanteEmprestimo;
+import dominio.ComprovanteEmprestimoBuilder;
 import dominio.Emprestimo;
-import dominio.GeradorDeComprovante;
+import dominio.GeradorComprovante;
 import dominio.Recurso;
-import dominio.Comprovante;
-import dominio.RegraLocadoraCarros;
 import dominio.RegraEmprestimo;
 import dominio.Usuario;
 
 public class GerenciadorEmprestimos {
 	private DaoEmprestimo daoEmprestimo;
-	private RegraEmprestimo regraEmprestimo = new RegraLocadoraCarros();
 	
-	public GerenciadorEmprestimos() {
+	private RegraEmprestimo regraEmprestimo;
+	private GeradorComprovante geradorComprovante;
+	
+	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
+		this.regraEmprestimo = regraEmprestimo;
+		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
 	}
 	
-	public Comprovante realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) {
 		//Validacao do status do cliente para emprestimos
 		if(!cliente.validar()) {
 			//TODO Lancar excessao
@@ -57,16 +60,11 @@ public class GerenciadorEmprestimos {
 		
 		daoEmprestimo.add(emprestimo);
 		
-		//TODO Emitir comprovante
-		ComprovanteBuilder comprovantebuilder = new ComprovanteCarroBuilder();
-		GeradorDeComprovante geradorDeComprovante = new GeradorDeComprovante(comprovantebuilder);
-		
-		Comprovante comprovante = geradorDeComprovante.geraComprovante(emprestimo);
-		
-		return comprovante;
+		ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
+		return comprovanteEmprestimo;
 	}
 	
-	public Comprovante realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) {
 		//Validacao do status do cliente para emprestimos
 		if(!cliente.validar()) {
 			//TODO Lancar excessao
@@ -101,8 +99,8 @@ public class GerenciadorEmprestimos {
 			
 			daoEmprestimo.add(emprestimo);
 		
-			//TODO Emitir comprovante
-			return null;
+			ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
+			return comprovanteEmprestimo;
 		}
 		else {
 			//Lancar excessao
@@ -111,15 +109,15 @@ public class GerenciadorEmprestimos {
 		}	
 	}
 	
-	public void realizarDevolucao(Emprestimo emprestimo, double taxaExtra) {
+	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 		
 		//TODO Implementar a realizacao do pagamento
 
 		daoEmprestimo.remove(emprestimo);
 
-		//TODO Implementar a emissao do comprovante
-		System.out.println(String.format("Valor final: R$ %.2f", valorFinal));
+		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);
+		return comprovanteDevolucao;
 	}
 	
 	public Emprestimo getEmprestimo(Long codigo) {

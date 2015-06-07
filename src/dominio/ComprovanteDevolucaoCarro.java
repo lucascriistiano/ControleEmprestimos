@@ -11,9 +11,9 @@ public class ComprovanteDevolucaoCarro extends ComprovanteDevolucao {
 
 	@Override
 	public void imprimir() {
-		System.out.println("Nome da empresa de carro: " + this.getEmpresa());
+		System.out.println("------- " + this.getEmpresa() + " -------");
 		
-		System.out.println("---- Comprovante de Devolucao ----");
+		System.out.println("----- Comprovante de Devolucao -----");
 		System.out.println("Codigo do aluguel: " + this.getCodigo());
 		System.out.println("Nome do locador: " + this.getLocador());
 		System.out.println("Data de emprestimo: " + this.getDataEmprestimo());
