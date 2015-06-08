@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import excecao.ClienteInvalidoException;
+
 public class ClienteLocador extends Cliente{
 	
 	private static final int IDADE_MINIMA = 21; //Idade mínima de 21 anos para alugar
@@ -77,27 +79,21 @@ public class ClienteLocador extends Cliente{
 		return idade;
 	}
 
-	public boolean validar() {
-		//TODO Lancar excessoes em validacoes invalidas
+	public boolean validar() throws ClienteInvalidoException {
 		if(this.getNome().trim().isEmpty()) {
-			return false;
+			throw new ClienteInvalidoException("Nome do cliente vazio");
 		}
 		if(this.getCpf().trim().isEmpty()) {
-			return false;
+			throw new ClienteInvalidoException("CPF vazio");
 		}
 		if(this.getCarteiraMotorista().trim().isEmpty()) {
-			return false;
-		}
-		if(this.getCarteiraMotorista().trim().isEmpty()) { // Nao tem carteira de motorista
-			System.out.println("Nao tem carteira de motorista");
-			return false;
+			throw new ClienteInvalidoException("Numero de carteira de motorista nao fornecido");
 		}
 		if(this.getDataNascimento() == null) {
-			return false;
+			throw new ClienteInvalidoException("Data de nascimento vazia");
 		}
-		if(this.getIdade() < IDADE_MINIMA) { //Nao tem a idade minima necessaria
-			System.out.println("Nao tem a idade minima necessaria");
-			return false;
+		if(this.getIdade() < IDADE_MINIMA) {
+			throw new ClienteInvalidoException("Cliente não tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
 		}
 		
 		return true;

@@ -1,5 +1,7 @@
 package dominio;
 
+import excecao.RecursoInvalidoException;
+
 public class Carro extends Recurso {
 	
 	private String placa;
@@ -87,7 +89,7 @@ public class Carro extends Recurso {
 	}
 
 	@Override
-	public boolean validar() {
+	public boolean validar() throws RecursoInvalidoException {
 		// TODO Auto-generated method stub
 		return true;
 	}

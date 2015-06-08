@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Recurso;
+import excecao.DataException;
 
 public class DaoRecursoMemoria implements DaoRecurso {
 
@@ -25,12 +26,12 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 	
 	@Override
-	public void add(Recurso recurso) {
+	public void add(Recurso recurso)  throws DataException{
 		recursos.add(recurso);
 	}
 
 	@Override
-	public void remove(Recurso recurso) {
+	public void remove(Recurso recurso) throws DataException {
 		Iterator<Recurso> it = recursos.iterator();
 		while(it.hasNext()) {
 			Recurso r = it.next();
@@ -44,7 +45,7 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 
 	@Override
-	public void update(Recurso recurso) {
+	public void update(Recurso recurso) throws DataException {
 		Iterator<Recurso> it = recursos.iterator();
 		while(it.hasNext()) {
 			Recurso r = it.next();
@@ -58,7 +59,7 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 
 	@Override
-	public Recurso get(Long codigo) {
+	public Recurso get(Long codigo) throws DataException {
 		Iterator<Recurso> it = recursos.iterator();
 		while(it.hasNext()) {
 			Recurso r = it.next();
@@ -72,7 +73,7 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 
 	@Override
-	public List<Recurso> list() {
+	public List<Recurso> list() throws DataException {
 		List<Recurso> resultList = new ArrayList<Recurso>();
 		
 		Iterator<Recurso> it = recursos.iterator();

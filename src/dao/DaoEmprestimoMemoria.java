@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Emprestimo;
+import excecao.DataException;
 
 public class DaoEmprestimoMemoria implements DaoEmprestimo {
 
@@ -25,12 +26,12 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 	
 	@Override
-	public void add(Emprestimo emprestimo) {
+	public void add(Emprestimo emprestimo) throws DataException{
 		emprestimos.add(emprestimo);
 	}
 
 	@Override
-	public void remove(Emprestimo emprestimo) {
+	public void remove(Emprestimo emprestimo) throws DataException {
 		Iterator<Emprestimo> it = emprestimos.iterator();
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
@@ -44,7 +45,7 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 
 	@Override
-	public void update(Emprestimo emprestimo) {
+	public void update(Emprestimo emprestimo) throws DataException {
 		Iterator<Emprestimo> it = emprestimos.iterator();
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
@@ -58,7 +59,7 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 
 	@Override
-	public Emprestimo get(Long codigo) {
+	public Emprestimo get(Long codigo) throws DataException {
 		Iterator<Emprestimo> it = emprestimos.iterator();
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
@@ -72,7 +73,7 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 
 	@Override
-	public List<Emprestimo> list() {
+	public List<Emprestimo> list() throws DataException {
 		List<Emprestimo> resultList = new ArrayList<Emprestimo>();
 		
 		Iterator<Emprestimo> it = emprestimos.iterator();

@@ -4,8 +4,8 @@ import java.util.List;
 
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
-import dominio.Carro;
 import dominio.Recurso;
+import excecao.DataException;
 
 public class GerenciadorRecursos {
 	private DaoRecurso daoRecurso;
@@ -14,19 +14,19 @@ public class GerenciadorRecursos {
 		this.daoRecurso = DaoRecursoMemoria.getInstance();
 	}
 	
-	public void cadastrarRecurso(Recurso recurso) {
+	public void cadastrarRecurso(Recurso recurso) throws DataException {
 		this.daoRecurso.add(recurso);
 	}
 	
-	public void removerRecurso(Recurso recurso) {
+	public void removerRecurso(Recurso recurso) throws DataException {
 		this.daoRecurso.remove(recurso);
 	}
 	
-	public List<Recurso> listarRecursos() {
+	public List<Recurso> listarRecursos() throws DataException {
 		return this.daoRecurso.list();
 	}
 
-	public Recurso getRecurso(Long codigo) {
+	public Recurso getRecurso(Long codigo) throws DataException {
 		return this.daoRecurso.get(codigo);
 	}
 }

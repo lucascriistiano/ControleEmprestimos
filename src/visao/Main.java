@@ -3,6 +3,7 @@ package visao;
 import java.util.Calendar;
 import java.util.Scanner;
 
+
 //************ TEMPORARIO ************
 import dao.DaoCliente;
 import dao.DaoClienteMemoria;
@@ -16,6 +17,7 @@ import dominio.Carro;
 import dominio.ClienteLocador;
 import dominio.Recurso;
 import dominio.Usuario;
+import excecao.DataException;
 
 public class Main {
 	private static Scanner in = new Scanner(System.in);
@@ -70,17 +72,27 @@ public class Main {
 		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
-		daoUsuario.add(usuario1);
-		daoUsuario.add(usuario2);
+		try {
+			daoUsuario.add(usuario1);
+			daoUsuario.add(usuario2);
+		} catch (DataException e) {
+			System.out.println("Não foi possível adicionar o usuario. Erro: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
 		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
 		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",1000,50);
 		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
 		
-		daoRecurso.add(carro1);
-		daoRecurso.add(carro2);
-		daoRecurso.add(carro3);
+		try {
+			daoRecurso.add(carro1);
+			daoRecurso.add(carro2);
+			daoRecurso.add(carro3);
+		} catch (DataException e) {
+			System.out.println("Não foi possível adicionar o recurso. Erro: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
 		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
 		
@@ -95,8 +107,13 @@ public class Main {
 		calendar.set(Calendar.YEAR, 1965);
 		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
 		
-		daoCliente.add(cliente1);
-		daoCliente.add(cliente2);
+		try {
+			daoCliente.add(cliente1);
+			daoCliente.add(cliente2);
+		} catch (DataException e) {
+			System.out.println("Não foi possível adicionar o cliente. Erro: " + e.getMessage());
+			e.printStackTrace();
+		}	
 	}
 
 	private static void showMenuUIClientes() {

@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import excecao.EmprestimoInvalidoException;
+
 public class RegraLocadoraCarros implements RegraEmprestimo{
 	
 	private static final int DIAS_QUILOMETRAGEM_LIVRE = 20;
@@ -70,15 +72,15 @@ public class RegraLocadoraCarros implements RegraEmprestimo{
 	}
 
 	@Override
-	public boolean validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) {
+	public boolean validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {
 		//Verificar se o periodo de emprestimo eh de pelo menos 1 dia (prazo minimo) 
 		Long msDiff = dataDevolucao.getTime() - dataEmprestimo.getTime();
 		Long diasDiff = TimeUnit.DAYS.convert(msDiff, TimeUnit.MILLISECONDS);
 		
-		if(diasDiff >= 1)
-			return true;
-		else
-			return false;
+		if(diasDiff < 1)
+			throw new EmprestimoInvalidoException("O periodo do emprestimo deve ser de pelo menos uma diaria");
+
+		return false;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Usuario;
+import excecao.DataException;
 
 public class DaoUsuarioMemoria implements DaoUsuario {
 
@@ -25,12 +26,12 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 	
 	@Override
-	public void add(Usuario usuario) {
+	public void add(Usuario usuario) throws DataException {
 		usuarios.add(usuario);
 	}
 
 	@Override
-	public void remove(Usuario usuario) {
+	public void remove(Usuario usuario) throws DataException {
 		Iterator<Usuario> it = usuarios.iterator();
 		while(it.hasNext()) {
 			Usuario u = it.next();
@@ -44,7 +45,7 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 
 	@Override
-	public void update(Usuario usuario) {
+	public void update(Usuario usuario) throws DataException {
 		Iterator<Usuario> it = usuarios.iterator();
 		while(it.hasNext()) {
 			Usuario u = it.next();
@@ -58,7 +59,7 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 
 	@Override
-	public Usuario get(String login) {
+	public Usuario get(String login) throws DataException {
 		Iterator<Usuario> it = usuarios.iterator();
 		while(it.hasNext()) {
 			Usuario u = it.next();
@@ -72,7 +73,7 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 
 	@Override
-	public List<Usuario> list() {
+	public List<Usuario> list() throws DataException {
 		List<Usuario> resultList = new ArrayList<Usuario>();
 		
 		Iterator<Usuario> it = usuarios.iterator();

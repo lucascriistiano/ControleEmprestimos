@@ -1,5 +1,7 @@
 package dominio;
 
+import excecao.ClienteInvalidoException;
+
 public abstract class Cliente {
 	
 	private Long codigo;
@@ -26,5 +28,5 @@ public abstract class Cliente {
 		this.nome = nome;
 	}
 
-	public abstract boolean validar();
+	public abstract boolean validar() throws ClienteInvalidoException;
 }

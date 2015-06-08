@@ -5,6 +5,8 @@ import java.util.List;
 import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
 import dominio.Usuario;
+import excecao.DataException;
+import excecao.UsuarioInvalidoException;
 
 public class GerenciadorUsuarios {
 	private DaoUsuario daoUsuario; 
@@ -13,45 +15,36 @@ public class GerenciadorUsuarios {
 		this.daoUsuario = DaoUsuarioMemoria.getInstance();
 	}
 	
-	public void cadastrarUsuario(Usuario usuario) {
-		if(validarUsuario(usuario)) {
+	public void cadastrarUsuario(Usuario usuario) throws UsuarioInvalidoException, DataException {
+		if(validarUsuario(usuario))
 			this.daoUsuario.add(usuario);
-		}
 	}
 	
-	public void removerUsuario(Usuario usuario) {
+	public void removerUsuario(Usuario usuario) throws DataException {
 		this.daoUsuario.remove(usuario);
 	}
 	
-	public List<Usuario> listarUsuarios() {
+	public List<Usuario> listarUsuarios() throws DataException {
 		return daoUsuario.list();
 	}
 	
-	public Usuario getUsuario(String login) {
+	public Usuario getUsuario(String login) throws DataException {
 		return daoUsuario.get(login);
 	}
 	
-	public boolean validarUsuario(Usuario usuario) {
+	public boolean validarUsuario(Usuario usuario) throws UsuarioInvalidoException, DataException {
 		
 		if(usuario.getLogin().equals("")) {
-			//TODO Lancar excessao
-			System.out.println("Usuario invalido: Nome de usuario vazio");
-			return false;
+			throw new UsuarioInvalidoException("Login vazio");
 		}
 		if(usuario.getNome().equals("")) {
-			//TODO Lancar excessao
-			System.out.println("Usuario Invalido: Nome vazio");
-			return false;
+			throw new UsuarioInvalidoException("Nome do usuario vazio");
 		}
 		if(usuario.getNome().equals("")) {
-			//TODO Lancar excessao
-			System.out.println("Usuario Invalido: Senha vazia");
-			return false;
+			throw new UsuarioInvalidoException("Senha vazia");
 		}
 		if(daoUsuario.get(usuario.getLogin()) != null) {
-			//TODO Lancar excessao
-			System.out.println("Usuario Invalido: Nome de usuario já existe");
-			return false;
+			throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
 		}
 		
 		return true;

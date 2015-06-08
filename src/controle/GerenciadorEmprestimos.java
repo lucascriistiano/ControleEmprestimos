@@ -16,6 +16,10 @@ import dominio.GeradorComprovante;
 import dominio.Recurso;
 import dominio.RegraEmprestimo;
 import dominio.Usuario;
+import excecao.ClienteInvalidoException;
+import excecao.DataException;
+import excecao.EmprestimoInvalidoException;
+import excecao.RecursoInvalidoException;
 
 public class GerenciadorEmprestimos {
 	private DaoEmprestimo daoEmprestimo;
@@ -29,21 +33,13 @@ public class GerenciadorEmprestimos {
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
 	}
 	
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, ClienteInvalidoException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
-		if(!cliente.validar()) {
-			//TODO Lancar excessao
-			System.out.println("Cliente invalido para emprestimo");
-			return null;
-		}
+		cliente.validar();
 		
 		//Validacao do recurso para emprestimo
 		for(Recurso recurso : recursos) {
-			if(!recurso.validar()) {
-				//TODO Lancar excessao
-				System.out.println("Recurso invalido para emprestimo");
-				return null;
-			}
+			recurso.validar();
 		}
 		
 		//Realiza o emprestimo
@@ -64,21 +60,13 @@ public class GerenciadorEmprestimos {
 		return comprovanteEmprestimo;
 	}
 	
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
-		if(!cliente.validar()) {
-			//TODO Lancar excessao
-			System.out.println("Cliente invalido para emprestimo");
-			return null;
-		}
+		cliente.validar();
 		
 		//Validacao do recurso para emprestimo
 		for(Recurso recurso : recursos) {
-			if(!recurso.validar()) {
-				//TODO Lancar excessao
-				System.out.println("Recurso invalido para emprestimo");
-				return null;
-			}
+			recurso.validar();
 		}
 		
 		//Realiza o emprestimo
@@ -89,27 +77,22 @@ public class GerenciadorEmprestimos {
 		Date dataAtual = Calendar.getInstance().getTime();
 		emprestimo.setDataEmprestimo(dataAtual);
 		
-		if(regraEmprestimo.validarDataDevolucao(dataAtual, dataDevolucao)) {
-			emprestimo.setDataDevolucao(dataDevolucao);
-			
-			for(Recurso recurso : recursos) {
-				emprestimo.adicionarRecurso(recurso);
-				//TODO Alocar recurso
-			}
-			
-			daoEmprestimo.add(emprestimo);
+		regraEmprestimo.validarDataDevolucao(dataAtual, dataDevolucao);
 		
-			ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
-			return comprovanteEmprestimo;
+		emprestimo.setDataDevolucao(dataDevolucao);
+		
+		for(Recurso recurso : recursos) {
+			emprestimo.adicionarRecurso(recurso);
+			//TODO Alocar recurso
 		}
-		else {
-			//Lancar excessao
-			System.out.println("Data de devolucao invalida");
-			return null;
-		}	
+		
+		daoEmprestimo.add(emprestimo);
+	
+		ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
+		return comprovanteEmprestimo;
 	}
 	
-	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) {
+	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 		
 		//TODO Implementar a realizacao do pagamento
@@ -120,11 +103,11 @@ public class GerenciadorEmprestimos {
 		return comprovanteDevolucao;
 	}
 	
-	public Emprestimo getEmprestimo(Long codigo) {
+	public Emprestimo getEmprestimo(Long codigo) throws DataException {
 		return this.daoEmprestimo.get(codigo);
 	}
 	
-	public List<Emprestimo> listarEmprestimos() {
+	public List<Emprestimo> listarEmprestimos() throws DataException {
 		return this.daoEmprestimo.list();
 	}
 	

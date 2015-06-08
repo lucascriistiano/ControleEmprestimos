@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import dominio.Cliente;
+import excecao.DataException;
 
 public class DaoClienteMemoria implements DaoCliente {
 
@@ -25,12 +26,12 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 	
 	@Override
-	public void add(Cliente cliente) {
+	public void add(Cliente cliente) throws DataException {
 		clientes.add(cliente);
 	}
 
 	@Override
-	public void remove(Cliente cliente) {
+	public void remove(Cliente cliente) throws DataException {
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
@@ -44,7 +45,7 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 
 	@Override
-	public void update(Cliente cliente) {
+	public void update(Cliente cliente) throws DataException {
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
@@ -58,7 +59,7 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 
 	@Override
-	public Cliente get(Long codigo) {
+	public Cliente get(Long codigo) throws DataException {
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
@@ -72,7 +73,7 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 
 	@Override
-	public List<Cliente> list() {
+	public List<Cliente> list() throws DataException{
 		List<Cliente> resultList = new ArrayList<Cliente>();
 		
 		Iterator<Cliente> it = clientes.iterator();
