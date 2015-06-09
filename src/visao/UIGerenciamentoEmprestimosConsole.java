@@ -18,6 +18,7 @@ import dominio.ComprovanteDevolucaoBuilderCarro;
 import dominio.ComprovanteEmprestimo;
 import dominio.ComprovanteEmprestimoBuilderCarro;
 import dominio.Emprestimo;
+import dominio.FabricaNotificacaoCarro;
 import dominio.Recurso;
 import dominio.RegraLocadoraCarros;
 import dominio.Usuario;
@@ -33,7 +34,7 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 	private GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 	private GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
 	private GerenciadorRecursos gerenciadorRecursos = new GerenciadorRecursos();
-	private GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(new RegraLocadoraCarros(), new ComprovanteEmprestimoBuilderCarro(), new ComprovanteDevolucaoBuilderCarro());
+	private GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(new RegraLocadoraCarros(), new ComprovanteEmprestimoBuilderCarro(), new ComprovanteDevolucaoBuilderCarro(), new FabricaNotificacaoCarro());
 	
 	@Override
 	public void realizarEmprestimo() {
@@ -175,6 +176,24 @@ public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprest
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
 		}
+	}
+
+	@Override
+	public void verificarPrazos() {
+		try {
+			System.out.println("---------- Verificar Prazos de Emprestimos ----------");
+			System.out.println("Verificando prazos. Aguarde... ");
+		
+			if(this.gerenciadorEmprestimos.verificarPrazos()) { //Existiram empréstimos notificados
+				System.out.println("Os usuarios com empréstimos pendentes foram devidamente notificados.");
+			}
+			else {
+				System.out.println("Nao houveram usuarios notificados.");
+			}
+			
+		} catch (DataException e) {
+			System.out.println("Erro ao acessar registros dos emprestimos. Erro: " + e.getMessage());
+		};
 	}
 
 }

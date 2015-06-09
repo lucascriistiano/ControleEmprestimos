@@ -1,17 +1,15 @@
 package dominio;
 
-public class NotificacaoCelular implements Notificacao{
+public class NotificacaoCelular extends Notificacao{
 
-	@Override
-	public boolean notificarPrazoExpirado(Emprestimo emprestimo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean notificarPrazoProximo(Emprestimo emprestimo) {
-		// TODO Auto-generated method stub
-		return false;
+	public NotificacaoCelular(String mensagem) {
+		super(mensagem);
 	}
 	
+	@Override
+	public void enviar() {
+		System.out.println("Enviando notificação por celular...");
+		System.out.println(getMensagem());
+	}
+
 }

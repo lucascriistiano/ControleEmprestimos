@@ -11,6 +11,7 @@ public class RegraLocadoraCarros implements RegraEmprestimo{
 	private static final int DIAS_QUILOMETRAGEM_LIVRE = 20;
 	private static final int QUILOMETRAGEM_MAXIMA = 4500;
 	private static final double TAXA_QUILOMETRO_EXCEDIDO = 0.45;
+	private static final int DIAS_PARA_NOTIFICACAO = 2;
 	
 	@Override
 	public boolean prazoExpirado(Emprestimo emprestimo) {
@@ -22,6 +23,17 @@ public class RegraLocadoraCarros implements RegraEmprestimo{
 			return true;
 	}
 
+	@Override
+	public boolean prazoProximo(Emprestimo emprestimo) {
+		Date dataAtual = Calendar.getInstance().getTime();
+		
+		long diasParaExpirar = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime()) / (1000 * 60 * 60 * 24);
+		if(diasParaExpirar > DIAS_PARA_NOTIFICACAO)			
+			return false;
+		else
+			return true;
+	}
+	
 	@Override
 	public double calcularValorFinal(Emprestimo emprestimo, double taxaExtra) {
 		Date dataAtual = Calendar.getInstance().getTime();

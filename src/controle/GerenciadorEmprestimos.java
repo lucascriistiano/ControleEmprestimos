@@ -12,6 +12,7 @@ import dominio.ComprovanteDevolucaoBuilder;
 import dominio.ComprovanteEmprestimo;
 import dominio.ComprovanteEmprestimoBuilder;
 import dominio.Emprestimo;
+import dominio.FabricaNotificacao;
 import dominio.GeradorComprovante;
 import dominio.Recurso;
 import dominio.RegraEmprestimo;
@@ -26,11 +27,13 @@ public class GerenciadorEmprestimos {
 	
 	private RegraEmprestimo regraEmprestimo;
 	private GeradorComprovante geradorComprovante;
+	private VerificadorPrazos verificadorPrazos;
 	
-	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder) {
+	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
 		this.regraEmprestimo = regraEmprestimo;
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
+		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
 	}
 	
 	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, ClienteInvalidoException, RecursoInvalidoException {
@@ -109,6 +112,16 @@ public class GerenciadorEmprestimos {
 	
 	public List<Emprestimo> listarEmprestimos() throws DataException {
 		return this.daoEmprestimo.list();
+	}
+	
+	public boolean verificarPrazos() throws DataException {
+		List<Emprestimo> emprestimos = daoEmprestimo.list();
+		return this.verificadorPrazos.verificarEmprestimos(emprestimos);
+	}
+	
+	public boolean verificarStatusCliente(Cliente cliente) {
+		//TODO implementar verificação
+		return false;
 	}
 	
 }

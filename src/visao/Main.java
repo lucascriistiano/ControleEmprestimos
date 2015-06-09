@@ -156,6 +156,7 @@ public class Main {
 			System.out.println("1 - Realizar Novo Emprestimo");
 			System.out.println("2 - Realizar Devolucao");
 			System.out.println("3 - Listar Emprestimos");
+			System.out.println("4 - Verificar Prazos");
 			
 			System.out.println("0 - Voltar");
 			
@@ -173,6 +174,9 @@ public class Main {
 				break;
 			case 3:
 				uiEmprestimos.listarEmprestimos();
+				break;
+			case 4:
+				uiEmprestimos.verificarPrazos();
 				break;
 			default:
 				return;
