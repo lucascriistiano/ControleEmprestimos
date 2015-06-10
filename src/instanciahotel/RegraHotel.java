@@ -31,6 +31,9 @@ public class RegraHotel implements RegraEmprestimo{
 			valorFinal += (quarto.getPreco() * diasEmprestimo);
 		}
 		
+		if(taxaExtra > 0)
+			valorFinal += taxaExtra;
+		
 		return valorFinal;
 	}
 
