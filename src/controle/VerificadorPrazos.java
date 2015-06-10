@@ -1,5 +1,7 @@
 package controle;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import dominio.Emprestimo;
@@ -11,18 +13,40 @@ public class VerificadorPrazos {
 	private RegraEmprestimo regraEmprestimo;
 	private NotificadorPrazos notificadorPrazos;
 	
-
 	public VerificadorPrazos(RegraEmprestimo regraEmprestimo, FabricaNotificacao fabricaNotificacao) {
 		this.regraEmprestimo = regraEmprestimo;
 		this.notificadorPrazos = new NotificadorPrazos(fabricaNotificacao);
 	}
 	
+	private boolean prazoExpirado(Emprestimo emprestimo) {
+		Date dataAtual = Calendar.getInstance().getTime();
+		
+		long tempoExpirado = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime());
+		System.out.println("Tempo expirado: " + tempoExpirado);
+		if(tempoExpirado > 0)			
+			return true;
+		else
+			return false;
+	}
+
+	private boolean prazoProximo(Emprestimo emprestimo) {
+		Date dataAtual = Calendar.getInstance().getTime();
+		long tempoExpirado = dataAtual.getTime() - emprestimo.getDataDevolucao().getTime();
+		long diasExpirado = tempoExpirado / (1000 * 60 * 60 * 24);
+		
+		System.out.println("Dias expirado: " + diasExpirado);
+		if(diasExpirado < 0 && Math.abs(diasExpirado) <= this.regraEmprestimo.getDiasNotificacaoPrevia())			
+			return true;
+		else
+			return false;
+	}
+	
 	public boolean verificarEmprestimo(Emprestimo emprestimo) {
-		if(regraEmprestimo.prazoExpirado(emprestimo)) {
+		if(prazoExpirado(emprestimo)) {
 			notificadorPrazos.notificarPrazoExpirado(emprestimo);
 			return false;
 		}
-		else if(regraEmprestimo.prazoProximo(emprestimo)) {
+		else if(prazoProximo(emprestimo)) {
 			notificadorPrazos.notificarPrazoProximo(emprestimo);
 			return false;
 		}
@@ -33,11 +57,11 @@ public class VerificadorPrazos {
 	public boolean verificarEmprestimos(List<Emprestimo> emprestimos) {
 		boolean notificado = false;
 		for(Emprestimo emprestimo : emprestimos) {
-			if(regraEmprestimo.prazoExpirado(emprestimo)) {
+			if(prazoExpirado(emprestimo)) {
 				notificadorPrazos.notificarPrazoExpirado(emprestimo);
 				notificado = true;
 			}
-			else if(regraEmprestimo.prazoProximo(emprestimo)) {
+			else if(prazoProximo(emprestimo)) {
 				notificadorPrazos.notificarPrazoProximo(emprestimo);
 				notificado = true;
 			}

@@ -8,7 +8,7 @@ public class NotificacaoCelular extends Notificacao{
 	
 	@Override
 	public void enviar() {
-		System.out.println("Enviando notificação por celular...");
+		System.out.println("Enviando notificacao por celular...");
 		System.out.println(getMensagem());
 	}
 

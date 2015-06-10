@@ -36,7 +36,7 @@ public class GerenciadorEmprestimos {
 		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
 	}
 	
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, ClienteInvalidoException, RecursoInvalidoException {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
 		cliente.validar();
 		
@@ -120,7 +120,7 @@ public class GerenciadorEmprestimos {
 	}
 	
 	public boolean verificarStatusCliente(Cliente cliente) {
-		//TODO implementar verificação
+		//TODO implementar verificaï¿½ï¿½o
 		return false;
 	}
 	
