@@ -4,6 +4,10 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 
+
+
+
+
 //************ TEMPORARIO ************
 import dao.DaoCliente;
 import dao.DaoClienteMemoria;
@@ -13,19 +17,20 @@ import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
 //*************************************
 
-import dominio.Carro;
-import dominio.ClienteLocador;
+import dominio.Aluno;
+import dominio.Livro;
+import dominio.Professor;
 import dominio.Recurso;
 import dominio.Usuario;
 import excecao.DataException;
 
-public class Main {
+public class MainLivro {
 	private static Scanner in = new Scanner(System.in);
 	
-	private static UIGerenciamentoClientes uiClientes = new UIGerenciamentoClientesConsole();
+	private static UIGerenciamentoClientes uiClientes = new UIGerenciamentoClientesConsoleLivro();
 	private static UIGerenciamentoUsuarios uiUsuarios = new UIGerenciamentoUsuariosConsole();
-	private static UIGerenciamentoRecursos uiRecursos = new UIGerenciamentoRecursosConsole();
-	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosConsole();
+	private static UIGerenciamentoRecursos uiRecursos = new UIGerenciamentoRecursosConsoleLivro();
+	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosConsoleLivro();
 	
 	public static void main(String [] args) {
 		//************ TEMPORARIO ************
@@ -36,7 +41,7 @@ public class Main {
 		int option;
 		
 		do {
-			System.out.println("---------- Gerenciamento de Emprestimos de Veiculos ----------");
+			System.out.println("---------- Gerenciamento de Emprestimos de Livros ----------");
 			System.out.println("1 - Gerenciar Usuarios");
 			System.out.println("2 - Gerenciar Clientes");
 			System.out.println("3 - Gerenciar Recursos");
@@ -81,14 +86,14 @@ public class Main {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",1000,50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
+		Recurso livro1 = new Livro(Long.valueOf(1), "Livro muito bom", "Cormem", "Editora desconheciada1", 3, 50, "Algoritmos: Teoria e Pr�tica");
+		Recurso livro2 = new Livro(Long.valueOf(2), "Livro bom", "Machado de Assis", "Editora desconheciada2", 1, 10, "Capitu");
+		Recurso livro3 = new Livro(Long.valueOf(3), "Livro legal", "Jos� de Alencar", "Editora desconheciada3", 1, 5, "Iracema");
 		
 		try {
-			daoRecurso.add(carro1);
-			daoRecurso.add(carro2);
-			daoRecurso.add(carro3);
+			daoRecurso.add(livro1);
+			daoRecurso.add(livro2);
+			daoRecurso.add(livro3);
 		} catch (DataException e) {
 			System.out.println("Não foi possível adicionar o recurso. Erro: " + e.getMessage());
 			e.printStackTrace();
@@ -96,20 +101,16 @@ public class Main {
 		
 		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
 		
+		Aluno aluno1 = new Aluno(Long.valueOf(1), "Sidemar", "777.777.777-77", "777.777.777", Long.valueOf(7777), "T.I");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteLocador cliente1 = new ClienteLocador(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
-		
-		calendar.set(Calendar.DAY_OF_MONTH, 31);
-		calendar.set(Calendar.MONTH, 4);
-		calendar.set(Calendar.YEAR, 1965);
-		ClienteLocador cliente2 = new ClienteLocador(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
+		Professor professor1 = new Professor(Long.valueOf(2), "Lucas", "999.999.999-99", "999.999.999", "doutor", calendar.getTime());
 		
 		try {
-			daoCliente.add(cliente1);
-			daoCliente.add(cliente2);
+			daoCliente.add(aluno1);
+			daoCliente.add(professor1);
 		} catch (DataException e) {
 			System.out.println("Não foi possível adicionar o cliente. Erro: " + e.getMessage());
 			e.printStackTrace();

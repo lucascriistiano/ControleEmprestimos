@@ -27,7 +27,7 @@ import excecao.DataException;
 import excecao.EmprestimoInvalidoException;
 import excecao.RecursoInvalidoException;
 
-public class UIGerenciamentoEmprestimosConsole implements UIGerenciamentoEmprestimos {
+public class UIGerenciamentoEmprestimosConsoleCarro implements UIGerenciamentoEmprestimos {
 
 	private Scanner in = new Scanner(System.in);
 	

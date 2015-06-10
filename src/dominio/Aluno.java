@@ -5,6 +5,18 @@ public class Aluno extends Cliente{
 	private String rg;
 	private Long matricula;
 	private String curso;
+
+	public Aluno(Long codigo, String nome) {
+		super(codigo, nome);
+	}
+	
+	public Aluno(Long codigo, String nome, String cpf, String rg, Long matricula, String curso) {
+		super(codigo, nome);
+		this.cpf = cpf;
+		this.rg = rg;
+		this.matricula = matricula;
+		this.curso = curso;
+	}
 	
 	public String getCpf() {
 		return cpf;
@@ -36,10 +48,6 @@ public class Aluno extends Cliente{
 
 	public void setCurso(String curso) {
 		this.curso = curso;
-	}
-
-	public Aluno(Long codigo, String nome) {
-		super(codigo, nome);
 	}
 
 	@Override

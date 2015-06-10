@@ -12,7 +12,7 @@ import dominio.ClienteLocador;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
 
-public class UIGerenciamentoClientesConsole implements UIGerenciamentoClientes {
+public class UIGerenciamentoClientesConsoleCarro implements UIGerenciamentoClientes {
 
 	private Scanner in = new Scanner(System.in);
 	private GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();

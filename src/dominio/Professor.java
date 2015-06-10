@@ -9,6 +9,18 @@ public class Professor extends Cliente{
 	private String titulacao;
 	private Date dataAdmissao;
 	
+	public Professor(Long codigo, String nome) {
+		super(codigo, nome);
+	}
+	
+	public Professor(Long codigo, String nome, String cpf, String rg, String titulacao, Date dataAdmissao) {
+		super(codigo, nome);
+		this.cpf = cpf;
+		this.rg = rg;
+		this.titulacao = titulacao;
+		this.dataAdmissao = dataAdmissao;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -39,10 +51,6 @@ public class Professor extends Cliente{
 
 	public void setDataAdmissao(Date dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
-	}
-
-	public Professor(Long codigo, String nome) {
-		super(codigo, nome);
 	}
 
 	@Override

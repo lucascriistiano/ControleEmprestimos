@@ -8,7 +8,7 @@ import dominio.Carro;
 import dominio.Recurso;
 import excecao.DataException;
 
-public class UIGerenciamentoRecursosConsole implements UIGerenciamentoRecursos {
+public class UIGerenciamentoRecursosConsoleCarro implements UIGerenciamentoRecursos {
 
 	private GerenciadorRecursos gerenciadorRecursos = new GerenciadorRecursos();
 	private Scanner in = new Scanner(System.in);
