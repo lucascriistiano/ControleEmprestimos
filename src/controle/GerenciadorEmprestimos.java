@@ -54,7 +54,7 @@ public class GerenciadorEmprestimos {
 		
 		for(Recurso recurso : recursos) {
 			emprestimo.adicionarRecurso(recurso);
-			//TODO Alocar recurso
+			recurso.alocar();
 		}
 		
 		daoEmprestimo.add(emprestimo);
@@ -86,7 +86,7 @@ public class GerenciadorEmprestimos {
 		
 		for(Recurso recurso : recursos) {
 			emprestimo.adicionarRecurso(recurso);
-			//TODO Alocar recurso
+			recurso.alocar();
 		}
 		
 		daoEmprestimo.add(emprestimo);
@@ -100,6 +100,10 @@ public class GerenciadorEmprestimos {
 		
 		//TODO Implementar a realizacao do pagamento
 
+		for(Recurso recurso : emprestimo.getRecursos()) {
+			recurso.desalocar();
+		}
+		
 		daoEmprestimo.remove(emprestimo);
 
 		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);
@@ -120,7 +124,7 @@ public class GerenciadorEmprestimos {
 	}
 	
 	public boolean verificarStatusCliente(Cliente cliente) {
-		//TODO implementar verifica��o
+		//TODO implementar verificacao
 		return false;
 	}
 	

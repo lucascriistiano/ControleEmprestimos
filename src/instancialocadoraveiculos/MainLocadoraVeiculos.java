@@ -71,7 +71,7 @@ public class MainLocadoraVeiculos {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
-		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
+		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
 		try {
@@ -83,16 +83,16 @@ public class MainLocadoraVeiculos {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veículo super agradável","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veículo muito confortável","DEF-4567","Gol","Volkswagem","Branco",1000,50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veículo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
+		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
+		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel","DEF-4567","Gol","Volkswagem","Branco",1000,50);
+		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
 		
 		try {
 			daoRecurso.add(carro1);
 			daoRecurso.add(carro2);
 			daoRecurso.add(carro3);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o recurso. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o recurso. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -102,7 +102,7 @@ public class MainLocadoraVeiculos {
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteLocadoraVeiculos cliente1 = new ClienteLocadoraVeiculos(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
+		ClienteLocadoraVeiculos cliente1 = new ClienteLocadoraVeiculos(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
 		
 		calendar.set(Calendar.DAY_OF_MONTH, 31);
 		calendar.set(Calendar.MONTH, 4);
@@ -113,7 +113,7 @@ public class MainLocadoraVeiculos {
 			daoCliente.add(cliente1);
 			daoCliente.add(cliente2);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o cliente. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o cliente. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}	
 	}

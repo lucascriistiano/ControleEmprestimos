@@ -9,7 +9,7 @@ import excecao.ClienteInvalidoException;
 
 public class ClienteHotel extends Cliente{
 	
-	private static final int IDADE_MINIMA = 18; //Idade mínima de 21 anos para alugar
+	private static final int IDADE_MINIMA = 18; //Idade minima de 18 anos para alugar
 	
 	private String cpf;
 	private String rg;
@@ -68,7 +68,7 @@ public class ClienteHotel extends Cliente{
 		// Cria um objeto calendar com a data atual
 		Calendar dataAtual = Calendar.getInstance();
 
-		// Obtém a idade baseado no ano
+		// Obtem a idade baseado no ano
 		int idade = dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR);
 
 		dataNascimento.add(Calendar.YEAR, idade);
@@ -88,13 +88,13 @@ public class ClienteHotel extends Cliente{
 			throw new ClienteInvalidoException("CPF vazio");
 		}
 		if(this.getEndereco().trim().isEmpty()) {
-			throw new ClienteInvalidoException("Endere�o vazio");
+			throw new ClienteInvalidoException("Endereco vazio");
 		}
 		if(this.getDataNascimento() == null) {
 			throw new ClienteInvalidoException("Data de nascimento vazia");
 		}
 		if(this.getIdade() < IDADE_MINIMA) {
-			throw new ClienteInvalidoException("Cliente não tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
+			throw new ClienteInvalidoException("Cliente nao tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
 		}
 		
 		return true;

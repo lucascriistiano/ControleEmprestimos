@@ -6,10 +6,18 @@ public abstract class Recurso {
 	
 	private Long codigo;
 	private String descricao;
+	private boolean disponivel;
 	
 	protected Recurso(Long codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
+		this.disponivel = true;
+	}
+	
+	protected Recurso(Long codigo, String descricao, boolean disponivel) {
+		this.codigo = codigo;
+		this.descricao = descricao;
+		this.disponivel =  disponivel;
 	}
 	
 	public Long getCodigo() {
@@ -28,6 +36,15 @@ public abstract class Recurso {
 		this.descricao = descricao;
 	}
 
-	public abstract void alocarRecurso(Recurso recurso);
+	public boolean isDisponivel() {
+		return disponivel;
+	}
+
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
+	}
+
+	public abstract void alocar();
+	public abstract void desalocar();
 	public abstract boolean validar() throws RecursoInvalidoException;
 }

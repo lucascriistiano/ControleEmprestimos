@@ -72,8 +72,8 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 				System.out.print(" - Area: " + quarto.getArea());
 				System.out.print(" - Numero: " + quarto.getNumero());
 				System.out.print(" - Quantidade de pessoas: " + quarto.getQuantidadePessoas());
-				System.out.print(" - Preco de aluguel: " + quarto.getPreco());
-				System.out.println();
+				System.out.println(" - Preco de aluguel: " + quarto.getPreco());
+				System.out.println("\tLivre: " + (quarto.isDisponivel() ? "Sim" : "Nao"));
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos recursos. Erro: " + e.getMessage());

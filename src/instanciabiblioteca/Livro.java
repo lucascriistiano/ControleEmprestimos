@@ -1,6 +1,7 @@
 package instanciabiblioteca;
 
 import dominio.Recurso;
+import excecao.RecursoInvalidoException;
 
 public class Livro extends Recurso{
 	
@@ -56,13 +57,27 @@ public class Livro extends Recurso{
 		this.titulo = titulo;
 	}
 	@Override
-	public void alocarRecurso(Recurso recurso) {
-		// TODO Auto-generated method stub
+	public void alocar() {
+		this.quantidade--;
 		
+		if(this.quantidade == 0)
+			setDisponivel(false);
 	}
+	
 	@Override
-	public boolean validar() {
-		// TODO Auto-generated method stub
-		return false;
-	}	
+	public void desalocar() {
+		this.quantidade++;
+		
+		if(!isDisponivel())
+			setDisponivel(true);
+	}
+	
+	@Override
+	public boolean validar() throws RecursoInvalidoException {
+		if(!this.isDisponivel())
+			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O livro de codigo " + getCodigo() + " ja esta alocado.");
+			
+		return true;
+	}
+	
 }

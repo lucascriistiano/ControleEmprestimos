@@ -107,7 +107,6 @@ public class UIGerenciamentoEmprestimosLocadoraVeiculos implements UIGerenciamen
 			
 			Emprestimo emprestimo = gerenciadorEmprestimos.getEmprestimo(codigo);
 		
-		
 			for(Recurso recurso : emprestimo.getRecursos()) {
 				int quilometragemInicial = ((Carro) recurso).getQuilometragemInicial();
 				int quilometragemAtual;

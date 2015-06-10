@@ -75,8 +75,8 @@ public class UIGerenciamentoRecursosBiblioteca implements UIGerenciamentoRecurso
 				System.out.print(" - Editora: " + livro.getEditora());
 				System.out.print(" - Edicao: " + livro.getEdicao());
 				System.out.print(" - Quantidade: " + livro.getQuantidade());
-				System.out.print(" - Titulo: " + livro.getTitulo());
-				System.out.println();
+				System.out.println(" - Titulo: " + livro.getTitulo());
+				System.out.println("\tDisponivel: " + (livro.isDisponivel() ? "Sim" : "Nao"));
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos recursos. Erro: " + e.getMessage());

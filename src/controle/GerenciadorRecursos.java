@@ -1,5 +1,6 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoRecurso;
@@ -24,6 +25,18 @@ public class GerenciadorRecursos {
 	
 	public List<Recurso> listarRecursos() throws DataException {
 		return this.daoRecurso.list();
+	}
+	
+	public List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
+		List<Recurso> recursos = this.daoRecurso.list();
+		
+		List<Recurso> resultList = new ArrayList<Recurso>();
+		for(Recurso recurso : recursos) {
+			if(recurso.isDisponivel() == isDisponivel)
+				resultList.add(recurso);
+		}
+		
+		return resultList;
 	}
 
 	public Recurso getRecurso(Long codigo) throws DataException {

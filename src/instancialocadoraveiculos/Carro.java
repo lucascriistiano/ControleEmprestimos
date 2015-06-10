@@ -84,14 +84,21 @@ public class Carro extends Recurso {
 		this.preco = preco;
 	}
 	
-	public void alocarRecurso(Recurso recurso) {
-		// TODO Auto-generated method stub
-		
+	@Override
+	public void alocar() {
+		this.setDisponivel(false);
+	}
+	
+	@Override
+	public void desalocar() {
+		this.setDisponivel(true);
 	}
 
 	@Override
 	public boolean validar() throws RecursoInvalidoException {
-		// TODO Auto-generated method stub
+		if(!this.isDisponivel())
+			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O carro de codigo " + getCodigo() + " ja esta alocado.");
+			
 		return true;
 	}
 	

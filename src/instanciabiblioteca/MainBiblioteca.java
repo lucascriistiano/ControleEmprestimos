@@ -83,14 +83,14 @@ public class MainBiblioteca {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
-		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
+		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
 		try {
 			daoUsuario.add(usuario1);
 			daoUsuario.add(usuario2);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o usuario. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o usuario. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -104,24 +104,24 @@ public class MainBiblioteca {
 			daoRecurso.add(livro2);
 			daoRecurso.add(livro3);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o recurso. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o recurso. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
 		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
 		
-		Aluno aluno1 = new Aluno(Long.valueOf(1), "Sidemar", "777.777.777-77", "777.777.777", Long.valueOf(7777), "T.I");
+		Aluno aluno1 = new Aluno(Long.valueOf(1), "Pedro", "777.777.777-77", "777.777.777", Long.valueOf(7777), "T.I");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		Professor professor1 = new Professor(Long.valueOf(2), "Lucas", "999.999.999-99", "999.999.999", "doutor", calendar.getTime());
+		Professor professor1 = new Professor(Long.valueOf(2), "Marcos", "999.999.999-99", "999.999.999", "Doutor", calendar.getTime());
 		
 		try {
 			daoCliente.add(aluno1);
 			daoCliente.add(professor1);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o cliente. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o cliente. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}	
 	}

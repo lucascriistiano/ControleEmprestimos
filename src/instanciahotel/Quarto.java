@@ -55,15 +55,21 @@ public class Quarto extends Recurso {
 	}
 
 	@Override
-	public void alocarRecurso(Recurso recurso) {
-		// TODO Auto-generated method stub
-		
+	public void alocar() {
+		this.setDisponivel(false);
+	}
+	
+	@Override
+	public void desalocar() {
+		this.setDisponivel(true);
 	}
 
 	@Override
 	public boolean validar() throws RecursoInvalidoException {
-		// TODO Auto-generated method stub
-		return false;
+		if(!this.isDisponivel())
+			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O quarto de codigo " + getCodigo() + " ja esta alocado.");
+			
+		return true;
 	}
 	
 }

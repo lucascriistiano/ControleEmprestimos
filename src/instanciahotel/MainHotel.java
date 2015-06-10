@@ -80,7 +80,7 @@ public class MainHotel {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
-		Usuario usuario1 = new Usuario("João da Silva", "joao", "123456");
+		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
 		try {
@@ -101,7 +101,7 @@ public class MainHotel {
 			daoRecurso.add(quarto2);
 			daoRecurso.add(quarto3);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o recurso. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o recurso. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -111,7 +111,7 @@ public class MainHotel {
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteHotel cliente1 = new ClienteHotel(Long.valueOf(1), "Pedro Inácio", "123.456.789-10", "endereco1", "1233456784",calendar.getTime());
+		ClienteHotel cliente1 = new ClienteHotel(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "endereco1", "1233456784",calendar.getTime());
 		
 		calendar.set(Calendar.DAY_OF_MONTH, 31);
 		calendar.set(Calendar.MONTH, 4);
@@ -122,7 +122,7 @@ public class MainHotel {
 			daoCliente.add(cliente1);
 			daoCliente.add(cliente2);
 		} catch (DataException e) {
-			System.out.println("Não foi possível adicionar o cliente. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel adicionar o cliente. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}	
 	}

@@ -78,8 +78,8 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 				System.out.print(" - Fabricante: " + carro.getFabricante());
 				System.out.print(" - Cor: " + carro.getCor());
 				System.out.print(" - Quilometragem inicial: " + carro.getQuilometragemInicial() + "km");
-				System.out.print(" - Preco de aluguel: " + carro.getPreco());
-				System.out.println();
+				System.out.println(" - Preco de aluguel: " + carro.getPreco());
+				System.out.println("\tDisponivel: " + (carro.isDisponivel() ? "Sim" : "Nao"));
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos recursos. Erro: " + e.getMessage());

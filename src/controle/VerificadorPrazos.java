@@ -22,7 +22,7 @@ public class VerificadorPrazos {
 		Date dataAtual = Calendar.getInstance().getTime();
 		
 		long tempoExpirado = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime());
-		System.out.println("Tempo expirado: " + tempoExpirado);
+		
 		if(tempoExpirado > 0)			
 			return true;
 		else
@@ -34,7 +34,6 @@ public class VerificadorPrazos {
 		long tempoExpirado = dataAtual.getTime() - emprestimo.getDataDevolucao().getTime();
 		long diasExpirado = tempoExpirado / (1000 * 60 * 60 * 24);
 		
-		System.out.println("Dias expirado: " + diasExpirado);
 		if(diasExpirado < 0 && Math.abs(diasExpirado) <= this.regraEmprestimo.getDiasNotificacaoPrevia())			
 			return true;
 		else
