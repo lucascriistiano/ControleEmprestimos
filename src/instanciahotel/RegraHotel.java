@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import dominio.Emprestimo;
+import dominio.Recurso;
 import dominio.RegraEmprestimo;
 import excecao.EmprestimoInvalidoException;
 
@@ -19,7 +20,18 @@ public class RegraHotel implements RegraEmprestimo{
 	
 	@Override
 	public double calcularValorFinal(Emprestimo emprestimo, double taxaExtra) {
-		return 0;
+		Date dataAtual = Calendar.getInstance().getTime();
+		Long msDiff = dataAtual.getTime() - emprestimo.getDataEmprestimo().getTime();
+		Long diasEmprestimo = TimeUnit.DAYS.convert(msDiff, TimeUnit.MILLISECONDS);
+		
+		double valorFinal = 0;
+		
+		for(Recurso recurso : emprestimo.getRecursos()) {
+			Quarto quarto = (Quarto) recurso;
+			valorFinal += (quarto.getPreco() * diasEmprestimo);
+		}
+		
+		return valorFinal;
 	}
 
 	@Override
