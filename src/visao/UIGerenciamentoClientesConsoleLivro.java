@@ -25,8 +25,8 @@ public class UIGerenciamentoClientesConsoleLivro implements UIGerenciamentoClien
 		try {
 			
 			System.out.println("---------- Cadastrar Aluno e Professor----------");
-			System.out.print("1 - cadastrar aluno");
-			System.out.print("2 - cadastrar professor");
+			System.out.println("1 - cadastrar Aluno");
+			System.out.println("2 - cadastrar Professor");
 			System.out.print("Opcao desejada: ");
 			int opcao = in.nextInt();
 			
