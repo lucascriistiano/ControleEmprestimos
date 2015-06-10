@@ -1,5 +1,6 @@
 package instanciahotel;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,6 +38,10 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
 			System.out.println("Erro ao armazenar dados do recurso. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao cadastrar o quarto. Verifique se os dados foram inseridos corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -54,6 +59,10 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
 			System.out.println("Erro ao remover registro do recurso. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao remover o quarto. Verifique se o codigo foi inserido corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -77,6 +86,8 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos recursos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de quartos. Erro: " + e.getMessage());
 		}
 	}
 

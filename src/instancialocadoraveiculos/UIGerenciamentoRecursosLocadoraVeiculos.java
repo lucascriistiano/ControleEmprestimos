@@ -1,5 +1,6 @@
 package instancialocadoraveiculos;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,6 +42,10 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
 			System.out.println("Erro ao armazenar dados do recurso. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao cadastrar o veiculo. Verifique se os dados foram inseridos corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -58,6 +63,10 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
 			System.out.println("Erro ao remover registro do recurso. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao remover o veiculo. Verifique se o codigo foi inserido corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -83,6 +92,8 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos recursos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de veiculos. Erro: " + e.getMessage());
 		}
 	}
 

@@ -3,6 +3,7 @@ package instanciabiblioteca;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,6 +84,10 @@ public class UIGerenciamentoClientesBiblioteca implements UIGerenciamentoCliente
 			System.out.println("Aluno invalido inserido. Erro: " + e.getMessage());
 		} catch (ParseException e) {
 			System.out.println("Erro ao cadastrar data de admissao. Verifique o formato inserido.");
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao cadastrar o cliente. Verifique se os dados foram inseridos corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -113,6 +118,10 @@ public class UIGerenciamentoClientesBiblioteca implements UIGerenciamentoCliente
 	
 		} catch (DataException e) {
 			System.out.println("Erro ao remover registro do cliente. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao remover o cliente. Verifique se o codigo foi inserido corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -148,6 +157,8 @@ public class UIGerenciamentoClientesBiblioteca implements UIGerenciamentoCliente
 			
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos clientes. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros. Erro: " + e.getMessage());
 		}
 	}
 

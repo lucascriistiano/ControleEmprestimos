@@ -54,7 +54,7 @@ public class Aluno extends Cliente{
 
 	@Override
 	public boolean validar() {
-		// TODO Auto-generated method stub
+		// TODO Implementar validação do aluno
 		return false;
 	}
 

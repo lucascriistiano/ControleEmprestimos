@@ -124,7 +124,7 @@ public class GerenciadorEmprestimos {
 	}
 	
 	public boolean verificarStatusCliente(Cliente cliente) {
-		//TODO implementar verificacao
+		//TODO Implementar verificacao de status do cliente
 		return false;
 	}
 	

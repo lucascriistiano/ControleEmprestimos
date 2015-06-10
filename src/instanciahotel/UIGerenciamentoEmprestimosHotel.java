@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -69,7 +70,7 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 				
 				System.out.print("Deseja inserir outro item (S/N)? ");
 				continuar = in.nextLine();
-			} while(continuar.equals("S"));
+			} while(continuar.equalsIgnoreCase("S"));
 			
 			System.out.print("Data de Devolucao Prevista (dd/mm/aaaa): ");
 			String strDataDevolucao = in.nextLine();
@@ -91,6 +92,10 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			System.out.println("Emprestimo invalido. Erro: " + e.getMessage());
 		} catch (RecursoInvalidoException e) {
 			System.out.println("Recurso invalido selecionado. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao realizar o emprestimo. Verifique se dados foram inseridos corretamente. Erro: " + e.getMessage());
 		}
 	}
 
@@ -132,6 +137,10 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			comprovanteDevolucao.imprimir();
 		} catch (DataException e) {
 			System.out.println("Erro ao armazenar dados da devolucao. Erro: " + e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println("Verifique se o valor inserido para o campo e valido.");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao realizar a devolucao. Verifique se dados foram inseridos corretamente.");
 		}
 	}
 
@@ -170,6 +179,8 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			}
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.getMessage());
 		}
 	}
 
@@ -188,7 +199,9 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			
 		} catch (DataException e) {
 			System.out.println("Erro ao acessar registros dos emprestimos. Erro: " + e.getMessage());
-		};
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao verificar os prazos. Erro: " + e.getMessage());
+		}
 	}
 
 }
