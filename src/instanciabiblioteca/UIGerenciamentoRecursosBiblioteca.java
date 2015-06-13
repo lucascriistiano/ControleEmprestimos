@@ -24,6 +24,8 @@ public class UIGerenciamentoRecursosBiblioteca implements UIGerenciamentoRecurso
 			in.nextLine();
 			System.out.print("Descricao: ");
 			String descricao = in.nextLine();
+			System.out.print("Categoria: ");
+			int categoria = in.nextInt();
 			System.out.print("Autor: ");
 			String autor = in.nextLine();
 			System.out.print("Editora: ");
@@ -35,7 +37,7 @@ public class UIGerenciamentoRecursosBiblioteca implements UIGerenciamentoRecurso
 			System.out.print("Titulo: ");
 			String titulo = in.nextLine();
 			
-			Recurso recurso = new Livro(codigo, descricao, autor, editora, edicao, quantidade, titulo);
+			Recurso recurso = new Livro(codigo, descricao, categoria, autor, editora, edicao, quantidade, titulo);
 			
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
@@ -56,7 +58,7 @@ public class UIGerenciamentoRecursosBiblioteca implements UIGerenciamentoRecurso
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Livro(codigo,"");
+			Recurso recurso = new Livro(codigo,"", 0);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
@@ -80,6 +82,7 @@ public class UIGerenciamentoRecursosBiblioteca implements UIGerenciamentoRecurso
 				
 				System.out.print("Codigo: " + livro.getCodigo());
 				System.out.print(" - Descricao: " + livro.getDescricao());
+				System.out.print(" - Categoria: " + livro.getCategoria());
 				System.out.print(" - Autor: " + livro.getAutor());
 				System.out.print(" - Editora: " + livro.getEditora());
 				System.out.print(" - Edicao: " + livro.getEdicao());

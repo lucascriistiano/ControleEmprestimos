@@ -61,6 +61,7 @@ public class UIGerenciamentoEmprestimosLocadoraVeiculos implements UIGerenciamen
 					
 					System.out.print("Veiculo Adicionado => ");
 					System.out.print("Descricao: " + recurso.getDescricao());
+					System.out.print("Categoria: " + recurso.getCategoria());
 					System.out.print(" - Placa: " + recurso.getPlaca());
 					System.out.print(" - Modelo: " + recurso.getModelo());
 					System.out.print(" - Fabricante: " + recurso.getFabricante());
@@ -164,6 +165,7 @@ public class UIGerenciamentoEmprestimosLocadoraVeiculos implements UIGerenciamen
 						
 						System.out.print("\tCodigo: " + carro.getCodigo());
 						System.out.print(" - Descricao: " + carro.getDescricao());
+						System.out.print(" - Categoria: " + carro.getCategoria());
 						System.out.print(" - Placa: " + carro.getPlaca());
 						System.out.print(" - Modelo: " + carro.getModelo());
 						System.out.print(" - Fabricante: " + carro.getFabricante());

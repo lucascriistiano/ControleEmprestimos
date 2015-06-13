@@ -6,6 +6,8 @@ import java.util.List;
 
 import dao.DaoEmprestimo;
 import dao.DaoEmprestimoMemoria;
+import dao.DaoHistorico;
+import dao.DaoHistoricoMemoria;
 import dominio.Cliente;
 import dominio.ComprovanteDevolucao;
 import dominio.ComprovanteDevolucaoBuilder;
@@ -24,12 +26,14 @@ import excecao.RecursoInvalidoException;
 
 public class GerenciadorEmprestimos {
 	private DaoEmprestimo daoEmprestimo;
+	private DaoHistorico daoHistorico;
 	
 	private RegraEmprestimo regraEmprestimo;
 	private GeradorComprovante geradorComprovante;
 	private VerificadorPrazos verificadorPrazos;
 	
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
+		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
 		this.regraEmprestimo = regraEmprestimo;
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
@@ -104,6 +108,7 @@ public class GerenciadorEmprestimos {
 			recurso.desalocar();
 		}
 		
+		daoHistorico.add(emprestimo); // Antes de remover da memória adiciona no histórico
 		daoEmprestimo.remove(emprestimo);
 
 		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);

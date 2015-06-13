@@ -24,6 +24,8 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			in.nextLine();
 			System.out.print("Descricao: ");
 			String descricao = in.nextLine();
+			System.out.print("Categoria: ");
+			int categoria = in.nextInt();
 			System.out.print("Placa: ");
 			String placa = in.nextLine();
 			System.out.print("Modelo: ");
@@ -37,7 +39,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			System.out.print("Preco de aluguel: ");
 			double preco = in.nextDouble();
 			
-			Recurso recurso = new Carro(codigo, descricao, placa, modelo, fabricante, cor, quilometragemInicial, preco);
+			Recurso recurso = new Carro(codigo, descricao, categoria, placa, modelo, fabricante, cor, quilometragemInicial, preco);
 			
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
@@ -58,7 +60,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Carro(codigo,"");
+			Recurso recurso = new Carro(codigo,"",0);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
@@ -82,6 +84,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 				
 				System.out.print("Codigo: " + carro.getCodigo());
 				System.out.print(" - Descricao: " + carro.getDescricao());
+				System.out.print(" - Categoria: " + carro.getCategoria());
 				System.out.print(" - Placa: " + carro.getPlaca());
 				System.out.print(" - Modelo: " + carro.getModelo());
 				System.out.print(" - Fabricante: " + carro.getFabricante());

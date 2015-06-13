@@ -11,14 +11,14 @@ public class Livro extends Recurso{
 	private Integer quantidade;
 	private String titulo;
 	
-	public Livro(Long codigo, String descricao) {
-		super(codigo, descricao);
+	public Livro(Long codigo, String descricao, int categoria) {
+		super(codigo, descricao, categoria);
 	}
 	
-	public Livro(Long codigo, String descricao, 
+	public Livro(Long codigo, String descricao, int categoria,
 			String autor, String editora, int edicao, 
 			int quantidade, String titulo) {
-		super(codigo, descricao);
+		super(codigo, descricao, categoria);
 		this.autor = autor;
 		this.editora = editora;
 		this.edicao = edicao;

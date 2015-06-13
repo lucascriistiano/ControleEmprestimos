@@ -61,6 +61,7 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 					
 					System.out.print("Quarto Adicionado => ");
 					System.out.print("Descricao: " + recurso.getDescricao());
+					System.out.print("Categoria: " + recurso.getCategoria());
 					System.out.print(" - Area: " + recurso.getArea());
 					System.out.print(" - Numero: " + recurso.getNumero());
 					System.out.print(" - Quantidade de pessoas: " + recurso.getQuantidadePessoas());
@@ -165,6 +166,7 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 						
 						System.out.print("Quarto Adicionado => ");
 						System.out.print("Descricao: " + quarto.getDescricao());
+						System.out.print("Categoria: " + quarto.getCategoria());
 						System.out.print(" - Area: " + quarto.getArea());
 						System.out.print(" - Numero: " + quarto.getNumero());
 						System.out.print(" - Quantidade de pessoas: " + quarto.getQuantidadePessoas());

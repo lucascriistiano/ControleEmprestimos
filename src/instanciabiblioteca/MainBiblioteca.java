@@ -95,9 +95,9 @@ public class MainBiblioteca {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso livro1 = new Livro(Long.valueOf(1), "Livro muito bom", "Cormem", "Editora Desconheciada", 3, 50, "Algoritmos: Teoria e Pratica");
-		Recurso livro2 = new Livro(Long.valueOf(2), "Livro bom", "Machado de Assis", "Editora Mais Desconheciada2", 1, 10, "Dom Casmurro");
-		Recurso livro3 = new Livro(Long.valueOf(3), "Livro legal", "Jose de Alencar", "Editora Legal", 1, 5, "Iracema");
+		Recurso livro1 = new Livro(Long.valueOf(1), "Livro muito bom", 1, "Cormem", "Editora Desconheciada", 3, 50, "Algoritmos: Teoria e Pratica");
+		Recurso livro2 = new Livro(Long.valueOf(2), "Livro bom", 2,"Machado de Assis", "Editora Mais Desconheciada2", 1, 10, "Dom Casmurro");
+		Recurso livro3 = new Livro(Long.valueOf(3), "Livro legal", 2, "Jose de Alencar", "Editora Legal", 1, 5, "Iracema");
 		
 		try {
 			daoRecurso.add(livro1);

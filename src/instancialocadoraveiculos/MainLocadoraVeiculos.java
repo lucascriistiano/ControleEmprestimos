@@ -83,9 +83,9 @@ public class MainLocadoraVeiculos {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel","ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel","DEF-4567","Gol","Volkswagem","Branco",1000,50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno","HIJ-8901","Ka","Ford","Rosa",500,30);
+		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel", 1,"ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
+		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel", 2, "DEF-4567","Gol","Volkswagem","Branco",1000,50);
+		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno", 2, "HIJ-8901","Ka","Ford","Rosa",500,30);
 		
 		try {
 			daoRecurso.add(carro1);

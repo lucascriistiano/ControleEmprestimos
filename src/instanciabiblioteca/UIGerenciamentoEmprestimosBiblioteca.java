@@ -60,6 +60,7 @@ public class UIGerenciamentoEmprestimosBiblioteca implements UIGerenciamentoEmpr
 					
 					System.out.print("Livro Adicionado => ");
 					System.out.print("Descricao: " + recurso.getDescricao());
+					System.out.print("Categoria: " + recurso.getCategoria());
 					System.out.print(" - Autor: " + recurso.getAutor());
 					System.out.print(" - Editora: " + recurso.getEditora());
 					System.out.print(" - Edicao: " + recurso.getEdicao());
@@ -154,6 +155,7 @@ public class UIGerenciamentoEmprestimosBiblioteca implements UIGerenciamentoEmpr
 						
 						System.out.print("\tCodigo: " + livro.getCodigo());
 						System.out.print(" - Descricao: " + livro.getDescricao());
+						System.out.print(" - Categoria: " + livro.getCategoria());
 						System.out.print(" - Autor: " + livro.getAutor());
 						System.out.print(" - Editora: " + livro.getEditora());
 						System.out.print(" - Edicao: " + livro.getEdicao());
