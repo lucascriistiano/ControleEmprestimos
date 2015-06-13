@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 
 
+
 import visao.UIGerenciamentoClientes;
 import visao.UIGerenciamentoEmprestimos;
 import visao.UIGerenciamentoRecursos;
@@ -168,6 +169,7 @@ public class MainHotel {
 			System.out.println("2 - Realizar Devolucao");
 			System.out.println("3 - Listar Emprestimos");
 			System.out.println("4 - Verificar Prazos");
+			System.out.println("5 - Sugerir Emprestimos");
 			
 			System.out.println("0 - Voltar");
 			
@@ -188,6 +190,9 @@ public class MainHotel {
 				break;
 			case 4:
 				uiEmprestimos.verificarPrazos();
+				break;
+			case 5:
+				uiEmprestimos.sugerirEmprestimos();
 				break;
 			default:
 				return;

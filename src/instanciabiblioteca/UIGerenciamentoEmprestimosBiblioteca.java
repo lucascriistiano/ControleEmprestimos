@@ -196,4 +196,10 @@ public class UIGerenciamentoEmprestimosBiblioteca implements UIGerenciamentoEmpr
 		}
 	}
 
+	@Override
+	public void sugerirEmprestimos() {
+		// Adicionar aqui as sugestões
+		
+	}
+
 }

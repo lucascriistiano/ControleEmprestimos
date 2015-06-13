@@ -206,4 +206,10 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 		}
 	}
 
+	@Override
+	public void sugerirEmprestimos() {
+		// Adicionar aqui as sugestões
+		
+	}
+
 }

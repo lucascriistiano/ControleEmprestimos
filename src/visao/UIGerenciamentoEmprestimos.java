@@ -5,4 +5,5 @@ public interface UIGerenciamentoEmprestimos {
 	public void realizarDevolucao();
 	public void listarEmprestimos();
 	public void verificarPrazos();
+	public void sugerirEmprestimos();
 }

@@ -206,4 +206,10 @@ public class UIGerenciamentoEmprestimosLocadoraVeiculos implements UIGerenciamen
 		}
 	}
 
+	@Override
+	public void sugerirEmprestimos() {
+		// Adicionar aqui as sugestões
+		
+	}
+
 }
