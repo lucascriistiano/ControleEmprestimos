@@ -59,6 +59,21 @@ public class DaoHistoricoMemoria implements DaoHistorico {
 	}
 
 	@Override
+	public List<Emprestimo> getHistoricoCliente(Long codigo) throws DataException {
+		List<Emprestimo> resultList = new ArrayList<Emprestimo>();
+		
+		Iterator<Emprestimo> it = emprestimos.iterator();
+		while(it.hasNext()) {
+			Emprestimo emprestimo = it.next();
+			if(emprestimo.getCliente().getCodigo().equals(codigo)) {
+				resultList.add(emprestimo);
+			}
+		}
+		
+		return resultList;
+	}
+	
+	@Override
 	public List<Emprestimo> list() throws DataException {
 		List<Emprestimo> resultList = new ArrayList<Emprestimo>();
 		

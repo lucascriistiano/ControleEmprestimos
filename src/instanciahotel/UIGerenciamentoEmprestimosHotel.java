@@ -112,23 +112,6 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			
 			Emprestimo emprestimo = gerenciadorEmprestimos.getEmprestimo(codigo);
 		
-			
-			/*
-			for(Recurso recurso : emprestimo.getRecursos()) {
-				int quilometragemInicial = ((Carro) recurso).getQuilometragemInicial();
-				int quilometragemAtual;
-				
-				do {
-					System.out.print("Quilometragem atual do veiculo de placa " + ((Carro) recurso).getPlaca() + ": ");
-					quilometragemAtual = in.nextInt();
-					
-					if(quilometragemAtual < quilometragemInicial)
-						System.out.print("A quilometragem atual do veiculo nao pode ser menor do que no momento do emprestimo.");
-				} while(quilometragemAtual < quilometragemInicial);
-				
-				((Carro) recurso).setQuilometragemFinal(quilometragemAtual);
-			}*/
-			
 			System.out.print("Taxa extra: R$ ");
 			double taxaExtra = in.nextDouble();
 			
@@ -208,8 +191,40 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 
 	@Override
 	public void sugerirEmprestimos() {
-		// Adicionar aqui as sugestões
-		
+		try {
+			System.out.println("---------- Sugestao de Quartos ----------");
+			
+			System.out.print("Codigo do Cliente: ");
+			Long codigoCliente = in.nextLong();
+			in.nextLine();
+			
+			List<Recurso> recursosSugeridos = gerenciadorEmprestimos.buscarSugestoes(codigoCliente);
+			
+			System.out.println("Sugestoes de quartos:");
+			
+			if(recursosSugeridos.size() > 0) {	
+				for(Recurso recurso : recursosSugeridos) {
+					Quarto quarto = (Quarto) recurso;
+					
+					System.out.print("Codigo: "+ quarto.getCodigo());
+					System.out.print(" - Descricao: " + quarto.getDescricao());
+					System.out.print(" - Categoria: " + quarto.getCategoria());
+					System.out.print(" - Area: " + quarto.getArea());
+					System.out.print(" - Numero: " + quarto.getNumero());
+					System.out.print(" - Quantidade de pessoas: " + quarto.getQuantidadePessoas());
+					System.out.print(" - Preco (de aluguel): " + quarto.getPreco());
+					System.out.println();
+				}
+				System.out.println();
+			}
+			else {
+				System.out.println("Nao existem registros de emprestimos anteriores do cliente inserido para analise.");
+			}
+		} catch (DataException e) {
+			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.getMessage());
+		}
 	}
 
 }

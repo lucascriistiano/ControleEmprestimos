@@ -73,6 +73,22 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 
 	@Override
+	public List<Recurso> getPorCategoria(int categoria) throws DataException {
+		List<Recurso> resultList = new ArrayList<Recurso>();
+		
+		Iterator<Recurso> it = recursos.iterator();
+		while(it.hasNext()) {
+			Recurso recurso = it.next();
+			
+			if(recurso.getCategoria() == categoria) {
+				resultList.add(recurso);
+			}
+		}
+		
+		return resultList;
+	}
+	
+	@Override
 	public List<Recurso> list() throws DataException {
 		List<Recurso> resultList = new ArrayList<Recurso>();
 		

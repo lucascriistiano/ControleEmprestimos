@@ -104,22 +104,6 @@ public class UIGerenciamentoEmprestimosBiblioteca implements UIGerenciamentoEmpr
 			in.nextLine();
 			
 			Emprestimo emprestimo = gerenciadorEmprestimos.getEmprestimo(codigo);
-		
-			/*
-			for(Recurso recurso : emprestimo.getRecursos()) {
-				int quilometragemInicial = ((Carro) recurso).getQuilometragemInicial();
-				int quilometragemAtual;
-				
-				do {
-					System.out.print("Quilometragem atual do veiculo de placa " + ((Carro) recurso).getPlaca() + ": ");
-					quilometragemAtual = in.nextInt();
-					
-					if(quilometragemAtual < quilometragemInicial)
-						System.out.print("A quilometragem atual do veiculo nao pode ser menor do que no momento do emprestimo.");
-				} while(quilometragemAtual < quilometragemInicial);
-				
-				((Carro) recurso).setQuilometragemFinal(quilometragemAtual);
-			}*/
 			
 			ComprovanteDevolucao comprovanteDevolucao = gerenciadorEmprestimos.realizarDevolucao(emprestimo, 0);
 			System.out.println("Emprestimo finalizado!");
@@ -198,8 +182,41 @@ public class UIGerenciamentoEmprestimosBiblioteca implements UIGerenciamentoEmpr
 
 	@Override
 	public void sugerirEmprestimos() {
-		// Adicionar aqui as sugestões
-		
+		try {
+			System.out.println("---------- Sugestao de Livros ----------");
+			
+			System.out.print("Codigo do Cliente: ");
+			Long codigoCliente = in.nextLong();
+			in.nextLine();
+			
+			List<Recurso> recursosSugeridos = gerenciadorEmprestimos.buscarSugestoes(codigoCliente);
+			
+			System.out.println("Sugestoes de livros:");
+			
+			if(recursosSugeridos.size() > 0) {	
+				for(Recurso recurso : recursosSugeridos) {
+					Livro livro = (Livro) recurso;
+					
+					System.out.print("\tCodigo: " + livro.getCodigo());
+					System.out.print(" - Descricao: " + livro.getDescricao());
+					System.out.print(" - Categoria: " + livro.getCategoria());
+					System.out.print(" - Autor: " + livro.getAutor());
+					System.out.print(" - Editora: " + livro.getEditora());
+					System.out.print(" - Edicao: " + livro.getEdicao());
+					System.out.print(" - Quantidade: " + livro.getQuantidade());
+					System.out.print(" - Titulo: " + livro.getTitulo());
+					System.out.println();
+				}
+				System.out.println();
+			}
+			else {
+				System.out.println("Nao existem registros de emprestimos anteriores do cliente inserido para analise.");
+			}
+		} catch (DataException e) {
+			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.getMessage());
+		}
 	}
 
 }

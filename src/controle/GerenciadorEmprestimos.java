@@ -2,12 +2,16 @@ package controle;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import dao.DaoEmprestimo;
 import dao.DaoEmprestimoMemoria;
 import dao.DaoHistorico;
 import dao.DaoHistoricoMemoria;
+import dao.DaoRecurso;
+import dao.DaoRecursoMemoria;
 import dominio.Cliente;
 import dominio.ComprovanteDevolucao;
 import dominio.ComprovanteDevolucaoBuilder;
@@ -27,14 +31,17 @@ import excecao.RecursoInvalidoException;
 public class GerenciadorEmprestimos {
 	private DaoEmprestimo daoEmprestimo;
 	private DaoHistorico daoHistorico;
+	private DaoRecurso daoRecurso;
 	
 	private RegraEmprestimo regraEmprestimo;
 	private GeradorComprovante geradorComprovante;
 	private VerificadorPrazos verificadorPrazos;
 	
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
-		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
+		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
+		this.daoRecurso = DaoRecursoMemoria.getInstance();
+		
 		this.regraEmprestimo = regraEmprestimo;
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
 		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
@@ -108,7 +115,7 @@ public class GerenciadorEmprestimos {
 			recurso.desalocar();
 		}
 		
-		daoHistorico.add(emprestimo); // Antes de remover da memória adiciona no histórico
+		daoHistorico.add(emprestimo); // Antes de remover da memoria adiciona no historico
 		daoEmprestimo.remove(emprestimo);
 
 		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);
@@ -131,6 +138,38 @@ public class GerenciadorEmprestimos {
 	public boolean verificarStatusCliente(Cliente cliente) {
 		//TODO Implementar verificacao de status do cliente
 		return false;
+	}
+	
+	public List<Recurso> buscarSugestoes(Long codigoCliente) throws DataException {
+		List<Emprestimo> historicoEmprestimos = daoHistorico.getHistoricoCliente(codigoCliente);
+		HashMap<Integer, Integer> contagemEmprestimos = new HashMap<Integer, Integer>();
+		
+		for(Emprestimo emprestimo : historicoEmprestimos) {
+			for(Recurso recurso : emprestimo.getRecursos()) {
+				Integer categoria = recurso.getCategoria();
+				
+				if(contagemEmprestimos.containsKey(categoria)) {
+					contagemEmprestimos.put(categoria, contagemEmprestimos.get(categoria) + 1);
+				}
+				else {
+					contagemEmprestimos.put(categoria, 1);
+				}
+			}
+		}
+
+		Entry<Integer, Integer> maxCategoria = null;
+		for(Entry<Integer, Integer> categoria : contagemEmprestimos.entrySet()) {
+			if(maxCategoria == null || categoria.getValue().compareTo(maxCategoria.getValue()) > 0) {
+				maxCategoria = categoria;
+			}
+		}
+		
+		int categoria = -1;
+		if(maxCategoria != null)
+			categoria = maxCategoria.getValue();
+		
+		List<Recurso> recursosSugeridos = daoRecurso.getPorCategoria(categoria);
+		return recursosSugeridos;
 	}
 	
 }

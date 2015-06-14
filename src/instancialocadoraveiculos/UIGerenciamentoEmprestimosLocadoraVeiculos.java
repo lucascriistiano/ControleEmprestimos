@@ -208,8 +208,41 @@ public class UIGerenciamentoEmprestimosLocadoraVeiculos implements UIGerenciamen
 
 	@Override
 	public void sugerirEmprestimos() {
-		// Adicionar aqui as sugestões
-		
+		try {
+			System.out.println("---------- Sugestao de Veiculos ----------");
+			
+			System.out.print("Codigo do Cliente: ");
+			Long codigoCliente = in.nextLong();
+			in.nextLine();
+			
+			List<Recurso> recursosSugeridos = gerenciadorEmprestimos.buscarSugestoes(codigoCliente);
+			
+			System.out.println("Sugestoes de veiculos:");
+			
+			if(recursosSugeridos.size() > 0) {	
+				for(Recurso recurso : recursosSugeridos) {
+					Carro carro = (Carro) recurso;
+					
+					System.out.print("\tCodigo: " + carro.getCodigo());
+					System.out.print(" - Descricao: " + carro.getDescricao());
+					System.out.print(" - Categoria: " + carro.getCategoria());
+					System.out.print(" - Placa: " + carro.getPlaca());
+					System.out.print(" - Modelo: " + carro.getModelo());
+					System.out.print(" - Fabricante: " + carro.getFabricante());
+					System.out.print(" - Cor: " + carro.getCor());
+					System.out.print(" - Preco de aluguel: " + carro.getPreco());
+					System.out.println();
+				}
+				System.out.println();
+			}
+			else {
+				System.out.println("Nao existem registros de alugueis anteriores do cliente inserido para analise.");
+			}
+		} catch (DataException e) {
+			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.getMessage());
+		}
 	}
 
 }
