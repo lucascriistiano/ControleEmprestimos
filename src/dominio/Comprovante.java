@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Comprovante {
+	
 	private /*@ spec_public @*/ String empresa;
 	private /*@ spec_public @*/ String locador;
 	private /*@ spec_public @*/ Long codigo;

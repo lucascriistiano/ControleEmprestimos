@@ -9,11 +9,11 @@ import dominio.Recurso;
 
 public class ComprovanteDevolucaoBuilderHotel implements ComprovanteDevolucaoBuilder {
 
-	private String locador;
-	private Long codigo;
-	private Date dataEmprestimo;
-	private Date dataDevolucao;
-    private List<Recurso> recursos;
+	private /*@ nullable @*/ String locador;
+	private /*@ nullable @*/ Long codigo;
+	private /*@ nullable @*/ Date dataEmprestimo;
+	private /*@ nullable @*/ Date dataDevolucao;
+    private /*@ nullable @*/ List<Recurso> recursos;
     private double valor;
 
 	@Override

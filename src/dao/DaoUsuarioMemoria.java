@@ -11,7 +11,7 @@ import excecao.DataException;
 
 public class DaoUsuarioMemoria implements DaoUsuario {
 
-	static DaoUsuario daoUsuario = null;
+	static /*@ nullable @*/ DaoUsuario daoUsuario = null;
 	private Set<Usuario> usuarios;
 	
 	public static DaoUsuario getInstance() {

@@ -11,7 +11,7 @@ import excecao.DataException;
 
 public class DaoRecursoMemoria implements DaoRecurso {
 
-	static DaoRecurso daoRecurso = null;
+	static /*@ nullable @*/ DaoRecurso daoRecurso = null;
 	private Set<Recurso> recursos;
 	
 	public static DaoRecurso getInstance() {

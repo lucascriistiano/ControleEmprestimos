@@ -1,19 +1,17 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import dominio.Cliente;
 import excecao.DataException;
 
 public class DaoClienteMemoria implements DaoCliente {
 
-	static DaoCliente daoCliente = null;
-	private Set<Cliente> clientes; //@ in clientes;
-	//@ private represents clientes <- clientes;
+	static /*@ nullable @*/ DaoCliente daoCliente = null;
+	private List<Cliente> clientes; //@ in listaClientes;
+	//@ private represents listaClientes <- clientes;
 	
 	public static DaoCliente getInstance() {
 		if(daoCliente == null)
@@ -23,7 +21,7 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 	
 	private DaoClienteMemoria() {
-		clientes = new HashSet<Cliente>();
+		clientes = new ArrayList<Cliente>();
 	}
 	
 	@Override

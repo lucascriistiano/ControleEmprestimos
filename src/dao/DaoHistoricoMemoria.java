@@ -11,7 +11,7 @@ import excecao.DataException;
 
 public class DaoHistoricoMemoria implements DaoHistorico {
 
-	static DaoHistorico daoHistorico = null;
+	static /*@ nullable @*/ DaoHistorico daoHistorico = null;
 	private Set<Emprestimo> emprestimos;
 	
 	public static DaoHistorico getInstance() {
