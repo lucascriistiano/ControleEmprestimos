@@ -14,7 +14,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String /*@ pure @*/ getNome() {
+	public /*@ pure @*/ String getNome() {
 		return nome;
 	}
 
@@ -22,7 +22,7 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String /*@ pure @*/ getLogin() {
+	public /*@ pure @*/ String getLogin() {
 		return login;
 	}
 
@@ -30,7 +30,7 @@ public class Usuario {
 		this.login = login;
 	}
 
-	public String /*@ pure @*/ getSenha() {
+	public /*@ pure @*/ String getSenha() {
 		return senha;
 	}
 

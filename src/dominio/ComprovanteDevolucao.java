@@ -12,7 +12,7 @@ public abstract class ComprovanteDevolucao extends Comprovante {
 		this.valor = valor;
 	}
 	
-	public double /*@ pure @*/ getValor() {
+	public /*@ pure @*/ double getValor() {
 		return valor;
 	}
 }

@@ -12,7 +12,8 @@ import excecao.DataException;
 public class DaoClienteMemoria implements DaoCliente {
 
 	static DaoCliente daoCliente = null;
-	private Set<Cliente> clientes;
+	private Set<Cliente> clientes; //@ in clientes;
+	//@ private represents clientes <- clientes;
 	
 	public static DaoCliente getInstance() {
 		if(daoCliente == null)

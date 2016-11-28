@@ -32,11 +32,11 @@ public class Emprestimo {
 		this.recursos = new ArrayList<Recurso>(recursos);
 	}
 	
-	public Long /*@ pure @*/ getCodigo() {
+	public /*@ pure @*/ Long getCodigo() {
 		return codigo;
 	}
 	
-	public Date /*@ pure @*/ getDataEmprestimo() {
+	public /*@ pure @*/ Date getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 
@@ -44,7 +44,7 @@ public class Emprestimo {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 	
-	public Date /*@ pure @*/ getDataDevolucao() {
+	public /*@ pure @*/ Date getDataDevolucao() {
 		return dataDevolucao;
 	}
 
@@ -52,7 +52,7 @@ public class Emprestimo {
 		this.dataDevolucao = dataDevolucao;
 	}
 
-	public Usuario /*@ pure @*/ getUsuario() {
+	public /*@ pure @*/ Usuario getUsuario() {
 		return usuario;
 	}
 
@@ -60,7 +60,7 @@ public class Emprestimo {
 		this.usuario = usuario;
 	}
 
-	public Cliente /*@ pure @*/ getCliente() {
+	public /*@ pure @*/ Cliente getCliente() {
 		return cliente;
 	}
 
@@ -76,7 +76,7 @@ public class Emprestimo {
 		this.recursos.remove(recurso);
 	}
 	
-	public List<Recurso> /*@ pure @*/ getRecursos() {
+	public /*@ pure @*/ List<Recurso> getRecursos() {
 		return recursos;
 	}
 }

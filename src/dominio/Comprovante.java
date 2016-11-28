@@ -20,29 +20,29 @@ public abstract class Comprovante {
 		this.recursos = recursos;
 	}
 	
-	public String /*@ pure @*/ getEmpresa() {
+	public /*@ pure @*/ String getEmpresa() {
 		return empresa;
 	}
 	
-    public String /*@ pure @*/ getLocador() {
+    public /*@ pure @*/ String getLocador() {
 		return locador;
 	}
     
-    public Long /*@ pure @*/ getCodigo() {
+    public /*@ pure @*/ Long getCodigo() {
 		return codigo;
 	}
     
-    public Date /*@ pure @*/ getDataEmprestimo() {
+    public /*@ pure @*/ Date getDataEmprestimo() {
 		return dataEmprestimo;
 	}
     
-    public Date /*@ pure @*/ getDataDevolucao() {
+    public /*@ pure @*/ Date getDataDevolucao() {
 		return dataDevolucao;
 	}
     
-    public List<Recurso> /*@ pure @*/ getRecursos() {
+    public /*@ pure @*/ List<Recurso> getRecursos() {
 		return recursos;
 	}
     
-    public abstract void imprimir();
+    public /*@ pure @*/ abstract void imprimir();
 }

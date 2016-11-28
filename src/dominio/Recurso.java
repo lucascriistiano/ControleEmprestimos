@@ -23,7 +23,7 @@ public abstract class Recurso {
 		this.disponivel =  disponivel;
 	}
 	
-	public int /*@ pure @*/ getCategoria() {
+	public /*@ pure @*/ int getCategoria() {
 		return categoria;
 	}
 
@@ -31,7 +31,7 @@ public abstract class Recurso {
 		this.categoria = categoria;
 	}
 
-	public Long /*@ pure @*/ getCodigo() {
+	public /*@ pure @*/ Long getCodigo() {
 		return codigo;
 	}
 
@@ -39,7 +39,7 @@ public abstract class Recurso {
 		this.codigo = codigo;
 	}
 
-	public String /*@ pure @*/ getDescricao() {
+	public /*@ pure @*/ String getDescricao() {
 		return descricao;
 	}
 
@@ -47,7 +47,7 @@ public abstract class Recurso {
 		this.descricao = descricao;
 	}
 
-	public boolean isDisponivel() {
+	public /*@ pure @*/ boolean isDisponivel() {
 		return disponivel;
 	}
 

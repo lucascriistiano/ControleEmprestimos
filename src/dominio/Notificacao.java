@@ -8,7 +8,7 @@ public abstract class Notificacao {
 		this.setMensagem(mensagem);
 	}
 	
-	public String /*@ pure @*/ getMensagem() {
+	public /*@ pure @*/ String getMensagem() {
 		return mensagem;
 	}
 
