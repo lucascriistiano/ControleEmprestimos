@@ -2,9 +2,9 @@ package dominio;
 
 public class Usuario {
 	
-	private String nome;
-	private String login;
-	private String senha;
+	private /*@ spec_public @*/ String nome;
+	private /*@ spec_public @*/ String login;
+	private /*@ spec_public @*/ String senha;
 	
 	public Usuario() { }
 	
@@ -14,7 +14,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getNome() {
+	public String /*@ pure @*/ getNome() {
 		return nome;
 	}
 
@@ -22,7 +22,7 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getLogin() {
+	public String /*@ pure @*/ getLogin() {
 		return login;
 	}
 
@@ -30,7 +30,7 @@ public class Usuario {
 		this.login = login;
 	}
 
-	public String getSenha() {
+	public String /*@ pure @*/ getSenha() {
 		return senha;
 	}
 

@@ -4,10 +4,10 @@ import excecao.RecursoInvalidoException;
 
 public abstract class Recurso {
 	
-	private Long codigo;
-	private String descricao;
-	private int categoria;
-	private boolean disponivel;
+	private /*@ spec_public @*/ Long codigo;
+	private /*@ spec_public @*/ String descricao;
+	private /*@ spec_public @*/ int categoria;
+	private /*@ spec_public @*/ boolean disponivel;
 	
 	protected Recurso(Long codigo, String descricao, int categoria) {
 		this.codigo = codigo;
@@ -23,7 +23,7 @@ public abstract class Recurso {
 		this.disponivel =  disponivel;
 	}
 	
-	public int getCategoria() {
+	public int /*@ pure @*/ getCategoria() {
 		return categoria;
 	}
 
@@ -31,7 +31,7 @@ public abstract class Recurso {
 		this.categoria = categoria;
 	}
 
-	public Long getCodigo() {
+	public Long /*@ pure @*/ getCodigo() {
 		return codigo;
 	}
 
@@ -39,7 +39,7 @@ public abstract class Recurso {
 		this.codigo = codigo;
 	}
 
-	public String getDescricao() {
+	public String /*@ pure @*/ getDescricao() {
 		return descricao;
 	}
 

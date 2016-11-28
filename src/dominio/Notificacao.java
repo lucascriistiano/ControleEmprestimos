@@ -1,13 +1,14 @@
 package dominio;
 
 public abstract class Notificacao {
-	private String mensagem;
+
+	private /*@ spec_public @*/ String mensagem;
 	
 	public Notificacao(String mensagem) {
 		this.setMensagem(mensagem);
 	}
 	
-	public String getMensagem() {
+	public String /*@ pure @*/ getMensagem() {
 		return mensagem;
 	}
 

@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Emprestimo {
-	private Long codigo; 			//ID do emprestimo
-	private Date dataEmprestimo;	//Data de realizacao do emprestimo
-	private Date dataDevolucao;		//Data de realizacao do emprestimo
-	private Usuario usuario;		//Usuario que efetivou o emprestimo 
-	private Cliente cliente;		//Cliente que realizou o emprestimo
-	private List<Recurso> recursos;//Lista de recursos emprestados
+	private /*@ spec_public @*/ Long codigo; 			//ID do emprestimo
+	private /*@ spec_public @*/ Date dataEmprestimo;	//Data de realizacao do emprestimo
+	private /*@ spec_public @*/ Date dataDevolucao;		//Data de realizacao do emprestimo
+	private /*@ spec_public @*/ Usuario usuario;		//Usuario que efetivou o emprestimo 
+	private /*@ spec_public @*/ Cliente cliente;		//Cliente que realizou o emprestimo
+	private /*@ spec_public @*/ List<Recurso> recursos;//Lista de recursos emprestados
 	
-	private static Long CODIGO_ATUAL = (long) 1;
+	private /*@ spec_public @*/ static Long CODIGO_ATUAL = (long) 1;
 	
 	public Emprestimo() {
 		this.codigo = CODIGO_ATUAL;
@@ -32,11 +32,11 @@ public class Emprestimo {
 		this.recursos = new ArrayList<Recurso>(recursos);
 	}
 	
-	public Long getCodigo() {
+	public Long /*@ pure @*/ getCodigo() {
 		return codigo;
 	}
 	
-	public Date getDataEmprestimo() {
+	public Date /*@ pure @*/ getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 
@@ -44,7 +44,7 @@ public class Emprestimo {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 	
-	public Date getDataDevolucao() {
+	public Date /*@ pure @*/ getDataDevolucao() {
 		return dataDevolucao;
 	}
 
@@ -52,7 +52,7 @@ public class Emprestimo {
 		this.dataDevolucao = dataDevolucao;
 	}
 
-	public Usuario getUsuario() {
+	public Usuario /*@ pure @*/ getUsuario() {
 		return usuario;
 	}
 
@@ -60,7 +60,7 @@ public class Emprestimo {
 		this.usuario = usuario;
 	}
 
-	public Cliente getCliente() {
+	public Cliente /*@ pure @*/ getCliente() {
 		return cliente;
 	}
 
@@ -76,7 +76,7 @@ public class Emprestimo {
 		this.recursos.remove(recurso);
 	}
 	
-	public List<Recurso> getRecursos() {
+	public List<Recurso> /*@ pure @*/ getRecursos() {
 		return recursos;
 	}
 }

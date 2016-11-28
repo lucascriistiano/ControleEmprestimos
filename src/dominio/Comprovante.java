@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Comprovante {
-	private String empresa;
-	private String locador;
-	private Long codigo;
-	private Date dataEmprestimo;
-	private Date dataDevolucao;
-	private List<Recurso> recursos;
+	private /*@ spec_public @*/ String empresa;
+	private /*@ spec_public @*/ String locador;
+	private /*@ spec_public @*/ Long codigo;
+	private /*@ spec_public @*/ Date dataEmprestimo;
+	private /*@ spec_public @*/ Date dataDevolucao;
+	private /*@ spec_public @*/ List<Recurso> recursos;
 	
 	public Comprovante(String empresa, String locador, Long codigo, Date dataEmprestimo, Date dataDevolucao, List<Recurso> recursos) {
 		this.empresa = empresa;
@@ -20,27 +20,27 @@ public abstract class Comprovante {
 		this.recursos = recursos;
 	}
 	
-	public String getEmpresa() {
+	public String /*@ pure @*/ getEmpresa() {
 		return empresa;
 	}
 	
-    public String getLocador() {
+    public String /*@ pure @*/ getLocador() {
 		return locador;
 	}
     
-    public Long getCodigo() {
+    public Long /*@ pure @*/ getCodigo() {
 		return codigo;
 	}
     
-    public Date getDataEmprestimo() {
+    public Date /*@ pure @*/ getDataEmprestimo() {
 		return dataEmprestimo;
 	}
     
-    public Date getDataDevolucao() {
+    public Date /*@ pure @*/ getDataDevolucao() {
 		return dataDevolucao;
 	}
     
-    public List<Recurso> getRecursos() {
+    public List<Recurso> /*@ pure @*/ getRecursos() {
 		return recursos;
 	}
     

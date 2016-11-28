@@ -4,15 +4,16 @@ import excecao.ClienteInvalidoException;
 
 public abstract class Cliente {
 	
-	private Long codigo;
-	private String nome;
+	private /*@ spec_public @*/ Long codigo;
+	
+	private /*@ spec_public @*/ String nome;
 	
 	protected Cliente(Long codigo, String nome) {
 		this.codigo = codigo;
 		this.nome = nome;
 	}
 	
-	public Long getCodigo() {
+	public /*@ pure @*/ Long getCodigo() {
 		return codigo;
 	}
 
@@ -20,7 +21,7 @@ public abstract class Cliente {
 		this.codigo = codigo;
 	}
 
-	public String getNome() {
+	public /*@ pure @*/ String getNome() {
 		return nome;
 	}
 
