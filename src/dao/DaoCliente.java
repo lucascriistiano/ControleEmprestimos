@@ -32,9 +32,18 @@ public interface DaoCliente {
 	
 	/*@ ensures this.listaClientes.size() == \old(listaClientes.size() + 1); @*/
 	public void update(Cliente cliente) throws DataException;
-	public Cliente get(Long codigo) throws DataException;
 	
+	/*@
+	 @	public normal_behavior 
+	 @		requires codigo > 0L;
+	 @		requires listaClientes.isEmpty() == false;
+	 @	also
+	 @	public exceptional_behavior
+	 @		signals_only DataException;
+	 @		signals (DataException e)
+	 @			codigo <= 0L || listaClientes.isEmpty();
+	 @*/	
+	public /*@ pure @*/ Cliente get(long codigo) throws DataException;
 	
-	
-	public List<Cliente> list() throws DataException;
+	public /*@ pure @*/ List<Cliente> list() throws DataException;
 }

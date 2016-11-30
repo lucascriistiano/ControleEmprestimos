@@ -59,7 +59,14 @@ public class DaoClienteMemoria implements DaoCliente {
 	}
 
 	@Override
-	public Cliente get(Long codigo) throws DataException {
+	public Cliente get(long codigo) throws DataException {
+		
+		if(codigo <= 0L){
+			throw new DataException("Codigo menor que zero");
+		} else if (clientes.isEmpty()){
+			throw new DataException("Lista clientes vazia");
+		}
+		
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
@@ -74,14 +81,7 @@ public class DaoClienteMemoria implements DaoCliente {
 
 	@Override
 	public List<Cliente> list() throws DataException{
-		List<Cliente> resultList = new ArrayList<Cliente>();
-		
-		Iterator<Cliente> it = clientes.iterator();
-		while(it.hasNext()) {
-			resultList.add(it.next());
-		}
-		
-		return resultList;
+		return new ArrayList<Cliente>(clientes);
 	}
 
 }
