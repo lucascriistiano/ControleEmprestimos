@@ -26,11 +26,21 @@ public interface DaoCliente {
 	 @	public exceptional_behavior
      @		signals_only DataException;
  	 @		signals (DataException e)
- 	 @			listaClientes.contains(cliente) == false;
+ 	 @			listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
 	 @*/
 	public void remove(Cliente cliente) throws DataException;
 	
-	/*@ ensures this.listaClientes.size() == \old(listaClientes.size() + 1); @*/
+	/*@
+	 @	public normal_behavior 
+	 @		requires cliente != null;
+	 @		requires listaClientes.isEmpty() == false;
+	 @		requires listaClientes.contains(cliente);
+	 @	also
+	 @	public exceptional_behavior
+	 @		signals_only DataException;
+	 @		signals (DataException e)
+	 @			listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
+	 @*/	
 	public void update(Cliente cliente) throws DataException;
 	
 	/*@
