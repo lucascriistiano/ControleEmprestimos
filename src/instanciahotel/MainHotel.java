@@ -3,21 +3,6 @@ package instanciahotel;
 import java.util.Calendar;
 import java.util.Scanner;
 
-
-
-
-
-
-
-
-
-
-
-import visao.UIGerenciamentoClientes;
-import visao.UIGerenciamentoEmprestimos;
-import visao.UIGerenciamentoRecursos;
-import visao.UIGerenciamentoUsuarios;
-import visao.UIGerenciamentoUsuariosConsole;
 //************ TEMPORARIO ************
 import dao.DaoCliente;
 import dao.DaoClienteMemoria;
@@ -26,10 +11,14 @@ import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
 //*************************************
-
 import dominio.Recurso;
 import dominio.Usuario;
 import excecao.DataException;
+import visao.UIGerenciamentoClientes;
+import visao.UIGerenciamentoEmprestimos;
+import visao.UIGerenciamentoRecursos;
+import visao.UIGerenciamentoUsuarios;
+import visao.UIGerenciamentoUsuariosConsole;
 
 public class MainHotel {
 	private static Scanner in = new Scanner(System.in);

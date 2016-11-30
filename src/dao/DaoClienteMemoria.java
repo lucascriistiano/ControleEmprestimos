@@ -16,7 +16,7 @@ public class DaoClienteMemoria implements DaoCliente {
 	public static DaoCliente getInstance() {
 		if(daoCliente == null)
 			daoCliente = new DaoClienteMemoria();
-		
+				
 		return daoCliente;
 	}
 	
@@ -41,6 +41,7 @@ public class DaoClienteMemoria implements DaoCliente {
 				return;
 			}
 		}
+		throw new DataException("Cliente não encontrado");
 	}
 
 	@Override

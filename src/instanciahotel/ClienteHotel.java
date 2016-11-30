@@ -11,10 +11,10 @@ public class ClienteHotel extends Cliente{
 	
 	private static final int IDADE_MINIMA = 18; //Idade minima de 18 anos para alugar
 	
-	private String cpf;
-	private String rg;
-	private String endereco;
-	private Date dataNascimento;
+	private /*@ nullable @*/ String cpf;
+	private /*@ nullable @*/ String rg;
+	private /*@ nullable @*/ String endereco;
+	private /*@ nullable @*/ Date dataNascimento;
 
 	public ClienteHotel(Long codigo, String nome) {
 		super(codigo, nome);
@@ -29,7 +29,7 @@ public class ClienteHotel extends Cliente{
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public String getCpf() {
+	public /*@ pure @*/ String getCpf() {
 		return cpf;
 	}
 
@@ -37,7 +37,7 @@ public class ClienteHotel extends Cliente{
 		this.cpf = cpf;
 	}
 
-	public String getRg() {
+	public /*@ pure @*/ String getRg() {
 		return rg;
 	}
 
@@ -45,7 +45,7 @@ public class ClienteHotel extends Cliente{
 		this.rg = rg;
 	}
 
-	public String getEndereco() {
+	public /*@ pure @*/ String getEndereco() {
 		return endereco;
 	}
 
@@ -53,7 +53,7 @@ public class ClienteHotel extends Cliente{
 		this.endereco = endereco;
 	}
 	
-	public Date getDataNascimento() {
+	public /*@ pure @*/ Date getDataNascimento() {
 		return dataNascimento;
 	}
 	
