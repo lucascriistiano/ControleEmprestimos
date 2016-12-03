@@ -118,6 +118,12 @@ public class GerenciadorEmprestimos {
 		return comprovanteEmprestimo;
 	}
 	
+	/*@
+	 @ requires emprestimo != null;
+	 @ assignable \nothing;
+	 @ ensures this.daoHistorico.exists((long) \result.getCodigo());
+ 	 @ ensures !this.daoEmprestimo.exists((long) \result.getCodigo());
+	 @*/
 	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 		

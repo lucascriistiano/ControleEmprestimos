@@ -1,18 +1,18 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import dominio.Emprestimo;
 import excecao.DataException;
 
 public class DaoEmprestimoMemoria implements DaoEmprestimo {
 
-	static /*@ nullable @*/ DaoEmprestimo daoEmprestimo = null;
-	private Set<Emprestimo> emprestimos;
+	private static /*@ nullable @*/ DaoEmprestimo daoEmprestimo = null;
+	
+	private List<Emprestimo> emprestimos; //@ in listaEmprestimos;
+	//@ private represents listaEmprestimos <- emprestimos;
 	
 	public static DaoEmprestimo getInstance() {
 		if(daoEmprestimo == null)
@@ -22,7 +22,7 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 	
 	private DaoEmprestimoMemoria() {
-		emprestimos = new HashSet<Emprestimo>();
+		emprestimos = new ArrayList<Emprestimo>();
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 	}
 
 	@Override
-	public Emprestimo get(Long codigo) throws DataException {
+	public Emprestimo get(long codigo) throws DataException {
 		Iterator<Emprestimo> it = emprestimos.iterator();
 		while(it.hasNext()) {
 			Emprestimo e = it.next();
@@ -82,6 +82,22 @@ public class DaoEmprestimoMemoria implements DaoEmprestimo {
 		}
 		
 		return resultList;
+	}
+
+	@Override
+	public boolean exists(long codigo) {
+		List<Emprestimo> list;
+		try{
+			list = list();
+		} catch (DataException e){
+			return false;
+		}
+		
+		if(list.isEmpty()){
+			return false;
+		} else {
+			return list.stream().filter(x -> {	return x.getCodigo()!= null && x.getCodigo().equals(codigo);}).count() > 0;
+		}
 	}
 
 }
