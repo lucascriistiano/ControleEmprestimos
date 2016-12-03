@@ -123,6 +123,7 @@ public class GerenciadorEmprestimos {
 	 @ assignable \nothing;
 	 @ ensures this.daoHistorico.exists((long) \result.getCodigo());
  	 @ ensures !this.daoEmprestimo.exists((long) \result.getCodigo());
+ 	 @ ensures \result.getValor() == regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 	 @*/
 	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
