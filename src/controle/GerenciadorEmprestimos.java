@@ -140,26 +140,13 @@ public class GerenciadorEmprestimos {
 		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);
 		return comprovanteDevolucao;
 	}
-	
-	public Emprestimo getEmprestimo(Long codigo) throws DataException {
-		return this.daoEmprestimo.get(codigo);
-	}
-	
-	public List<Emprestimo> listarEmprestimos() throws DataException {
-		return this.daoEmprestimo.list();
-	}
-	
-	public boolean verificarPrazos() throws DataException {
-		List<Emprestimo> emprestimos = daoEmprestimo.list();
-		return this.verificadorPrazos.verificarEmprestimos(emprestimos);
-	}
-	
-	public boolean verificarStatusCliente(Cliente cliente) {
-		//TODO Implementar verificacao de status do cliente
-		return false;
-	}
-	
-	public List<Recurso> buscarSugestoes(Long codigoCliente) throws DataException {
+			
+	/*@
+	@ requires codigoCliente > 0L;
+	@ assignable \nothing;
+	@ ensures \result != null;
+	@*/
+	public List<Recurso> buscarSugestoes(long codigoCliente) throws DataException {
 		List<Emprestimo> historicoEmprestimos = daoHistorico.getHistoricoCliente(codigoCliente);
 		HashMap<Integer, Integer> contagemEmprestimos = new HashMap<Integer, Integer>();
 		
@@ -189,6 +176,29 @@ public class GerenciadorEmprestimos {
 		
 		List<Recurso> recursosSugeridos = daoRecurso.getPorCategoria(categoria);
 		return recursosSugeridos;
+	}
+	
+	/*@
+	 @ requires codigo > 0L;
+	 @ assignable \nothing;
+	 @ ensures daoEmprestimo.exists(codigo) ==> \result != null;
+	 @*/
+	public /*@ pure @*/ Emprestimo getEmprestimo(long codigo) throws DataException {
+		return this.daoEmprestimo.get(codigo);
+	}
+	
+	public /*@ pure @*/ boolean verificarPrazos() throws DataException {
+		List<Emprestimo> emprestimos = daoEmprestimo.list();
+		return this.verificadorPrazos.verificarEmprestimos(emprestimos);
+	}
+	
+	public boolean verificarStatusCliente(Cliente cliente) {
+		//TODO Implementar verificacao de status do cliente
+		return false;
+	}
+	
+	public /*@ pure @*/ List<Emprestimo> listarEmprestimos() throws DataException {
+		return this.daoEmprestimo.list();
 	}
 	
 }
