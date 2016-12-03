@@ -9,7 +9,8 @@ import excecao.DataException;
 
 public class DaoClienteMemoria implements DaoCliente {
 
-	static /*@ nullable @*/ DaoCliente daoCliente = null;
+	private static /*@ nullable @*/ DaoCliente daoCliente = null;
+	
 	private List<Cliente> clientes; //@ in listaClientes;
 	//@ private represents listaClientes <- clientes;
 	
@@ -41,7 +42,7 @@ public class DaoClienteMemoria implements DaoCliente {
 				return;
 			}
 		}
-		throw new DataException("Cliente não encontrado");
+		throw new DataException("Cliente nï¿½o encontrado");
 	}
 
 	@Override
@@ -83,5 +84,25 @@ public class DaoClienteMemoria implements DaoCliente {
 	public List<Cliente> list() throws DataException{
 		return new ArrayList<Cliente>(clientes);
 	}
+
+	@Override
+	public boolean exists(long codigo) {
+		
+		List<Cliente> list;
+		try{
+			list = list();
+		} catch (DataException e){
+			return false;
+		}
+		
+		if(list.isEmpty()){
+			return false;
+		} else {
+			return list.stream().filter(x -> {	return x.getCodigo()!= null && x.getCodigo().equals(codigo);}).count() > 0;
+		}
+		
+	}
+	
+	
 
 }

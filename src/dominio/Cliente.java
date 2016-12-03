@@ -46,7 +46,7 @@ public abstract class Cliente {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public /*@ pure @*/  boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -62,5 +62,5 @@ public abstract class Cliente {
 		return true;
 	}
 	
-	public abstract boolean validar() throws ClienteInvalidoException;
+	public /*@ pure @*/ abstract boolean validar() throws ClienteInvalidoException;
 }

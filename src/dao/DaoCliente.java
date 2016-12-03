@@ -22,8 +22,11 @@ public interface DaoCliente {
 	 @		requires cliente != null;
 	 @		requires listaClientes.isEmpty() == false;
 	 @		requires listaClientes.contains(cliente);
+	 @ 		assignable listaClientes;	 
+	 @		ensures !listaClientes.contains(cliente);
 	 @	also
 	 @	public exceptional_behavior
+	 @		assignable \nothing;
      @		signals_only DataException;
  	 @		signals (DataException e)
  	 @			listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
@@ -35,8 +38,10 @@ public interface DaoCliente {
 	 @		requires cliente != null;
 	 @		requires listaClientes.isEmpty() == false;
 	 @		requires listaClientes.contains(cliente);
+	 @ 		assignable listaClientes;	 
 	 @	also
 	 @	public exceptional_behavior
+	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @		signals (DataException e)
 	 @			listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
@@ -47,13 +52,24 @@ public interface DaoCliente {
 	 @	public normal_behavior 
 	 @		requires codigo > 0L;
 	 @		requires listaClientes.isEmpty() == false;
+	 @		requires this.exists(codigo);
+	 @		ensures \result != null;
 	 @	also
 	 @	public exceptional_behavior
+	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @		signals (DataException e)
 	 @			codigo <= 0L || listaClientes.isEmpty();
 	 @*/	
 	public /*@ pure @*/ Cliente get(long codigo) throws DataException;
 	
+	/*@
+	 @ 	requires codigo > 0L;
+	 @	ensures this.get(codigo) != null ==> (\result == true);
+	 */
+	public /*@ pure @*/ boolean exists(long codigo);
+	
 	public /*@ pure @*/ List<Cliente> list() throws DataException;
+	
+
 }
