@@ -42,7 +42,7 @@ public class GerenciadorEmprestimos {
 	private /*@ spec_public @*/ RegraEmprestimo regraEmprestimo;
 	private /*@ spec_public @*/ GeradorComprovante geradorComprovante;
 	private /*@ spec_public @*/ VerificadorPrazos verificadorPrazos;
-	
+		
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
 		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
@@ -64,34 +64,25 @@ public class GerenciadorEmprestimos {
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();
 	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
+	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
 	@*/
 	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
-		//Validacao do status do cliente para emprestimos
-		cliente.validar();
-		
-		//Validacao do recurso para emprestimo
-		for(Recurso recurso : recursos) {
-			recurso.validar();
-		}
-		
-		//Realiza o emprestimo
-		Emprestimo emprestimo = new Emprestimo();
-		emprestimo.setUsuario(usuario);
-		emprestimo.setCliente(cliente);
-		emprestimo.setDataEmprestimo(Calendar.getInstance().getTime());
-		emprestimo.setDataDevolucao(regraEmprestimo.calcularDataDevolucao(emprestimo));
-		
-		for(Recurso recurso : recursos) {
-			emprestimo.adicionarRecurso(recurso);
-			recurso.alocar();
-		}
-		
-		daoEmprestimo.add(emprestimo);
-		
-		ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
-		return comprovanteEmprestimo;
+		return realizarEmprestimo(usuario, cliente, recursos, null);
 	}
 	
+	/*@
+	@ public normal_behavior
+	@ 	requires cliente != null && cliente.validar();
+	@	requires (\forall int i; 
+	@				0 <= i && i < recursos.size();
+	@				 recursos.get(i) != null);	
+	@ 	assignable \nothing;
+	@	ensures \result != null;
+	@	ensures (\forall int i; 
+	@				0 <= i && i < recursos.size();
+	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
+	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
+	@*/
 	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
 		cliente.validar();
@@ -109,9 +100,12 @@ public class GerenciadorEmprestimos {
 		Date dataAtual = Calendar.getInstance().getTime();
 		emprestimo.setDataEmprestimo(dataAtual);
 		
-		regraEmprestimo.validarDataDevolucao(dataAtual, dataDevolucao);
-		
-		emprestimo.setDataDevolucao(dataDevolucao);
+		if(dataDevolucao != null){
+			regraEmprestimo.validarDataDevolucao(dataAtual, dataDevolucao);
+			emprestimo.setDataDevolucao(dataDevolucao);
+		} else {
+			emprestimo.setDataDevolucao(regraEmprestimo.calcularDataDevolucao(emprestimo));
+		}
 		
 		for(Recurso recurso : recursos) {
 			emprestimo.adicionarRecurso(recurso);
