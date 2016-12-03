@@ -57,5 +57,5 @@ public abstract class Recurso {
 
 	public abstract void alocar();
 	public abstract void desalocar();
-	public abstract boolean validar() throws RecursoInvalidoException;
+	public /*@ pure @*/ abstract boolean validar() throws RecursoInvalidoException;
 }

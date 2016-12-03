@@ -29,13 +29,19 @@ import excecao.EmprestimoInvalidoException;
 import excecao.RecursoInvalidoException;
 
 public class GerenciadorEmprestimos {
-	private DaoEmprestimo daoEmprestimo;
-	private DaoHistorico daoHistorico;
-	private DaoRecurso daoRecurso;
 	
-	private RegraEmprestimo regraEmprestimo;
-	private GeradorComprovante geradorComprovante;
-	private VerificadorPrazos verificadorPrazos;
+	//@ public invariant daoEmprestimo != null;
+	private /*@ spec_public @*/ DaoEmprestimo daoEmprestimo;
+	
+	//@ public invariant daoHistorico != null;
+	private /*@ spec_public @*/ DaoHistorico daoHistorico;
+	
+	//@ public invariant daoRecurso != null;
+	private /*@ spec_public @*/ DaoRecurso daoRecurso;
+	
+	private /*@ spec_public @*/ RegraEmprestimo regraEmprestimo;
+	private /*@ spec_public @*/ GeradorComprovante geradorComprovante;
+	private /*@ spec_public @*/ VerificadorPrazos verificadorPrazos;
 	
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
@@ -47,6 +53,18 @@ public class GerenciadorEmprestimos {
 		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
 	}
 	
+	/*@
+	@ public normal_behavior
+	@ 	requires cliente != null && cliente.validar();
+	@	requires (\forall int i; 
+	@				0 <= i && i < recursos.size();
+	@				 recursos.get(i) != null);	
+	@ 	assignable \nothing;
+	@	ensures \result != null;
+	@	ensures (\forall int i; 
+	@				0 <= i && i < recursos.size();
+	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
+	@*/
 	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
 		cliente.validar();
