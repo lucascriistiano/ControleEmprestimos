@@ -1,10 +1,9 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import dao.DaoEmprestimo;
 import dao.DaoEmprestimoMemoria;
@@ -146,35 +145,17 @@ public class GerenciadorEmprestimos {
 	@ assignable \nothing;
 	@ ensures \result != null;
 	@*/
-	public List<Recurso> buscarSugestoes(long codigoCliente) throws DataException {
-		List<Emprestimo> historicoEmprestimos = daoHistorico.getHistoricoCliente(codigoCliente);
-		HashMap<Integer, Integer> contagemEmprestimos = new HashMap<Integer, Integer>();
+	public List<Recurso> buscarSugestoes(long codigoCliente) throws DataException {				
+		List<Recurso> recursosSugeridos;
 		
-		for(Emprestimo emprestimo : historicoEmprestimos) {
-			for(Recurso recurso : emprestimo.getRecursos()) {
-				Integer categoria = recurso.getCategoria();
-				
-				if(contagemEmprestimos.containsKey(categoria)) {
-					contagemEmprestimos.put(categoria, contagemEmprestimos.get(categoria) + 1);
-				}
-				else {
-					contagemEmprestimos.put(categoria, 1);
-				}
-			}
-		}
-
-		Entry<Integer, Integer> maxCategoria = null;
-		for(Entry<Integer, Integer> categoria : contagemEmprestimos.entrySet()) {
-			if(maxCategoria == null || categoria.getValue().compareTo(maxCategoria.getValue()) > 0) {
-				maxCategoria = categoria;
-			}
+		Integer idCategoria = daoHistorico.findCategoriaAltaByCliente(codigoCliente);
+		
+		if(idCategoria != null){
+			recursosSugeridos = daoRecurso.getPorCategoria(idCategoria);
+		} else {
+			recursosSugeridos = new ArrayList<>();
 		}
 		
-		int categoria = -1;
-		if(maxCategoria != null)
-			categoria = maxCategoria.getValue();
-		
-		List<Recurso> recursosSugeridos = daoRecurso.getPorCategoria(categoria);
 		return recursosSugeridos;
 	}
 	

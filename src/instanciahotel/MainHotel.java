@@ -85,7 +85,7 @@ public class MainHotel {
 		Recurso quarto1 = new Quarto(Long.valueOf(1), "1 andar", 1, 700, 1, 2, 1000);
 		Recurso quarto2 = new Quarto(Long.valueOf(2), "2 andar", 2, 500, 2, 3, 2000);
 		Recurso quarto3 = new Quarto(Long.valueOf(3), "3 andar", 2, 600, 3, 4, 5000);
-		
+				
 		try {
 			daoRecurso.add(quarto1);
 			daoRecurso.add(quarto2);

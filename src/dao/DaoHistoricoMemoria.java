@@ -3,8 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import dominio.Emprestimo;
+import dominio.Recurso;
 import excecao.DataException;
 
 public class DaoHistoricoMemoria implements DaoHistorico {
@@ -71,6 +75,24 @@ public class DaoHistoricoMemoria implements DaoHistorico {
 		}
 		
 		return resultList;
+	}
+	
+	public Integer findCategoriaAltaByCliente(long codigoCliente) throws DataException{
+		
+		List<Emprestimo> historicoEmprestimos = this.getHistoricoCliente(codigoCliente);
+		
+		Map<Integer, List<Recurso>> recursosByCategoria = historicoEmprestimos.stream()
+		.map(e -> e.getRecursos())
+		.flatMap(r -> r.stream())
+		.collect(Collectors.groupingBy(Recurso::getCategoria));
+		
+		Optional<Integer> categoria = recursosByCategoria.entrySet()
+					.stream()
+					.map(e -> e.getValue().size())
+					.max(Integer::max);
+		
+		return categoria.orElse(null);
+		
 	}
 	
 	@Override

@@ -53,6 +53,8 @@ public interface DaoHistorico {
 	 */
 	public /*@ pure @*/ boolean exists(long codigo);
 	
+	public /*@ pure @*/ Integer findCategoriaAltaByCliente(long codigoCliente) throws DataException;
+	
 	public /*@ pure @*/ List<Emprestimo> getHistoricoCliente(Long codigo) throws DataException;
 	
 	public /*@ pure @*/ List<Emprestimo> list() throws DataException;

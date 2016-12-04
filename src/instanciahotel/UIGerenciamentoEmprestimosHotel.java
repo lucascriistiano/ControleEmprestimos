@@ -202,7 +202,7 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 			
 			System.out.println("Sugestoes de quartos:");
 			
-			if(recursosSugeridos.size() > 0) {	
+			if(recursosSugeridos != null && !recursosSugeridos.isEmpty()) {	
 				for(Recurso recurso : recursosSugeridos) {
 					Quarto quarto = (Quarto) recurso;
 					
@@ -223,7 +223,8 @@ public class UIGerenciamentoEmprestimosHotel implements UIGerenciamentoEmprestim
 		} catch (DataException e) {
 			System.out.println("Erro ao recuperar registros dos emprestimos. Erro: " + e.getMessage());
 		} catch (Exception e) {
-			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.getMessage());
+			System.out.println("Ocorreu um erro ao recuperar os registros de emprestimos. Erro: " + e.toString());
+			e.printStackTrace();
 		}
 	}
 
