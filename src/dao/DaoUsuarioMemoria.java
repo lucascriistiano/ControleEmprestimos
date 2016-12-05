@@ -1,10 +1,8 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import dominio.Usuario;
 import excecao.DataException;
@@ -12,7 +10,9 @@ import excecao.DataException;
 public class DaoUsuarioMemoria implements DaoUsuario {
 
 	static /*@ nullable @*/ DaoUsuario daoUsuario = null;
-	private Set<Usuario> usuarios;
+	
+	private List<Usuario> usuarios; //@ in listaUsuarios;
+	//@ private represents listaUsuarios <- usuarios;
 	
 	public static DaoUsuario getInstance() {
 		if(daoUsuario == null)
@@ -22,7 +22,7 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 	
 	private DaoUsuarioMemoria() {
-		usuarios = new HashSet<Usuario>();
+		usuarios = new ArrayList<Usuario>();
 	}
 	
 	@Override
@@ -82,6 +82,22 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 		}
 		
 		return resultList;
+	}
+	
+	@Override
+	public boolean exists(String login) {
+		List<Usuario> list;
+		try{
+			list = list();
+		} catch (DataException e){
+			return false;
+		}
+		
+		if(list.isEmpty()){
+			return false;
+		} else {
+			return list.stream().filter(x -> {	return x.getLogin() != null && x.getLogin().equals(login);}).count() > 0;
+		}
 	}
 
 }

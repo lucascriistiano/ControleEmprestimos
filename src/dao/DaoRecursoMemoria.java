@@ -1,18 +1,18 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import dominio.Recurso;
 import excecao.DataException;
 
 public class DaoRecursoMemoria implements DaoRecurso {
 
-	static /*@ nullable @*/ DaoRecurso daoRecurso = null;
-	private Set<Recurso> recursos;
+	private static /*@ nullable @*/ DaoRecurso daoRecurso = null;
+	
+	private List<Recurso> recursos; //@ in listaRecursos;
+	//@ private represents listaRecursos <- recursos;
 	
 	public static DaoRecurso getInstance() {
 		if(daoRecurso == null)
@@ -22,7 +22,7 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 	
 	private DaoRecursoMemoria() {
-		recursos = new HashSet<Recurso>();
+		recursos = new ArrayList<Recurso>();
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class DaoRecursoMemoria implements DaoRecurso {
 	}
 
 	@Override
-	public Recurso get(Long codigo) throws DataException {
+	public Recurso get(long codigo) throws DataException {
 		Iterator<Recurso> it = recursos.iterator();
 		while(it.hasNext()) {
 			Recurso r = it.next();
@@ -98,6 +98,22 @@ public class DaoRecursoMemoria implements DaoRecurso {
 		}
 		
 		return resultList;
+	}
+	
+	@Override
+	public boolean exists(long codigo) {
+		List<Recurso> list;
+		try{
+			list = list();
+		} catch (DataException e){
+			return false;
+		}
+		
+		if(list.isEmpty()){
+			return false;
+		} else {
+			return list.stream().filter(x -> {	return x.getCodigo()!= null && x.getCodigo().equals(codigo);}).count() > 0;
+		}
 	}
 
 }
