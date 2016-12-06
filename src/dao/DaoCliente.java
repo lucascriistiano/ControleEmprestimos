@@ -18,9 +18,10 @@ public interface DaoCliente {
  	 @ 		ensures listaClientes.get(listaClientes.size()-1) == cliente;
 	 @	also
 	 @	public exceptional_behavior
+	 @ 		requires cliente != null;
+	 @		requires listaClientes.contains(cliente);
 	 @		assignable \nothing;
-	 @		signals (DataException e)
-	 @			listaClientes == null || listaClientes.contains(cliente);
+	 @		signals_only DataException;
 	 @*/
 	public void add(Cliente cliente) throws DataException;
 	
@@ -82,8 +83,8 @@ public interface DaoCliente {
 	 @		ensures \result != null;
 	 @	also
 	 @	public exceptional_behavior
-	 @		signals (DataException e)
-	 @			listaClientes == null;
+	 @		requires listaClientes == null;
+	 @		signals_only DataException;
 	 @*/
 	public /*@ pure @*/ List<Cliente> list() throws DataException;
 	
