@@ -10,10 +10,17 @@ public interface DaoCliente {
 	//@ public model instance List listaClientes;
 	
 	/*@ 
-	 @ requires cliente != null;
-	 @ assignable listaClientes;
- 	 @ ensures listaClientes.size() == \old(listaClientes.size()) + 1;
- 	 @ ensures listaClientes.get(listaClientes.size()-1) == cliente;
+	 @ public normal_behavior
+	 @ 		requires cliente != null;
+	 @		requires !listaClientes.contains(cliente);
+	 @ 		assignable listaClientes;
+ 	 @ 		ensures listaClientes.size() == \old(listaClientes.size()) + 1;
+ 	 @ 		ensures listaClientes.get(listaClientes.size()-1) == cliente;
+	 @	also
+	 @	public exceptional_behavior
+	 @		assignable \nothing;
+	 @		signals (DataException e)
+	 @			listaClientes == null || listaClientes.contains(cliente);
 	 @*/
 	public void add(Cliente cliente) throws DataException;
 	
@@ -69,6 +76,15 @@ public interface DaoCliente {
 	 */
 	public /*@ pure @*/ boolean exists(long codigo);
 	
+	/*@ 
+	 @	public normal_behavior 
+	 @ 		requires listaClientes != null;
+	 @		ensures \result != null;
+	 @	also
+	 @	public exceptional_behavior
+	 @		signals (DataException e)
+	 @			listaClientes == null;
+	 @*/
 	public /*@ pure @*/ List<Cliente> list() throws DataException;
 	
 

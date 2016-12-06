@@ -79,25 +79,47 @@ public class ClienteHotel extends Cliente{
 		
 		return idade;
 	}
-
-	public boolean validar() throws ClienteInvalidoException {
+	
+	public boolean valido(){
+		boolean valido = true;
+		
 		if(this.getNome().trim().isEmpty()) {
-			throw new ClienteInvalidoException("Nome do cliente vazio");
+			valido = false;
 		}
 		if(this.getCpf().trim().isEmpty()) {
-			throw new ClienteInvalidoException("CPF vazio");
+			valido = false;
 		}
 		if(this.getEndereco().trim().isEmpty()) {
-			throw new ClienteInvalidoException("Endereco vazio");
+			valido = false;
 		}
 		if(this.getDataNascimento() == null) {
-			throw new ClienteInvalidoException("Data de nascimento vazia");
+			valido = false;
 		}
 		if(this.getIdade() < IDADE_MINIMA) {
-			throw new ClienteInvalidoException("Cliente nao tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
+			valido = false;
 		}
 		
-		return true;
+		return valido;
+	}
+
+	public ClienteInvalidoException toClienteInvalidoException(){
+		ClienteInvalidoException exception = new ClienteInvalidoException("Cliente Inválido.");
+		if(this.getNome().trim().isEmpty()) {
+			exception = new ClienteInvalidoException("Nome do cliente vazio");
+		}
+		else if(this.getCpf().trim().isEmpty()) {
+			exception =  new ClienteInvalidoException("CPF vazio");
+		}
+		else if(this.getEndereco().trim().isEmpty()) {
+			exception =  new ClienteInvalidoException("Endereco vazio");
+		}
+		else if(this.getDataNascimento() == null) {
+			exception =  new ClienteInvalidoException("Data de nascimento vazia");
+		}
+		else if(this.getIdade() < IDADE_MINIMA) {
+			exception =  new ClienteInvalidoException("Cliente nao tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
+		}
+		return exception;
 	}
 	
 }

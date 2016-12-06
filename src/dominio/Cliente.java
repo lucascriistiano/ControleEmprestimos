@@ -62,5 +62,7 @@ public abstract class Cliente {
 		return true;
 	}
 	
-	public /*@ pure @*/ abstract boolean validar() throws ClienteInvalidoException;
+	public /*@ pure @*/ abstract boolean valido();
+	
+	public /*@ pure @*/ abstract ClienteInvalidoException toClienteInvalidoException();
 }

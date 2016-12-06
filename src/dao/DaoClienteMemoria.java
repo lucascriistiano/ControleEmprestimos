@@ -27,7 +27,11 @@ public class DaoClienteMemoria implements DaoCliente {
 	
 	@Override
 	public void add(Cliente cliente) throws DataException {
-		clientes.add(cliente);
+		if(!clientes.contains(cliente)){
+			clientes.add(cliente);
+		} else {
+			throw new DataException("Cliente já Cadastrado");
+		}
 	}
 
 	@Override
@@ -82,6 +86,9 @@ public class DaoClienteMemoria implements DaoCliente {
 
 	@Override
 	public List<Cliente> list() throws DataException{
+		if(clientes == null){
+			throw new DataException("Não há clientes cadastrados.");
+		}
 		return new ArrayList<Cliente>(clientes);
 	}
 

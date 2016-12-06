@@ -80,24 +80,47 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		return idade;
 	}
 
-	public boolean validar() throws ClienteInvalidoException {
+	public boolean valido() {
+		boolean valido = true;
+		
 		if(this.getNome().trim().isEmpty()) {
-			throw new ClienteInvalidoException("Nome do cliente vazio");
+			valido = false;
 		}
 		if(this.getCpf().trim().isEmpty()) {
-			throw new ClienteInvalidoException("CPF vazio");
+			valido = false;
 		}
 		if(this.getCarteiraMotorista().trim().isEmpty()) {
-			throw new ClienteInvalidoException("Numero de carteira de motorista nao fornecido");
+			valido = false;
 		}
 		if(this.getDataNascimento() == null) {
-			throw new ClienteInvalidoException("Data de nascimento vazia");
+			valido = false;
 		}
 		if(this.getIdade() < IDADE_MINIMA) {
-			throw new ClienteInvalidoException("Cliente não tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
+			valido = false;
 		}
 		
-		return true;
+		return valido;
+	}
+	
+	@Override
+	public ClienteInvalidoException toClienteInvalidoException() {
+		if(this.getNome().trim().isEmpty()) {
+			return new ClienteInvalidoException("Nome do cliente vazio");
+		}
+		if(this.getCpf().trim().isEmpty()) {
+			return new ClienteInvalidoException("CPF vazio");
+		}
+		if(this.getCarteiraMotorista().trim().isEmpty()) {
+			return new ClienteInvalidoException("Numero de carteira de motorista nao fornecido");
+		}
+		if(this.getDataNascimento() == null) {
+			return new ClienteInvalidoException("Data de nascimento vazia");
+		}
+		if(this.getIdade() < IDADE_MINIMA) {
+			return new ClienteInvalidoException("Cliente não tem a idade minima necessaria (" + IDADE_MINIMA + " anos)");
+		}
+		
+		return new ClienteInvalidoException("Cliente Invalido");
 	}
 	
 }
