@@ -85,5 +85,7 @@ public interface DaoCliente {
 	 @*/
 	public /*@ pure @*/ List<Cliente> list() throws DataException;
 	
+	public void clear();
+	
 
 }

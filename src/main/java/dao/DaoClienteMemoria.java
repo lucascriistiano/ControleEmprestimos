@@ -109,6 +109,15 @@ public class DaoClienteMemoria implements DaoCliente {
 		}
 		
 	}
+
+	@Override
+	public void clear() {
+		if(clientes != null){
+			clientes.clear();
+		}
+	}
+	
+	
 	
 	
 
