@@ -28,16 +28,16 @@ public interface DaoCliente {
 	/*@
 	 @	public normal_behavior 
 	 @		requires cliente != null;
+	 @		requires ((long) cliente.getCodigo()) > 0;
 	 @		requires listaClientes.isEmpty() == false;
 	 @		requires listaClientes.contains(cliente);
 	 @ 		assignable listaClientes;	 
 	 @		ensures !listaClientes.contains(cliente);
 	 @	also
 	 @	public exceptional_behavior
+	 @		requires cliente == null || ((long) cliente.getCodigo()) <= 0 || listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
 	 @		assignable \nothing;
      @		signals_only DataException;
- 	 @		signals (DataException e)
- 	 @			listaClientes.isEmpty() || listaClientes.contains(cliente) == false;
 	 @*/
 	public void remove(Cliente cliente) throws DataException;
 	
@@ -58,21 +58,20 @@ public interface DaoCliente {
 	
 	/*@
 	 @	public normal_behavior 
-	 @		requires codigo > 0L;
-	 @		requires listaClientes.isEmpty() == false;
+	 @		requires ((long) codigo) > 0;
 	 @		requires this.exists(codigo);
 	 @		ensures \result != null;
 	 @	also
+	 @	public exceptional_behavior 
+	 @		requires ((long) codigo) > 0;
+	 @		requires !this.exists(codigo);
+	 @		signals_only DataException;
+	 @	also
 	 @	public exceptional_behavior
-	 @		requires codigo <= 0L || listaClientes.isEmpty();
+	 @		requires ((long) codigo) <= 0;
 	 @		signals_only DataException;
 	 @*/	
 	public /*@ pure @*/ Cliente get(long codigo) throws DataException;
-	
-	/*@
-	 @ 	requires codigo > 0L;
-	 */
-	public /*@ pure @*/ boolean exists(long codigo);
 	
 	/*@ 
 	 @	public normal_behavior 
@@ -85,7 +84,11 @@ public interface DaoCliente {
 	 @*/
 	public /*@ pure @*/ List<Cliente> list() throws DataException;
 	
+	/*@
+	 @ ensures ((long) codigo) <= 0 ==> \result == false;
+	 @*/
+	public /*@ pure @*/ boolean exists(long codigo);
+	
 	public void clear();
 	
-
 }

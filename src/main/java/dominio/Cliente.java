@@ -20,7 +20,7 @@ public abstract class Cliente {
 	/*@ 
 	 @ assignable this.codigo;
 	 @ ensures this.codigo == codigo;
-	 */
+	 @*/
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
@@ -32,7 +32,7 @@ public abstract class Cliente {
 	/*@ 
 	 @ assignable this.nome;
 	 @ ensures this.nome == nome;
-	 */
+	 @*/
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -62,6 +62,9 @@ public abstract class Cliente {
 		return true;
 	}
 	
+	/*@
+	@ ensures ((long) codigo) <= 0L ==> \result == false;
+	@*/
 	public /*@ pure @*/ abstract boolean valido();
 	
 	public /*@ pure @*/ abstract ClienteInvalidoException toClienteInvalidoException();

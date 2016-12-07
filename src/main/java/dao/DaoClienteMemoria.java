@@ -46,7 +46,7 @@ public class DaoClienteMemoria implements DaoCliente {
 				return;
 			}
 		}
-		throw new DataException("Cliente n�o encontrado");
+		throw new DataException("Cliente nao encontrado");
 	}
 
 	@Override
@@ -65,23 +65,19 @@ public class DaoClienteMemoria implements DaoCliente {
 
 	@Override
 	public Cliente get(long codigo) throws DataException {
-		
-		if(codigo <= 0L){
+		if(codigo <= 0L) {
 			throw new DataException("Codigo menor que zero");
-		} else if (clientes.isEmpty()){
-			throw new DataException("Lista clientes vazia");
 		}
 		
 		Iterator<Cliente> it = clientes.iterator();
 		while(it.hasNext()) {
 			Cliente c = it.next();
-			
 			if(c.getCodigo().equals(codigo)) {
 				return c;
 			}
 		}
 		
-		return null;
+		throw new DataException("Cliente não cadastrado");
 	}
 
 	@Override
@@ -94,7 +90,6 @@ public class DaoClienteMemoria implements DaoCliente {
 
 	@Override
 	public boolean exists(long codigo) {
-		
 		List<Cliente> list;
 		try{
 			list = list();
@@ -106,8 +101,7 @@ public class DaoClienteMemoria implements DaoCliente {
 			return false;
 		} else {
 			return list.stream().filter(x -> {	return x.getCodigo()!= null && x.getCodigo().equals(codigo);}).count() > 0;
-		}
-		
+		}		
 	}
 
 	@Override
@@ -117,8 +111,4 @@ public class DaoClienteMemoria implements DaoCliente {
 		}
 	}
 	
-	
-	
-	
-
 }
