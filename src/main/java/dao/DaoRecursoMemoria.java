@@ -9,10 +9,14 @@ import excecao.DataException;
 
 public class DaoRecursoMemoria extends DaoMemoria<Recurso> implements DaoRecurso {
 
+	protected /*@ spec_public @*/ List<Recurso> lista; //@ in list;
+	//@ public represents list <- lista;
+	
 	private static /*@ nullable @*/ DaoRecurso daoRecurso = null;
 	
 	public DaoRecursoMemoria() {
 		super("Recurso");
+		this.lista = new ArrayList<>();
 	}	
 	
 	public static DaoRecurso getInstance() {
@@ -36,6 +40,11 @@ public class DaoRecursoMemoria extends DaoMemoria<Recurso> implements DaoRecurso
 		}
 		
 		return resultList;
+	}
+	
+	@Override
+	protected List<Recurso> getLista() {
+		return this.lista;
 	}
 
 }

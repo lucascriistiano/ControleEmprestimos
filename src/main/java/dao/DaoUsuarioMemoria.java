@@ -1,16 +1,22 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import dominio.Usuario;
 import excecao.DataException;
 
 public class DaoUsuarioMemoria extends DaoMemoria<Usuario> implements DaoUsuario {
-
+	
+	protected /*@ spec_public @*/ List<Usuario> lista; //@ in list;
+	//@ public represents list <- lista;
+	
 	static /*@ nullable @*/ DaoUsuario daoUsuario = null;
 	
 	private DaoUsuarioMemoria() {
 		super ("Usuario");
+		this.lista = new ArrayList<>();
 	}
 	
 	public static DaoUsuario getInstance() {
@@ -35,6 +41,11 @@ public class DaoUsuarioMemoria extends DaoMemoria<Usuario> implements DaoUsuario
 		}
 		
 		throw new DataException("Cliente não cadastrado");
+	}
+	
+	@Override
+	protected List<Usuario> getLista() {
+		return this.lista;
 	}
 
 }

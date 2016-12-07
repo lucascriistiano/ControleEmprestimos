@@ -13,10 +13,14 @@ import excecao.DataException;
 
 public class DaoHistoricoMemoria extends DaoMemoria<Emprestimo> implements DaoHistorico {
 
+	protected /*@ spec_public @*/ List<Emprestimo> lista; //@ in list;
+	//@ public represents list <- lista;
+	
 	private static /*@ nullable @*/ DaoHistorico daoHistorico = null;
 	
 	private DaoHistoricoMemoria() {
 		super("Emprestimo");
+		this.lista = new ArrayList<>();
 	}
 	
 	public static DaoHistorico getInstance() {
@@ -58,6 +62,11 @@ public class DaoHistoricoMemoria extends DaoMemoria<Emprestimo> implements DaoHi
 		
 		return categoria.orElse(null);
 		
+	}
+	
+	@Override
+	protected List<Emprestimo> getLista() {
+		return this.lista;
 	}
 	
 

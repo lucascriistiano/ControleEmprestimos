@@ -7,7 +7,7 @@ import excecao.DataException;
 
 public interface Dao {
 	
-	//@ public model instance List list;
+	//@ public nullable model instance List list;
 	
 	/*@ 
 	 @ public normal_behavior
@@ -61,6 +61,7 @@ public interface Dao {
 	 @		requires ((long) codigo) > 0;
 	 @		requires this.exists(codigo);
 	 @		ensures \result != null;
+	 @		ensures \result.getCodigo() == codigo;
 	 @	also
 	 @	public exceptional_behavior 
 	 @		requires ((long) codigo) > 0;
