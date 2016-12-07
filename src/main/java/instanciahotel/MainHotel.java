@@ -1,33 +1,31 @@
-package instancialocadoraveiculos;
+package instanciahotel;
 
 import java.util.Calendar;
 import java.util.Scanner;
 
-import visao.UIGerenciamentoClientes;
-import visao.UIGerenciamentoEmprestimos;
-import visao.UIGerenciamentoRecursos;
-import visao.UIGerenciamentoUsuarios;
-import visao.UIGerenciamentoUsuariosConsole;
-//************ TEMPORARIO ************
-import dao.DaoCliente;
+import dao.Dao;
 import dao.DaoClienteMemoria;
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
 //*************************************
-
 import dominio.Recurso;
 import dominio.Usuario;
 import excecao.DataException;
+import visao.UIGerenciamentoClientes;
+import visao.UIGerenciamentoEmprestimos;
+import visao.UIGerenciamentoRecursos;
+import visao.UIGerenciamentoUsuarios;
+import visao.UIGerenciamentoUsuariosConsole;
 
-public class MainLocadoraVeiculos {
+public class MainHotel {
 	private static Scanner in = new Scanner(System.in);
 	
-	private static UIGerenciamentoClientes uiClientes = new UIGerenciamentoClientesLocadoraVeiculos();
+	private static UIGerenciamentoClientes uiClientes = new UIGerenciamentoClientesHotel();
 	private static UIGerenciamentoUsuarios uiUsuarios = new UIGerenciamentoUsuariosConsole();
-	private static UIGerenciamentoRecursos uiRecursos = new UIGerenciamentoRecursosLocadoraVeiculos();
-	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosLocadoraVeiculos();
+	private static UIGerenciamentoRecursos uiRecursos = new UIGerenciamentoRecursosHotel();
+	private static UIGerenciamentoEmprestimos uiEmprestimos = new UIGerenciamentoEmprestimosHotel();
 	
 	public static void main(String [] args) {
 		//************ TEMPORARIO ************
@@ -38,7 +36,7 @@ public class MainLocadoraVeiculos {
 		int option;
 		
 		do {
-			System.out.println("---------- Gerenciamento de Emprestimos de Veiculos ----------");
+			System.out.println("---------- Gerenciamento de Emprestimos de Quartos ----------");
 			System.out.println("1 - Gerenciar Usuarios");
 			System.out.println("2 - Gerenciar Clientes");
 			System.out.println("3 - Gerenciar Recursos");
@@ -83,31 +81,31 @@ public class MainLocadoraVeiculos {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel", 1,"ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel", 2, "DEF-4567","Gol","Volkswagem","Branco",1000,50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno", 2, "HIJ-8901","Ka","Ford","Rosa",500,30);
-		
+		Recurso quarto1 = new Quarto(Long.valueOf(1), "1 andar", 1, 700, 1, 2, 1000);
+		Recurso quarto2 = new Quarto(Long.valueOf(2), "2 andar", 2, 500, 2, 3, 2000);
+		Recurso quarto3 = new Quarto(Long.valueOf(3), "3 andar", 2, 600, 3, 4, 5000);
+				
 		try {
-			daoRecurso.add(carro1);
-			daoRecurso.add(carro2);
-			daoRecurso.add(carro3);
+			daoRecurso.add(quarto1);
+			daoRecurso.add(quarto2);
+			daoRecurso.add(quarto3);
 		} catch (DataException e) {
 			System.out.println("Nao foi possivel adicionar o recurso. Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
-		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
+		Dao daoCliente = DaoClienteMemoria.getInstance();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteLocadoraVeiculos cliente1 = new ClienteLocadoraVeiculos(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
+		ClienteHotel cliente1 = new ClienteHotel(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "endereco1", "1233456784",calendar.getTime());
 		
 		calendar.set(Calendar.DAY_OF_MONTH, 31);
 		calendar.set(Calendar.MONTH, 4);
 		calendar.set(Calendar.YEAR, 1965);
-		ClienteLocadoraVeiculos cliente2 = new ClienteLocadoraVeiculos(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
+		ClienteHotel cliente2 = new ClienteHotel(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "endereco2", "7125782334",calendar.getTime());
 		
 		try {
 			daoCliente.add(cliente1);

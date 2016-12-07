@@ -2,9 +2,8 @@ package dominio;
 
 import excecao.RecursoInvalidoException;
 
-public abstract class Recurso {
+public abstract class Recurso extends Dominio {
 	
-	private /*@ spec_public @*/ Long codigo;
 	private /*@ spec_public @*/ String descricao;
 	private /*@ spec_public @*/ int categoria;
 	private /*@ spec_public @*/ boolean disponivel;
@@ -29,14 +28,6 @@ public abstract class Recurso {
 
 	public void setCategoria(int categoria) {
 		this.categoria = categoria;
-	}
-
-	public /*@ pure @*/ Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
 	}
 
 	public /*@ pure @*/ String getDescricao() {

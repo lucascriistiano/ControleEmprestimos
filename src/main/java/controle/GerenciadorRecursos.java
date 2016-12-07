@@ -23,12 +23,14 @@ public class GerenciadorRecursos {
 		this.daoRecurso.remove(recurso);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Recurso> listarRecursos() throws DataException {
-		return this.daoRecurso.list();
+		return (List<Recurso>)(List<?>) this.daoRecurso.list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
-		List<Recurso> recursos = this.daoRecurso.list();
+		List<Recurso> recursos = (List<Recurso>)(List<?>) this.daoRecurso.list();
 		
 		List<Recurso> resultList = new ArrayList<Recurso>();
 		for(Recurso recurso : recursos) {
@@ -36,10 +38,10 @@ public class GerenciadorRecursos {
 				resultList.add(recurso);
 		}
 		
-		return resultList;
+		return (List<Recurso>)(List<?>) resultList;
 	}
 
 	public Recurso getRecurso(Long codigo) throws DataException {
-		return this.daoRecurso.get(codigo);
+		return (Recurso) this.daoRecurso.get(codigo);
 	}
 }
