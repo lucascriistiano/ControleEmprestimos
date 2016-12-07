@@ -3,8 +3,7 @@ package instanciahotel;
 import java.util.Calendar;
 import java.util.Scanner;
 
-//************ TEMPORARIO ************
-import dao.DaoCliente;
+import dao.Dao;
 import dao.DaoClienteMemoria;
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
@@ -95,7 +94,7 @@ public class MainHotel {
 			e.printStackTrace();
 		}
 		
-		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
+		Dao daoCliente = DaoClienteMemoria.getInstance();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);

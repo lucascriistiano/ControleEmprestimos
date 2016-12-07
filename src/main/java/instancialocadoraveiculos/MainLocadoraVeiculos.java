@@ -3,23 +3,20 @@ package instancialocadoraveiculos;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import visao.UIGerenciamentoClientes;
-import visao.UIGerenciamentoEmprestimos;
-import visao.UIGerenciamentoRecursos;
-import visao.UIGerenciamentoUsuarios;
-import visao.UIGerenciamentoUsuariosConsole;
-//************ TEMPORARIO ************
-import dao.DaoCliente;
+import dao.Dao;
 import dao.DaoClienteMemoria;
 import dao.DaoRecurso;
 import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
 import dao.DaoUsuarioMemoria;
-//*************************************
-
 import dominio.Recurso;
 import dominio.Usuario;
 import excecao.DataException;
+import visao.UIGerenciamentoClientes;
+import visao.UIGerenciamentoEmprestimos;
+import visao.UIGerenciamentoRecursos;
+import visao.UIGerenciamentoUsuarios;
+import visao.UIGerenciamentoUsuariosConsole;
 
 public class MainLocadoraVeiculos {
 	private static Scanner in = new Scanner(System.in);
@@ -96,7 +93,7 @@ public class MainLocadoraVeiculos {
 			e.printStackTrace();
 		}
 		
-		DaoCliente daoCliente = DaoClienteMemoria.getInstance();
+		Dao daoCliente = DaoClienteMemoria.getInstance();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);

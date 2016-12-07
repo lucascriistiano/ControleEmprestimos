@@ -2,7 +2,7 @@ package controle;
 
 import java.util.List;
 
-import dao.DaoCliente;
+import dao.Dao;
 import dao.DaoClienteMemoria;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
@@ -11,7 +11,7 @@ import excecao.DataException;
 public class GerenciadorClientes {
 	
 	//@ public invariant daoCliente != null;
-	protected /*@ spec_public @*/ DaoCliente daoCliente;
+	protected /*@ spec_public @*/ Dao daoCliente;
 	
 	public GerenciadorClientes() {
 		daoCliente = DaoClienteMemoria.getInstance();
@@ -75,7 +75,7 @@ public class GerenciadorClientes {
 	 @		signals_only DataException;
 	 @*/
 	public /*@ pure @*/ Cliente getCliente(long codigo) throws DataException {
-		return this.daoCliente.get(codigo);
+		return (Cliente) this.daoCliente.get(codigo);
 	}
 	
 	/*@
@@ -85,8 +85,9 @@ public class GerenciadorClientes {
 	@ public exceptional_behavior
 	@		signals_only DataException;
 	@*/
+	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Cliente> listarClientes() throws DataException {
-		return this.daoCliente.list();
+		return (List<Cliente>)(List<?>) this.daoCliente.list();
 	}
 
 	/*@

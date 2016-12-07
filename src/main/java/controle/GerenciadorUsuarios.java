@@ -24,8 +24,9 @@ public class GerenciadorUsuarios {
 		this.daoUsuario.remove(usuario);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> listarUsuarios() throws DataException {
-		return daoUsuario.list();
+		return (List<Usuario>)(List<?>) daoUsuario.list();
 	}
 	
 	public Usuario getUsuario(String login) throws DataException {

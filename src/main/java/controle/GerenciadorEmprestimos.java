@@ -170,11 +170,12 @@ public class GerenciadorEmprestimos {
 	 @ ensures daoEmprestimo.exists(codigo) ==> \result != null;
 	 @*/
 	public /*@ pure @*/ Emprestimo getEmprestimo(long codigo) throws DataException {
-		return this.daoEmprestimo.get(codigo);
+		return (Emprestimo) this.daoEmprestimo.get(codigo);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ boolean verificarPrazos() throws DataException {
-		List<Emprestimo> emprestimos = daoEmprestimo.list();
+		List<Emprestimo> emprestimos = (List<Emprestimo>) (List<?>) daoEmprestimo.list();
 		return this.verificadorPrazos.verificarEmprestimos(emprestimos);
 	}
 	
@@ -183,8 +184,9 @@ public class GerenciadorEmprestimos {
 		return false;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Emprestimo> listarEmprestimos() throws DataException {
-		return this.daoEmprestimo.list();
+		return (List<Emprestimo>) (List<?>) this.daoEmprestimo.list();
 	}
 	
 }

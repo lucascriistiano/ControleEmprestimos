@@ -2,9 +2,7 @@ package dominio;
 
 import excecao.ClienteInvalidoException;
 
-public abstract class Cliente {
-	
-	private /*@ spec_public @*/ Long codigo;
+public abstract class Cliente extends Dominio {
 	
 	private /*@ spec_public @*/ String nome;
 	
@@ -13,18 +11,6 @@ public abstract class Cliente {
 		this.nome = nome;
 	}
 	
-	public /*@ pure @*/ Long getCodigo() {
-		return codigo;
-	}
-	
-	/*@ 
-	 @ assignable this.codigo;
-	 @ ensures this.codigo == codigo;
-	 @*/
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-
 	public /*@ pure @*/ String getNome() {
 		return nome;
 	}
@@ -36,32 +22,7 @@ public abstract class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
-
-	@Override
-	public /*@ pure @*/  boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
-	}
-	
+		
 	/*@
 	@ ensures ((long) codigo) <= 0L ==> \result == false;
 	@*/

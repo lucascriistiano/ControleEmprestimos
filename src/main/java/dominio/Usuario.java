@@ -1,6 +1,6 @@
 package dominio;
 
-public class Usuario {
+public class Usuario extends Dominio {
 	
 	private /*@ spec_public @*/ String nome;
 	private /*@ spec_public @*/ String login;

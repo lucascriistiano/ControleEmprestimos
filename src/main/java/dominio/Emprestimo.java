@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Emprestimo {
-	private /*@ spec_public @*/ Long codigo; 			//ID do emprestimo
+public class Emprestimo extends Dominio {
 	private /*@ spec_public @*/ Date dataEmprestimo;	//Data de realizacao do emprestimo
 	private /*@ spec_public @*/ Date dataDevolucao;		//Data de realizacao do emprestimo
 	private /*@ spec_public @*/ Usuario usuario;		//Usuario que efetivou o emprestimo 
@@ -30,10 +29,6 @@ public class Emprestimo {
 		this.cliente = cliente;
 		
 		this.recursos = new ArrayList<Recurso>(recursos);
-	}
-	
-	public /*@ pure @*/ Long getCodigo() {
-		return codigo;
 	}
 	
 	public /*@ pure @*/ Date getDataEmprestimo() {
