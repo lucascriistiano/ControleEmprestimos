@@ -54,6 +54,8 @@ public class TestGerenciadorClientes {
 		gerenciador.cadastrarCliente(clienteInvalido);
 	}
 	
+	/** TESTES CADASTRAR */
+	
 	@Test
 	public void testCadastrarClienteNormalBehavior() throws DataException, ClienteInvalidoException {				
 		assertTrue("Cliente não deve ser nulo", clienteValido != null);
@@ -76,6 +78,8 @@ public class TestGerenciadorClientes {
 		
 		gerenciador.cadastrarCliente(clienteValido);
 	}
+	
+	/** TESTES REMOVER */
 	
 	@Test
 	public void testRemoverClienteNormalBehavior() throws DataException, ClienteInvalidoException {				
@@ -112,6 +116,45 @@ public class TestGerenciadorClientes {
 		gerenciador.removerCliente(clienteNaoCadastrado);
 	}
 	
+	/** TESTES UPDATE */
+
+	@Test
+	public void testAtualizarClienteNormalBehavior() throws DataException, ClienteInvalidoException{		
+		assertTrue("Cliente não deve ser nulo", clienteValido != null);
+		assertTrue("Cliente deve ser válido", clienteValido.valido());
+		
+		gerenciador.cadastrarCliente(clienteValido);
+		assertTrue("Cliente deve existir", gerenciador.exists(clienteValido.getCodigo()));
+		
+		clienteValido.setNome("Maria");
+		gerenciador.updateCliente(clienteValido);
+	}
+	
+	@Test(expected=ClienteInvalidoException.class)
+	public void testAtualizarClienteInvalidoExceptionalBehavior() throws DataException, ClienteInvalidoException{		
+		assertTrue("Cliente não deve ser nulo", clienteValido != null);
+		assertTrue("Cliente deve ser inicialmente válido", clienteValido.valido());
+		gerenciador.cadastrarCliente(clienteValido);
+		assertTrue("Cliente deve existir", gerenciador.exists(clienteValido.getCodigo()));
+		
+		Cliente clienteInvalidado = clienteValido;
+		clienteInvalidado.setNome("");
+		
+		assertTrue("Cliente deve ser inválido", !clienteInvalidado.valido());
+
+		gerenciador.updateCliente(clienteInvalidado);
+	}
+	
+	@Test(expected=DataException.class)
+	public void testAtualizarClienteNaoCadastradoExceptionalBehavior() throws DataException, ClienteInvalidoException{		
+		assertTrue("Cliente não deve ser nulo", clienteValido != null);
+		assertTrue("Cliente deve ser inicialmente válido", clienteValido.valido());
+		assertTrue("Cliente não deve existir", !gerenciador.exists(clienteValido.getCodigo()));
+		gerenciador.updateCliente(clienteValido);
+	}
+	
+	/** TESTES GET */
+	
 	@Test
 	public void testGetClienteNormalBehavior() throws DataException, ClienteInvalidoException {						
 		assertTrue("Cliente não deve ser nulo", clienteValido != null);
@@ -145,6 +188,8 @@ public class TestGerenciadorClientes {
 		gerenciador.getCliente(clienteIdInvalido.getCodigo());
 	}
 	
+	/** TESTES LISTAR */
+	
 	public void testListarClientesListaVaziaNormalBehavior() throws DataException {		
 		List<Cliente> clientes = gerenciador.listarClientes();
 		assertFalse("Lista não deve ser nula", clientes == null);
@@ -165,6 +210,8 @@ public class TestGerenciadorClientes {
 		assertTrue("Lista deve ter 1 item", clientes.size() == 1);
 		assertTrue("Lista deve ter o cliente inserido", clientes.get(0).getCodigo() == clienteValido.getCodigo());
 	}
+	
+	/** TESTES EXISTS */
 	
 	public void testExistsIdsInvalidosNormalBehavior() {		
 		assertFalse(gerenciador.exists(-5));

@@ -57,8 +57,32 @@ public class GerenciadorClientes {
 		this.daoCliente.remove(cliente);
 	}
 	
-	//TODO Implementar o update e a especificação dele
-	
+	/*@ 
+	@	public normal_behavior
+	@ 		requires cliente != null;
+	@		requires cliente.valido();
+	@		requires exists((long) cliente.getCodigo());
+	@ 		ensures exists((long) cliente.getCodigo());
+	@		ensures cliente.getCodigo() == \old(cliente.getCodigo());
+	@	also
+	@	public exceptional_behavior
+	@		requires cliente != null;
+	@		requires cliente.valido();
+	@		requires !exists((long) cliente.getCodigo());
+	@		signals_only DataException;
+	@	also
+	@	public exceptional_behavior
+	@		requires cliente == null || !cliente.valido();
+	@		signals_only ClienteInvalidoException;
+	@*/
+	public /*@ pure @*/ void updateCliente(Cliente cliente) throws DataException, ClienteInvalidoException {
+		if(cliente.valido()) {
+			this.daoCliente.update(cliente);
+		} else {
+			throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
+		}
+	}
+ 	
 	/*@
 	 @	public normal_behavior 
 	 @		requires ((long) codigo) > 0;

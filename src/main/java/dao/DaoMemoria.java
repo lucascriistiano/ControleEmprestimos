@@ -45,7 +45,7 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 	}
 
 	@Override
-	public final  void update(Dominio obj) throws DataException {
+	public final void update(Dominio obj) throws DataException {	
 		Iterator<T> it = getLista().iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();
@@ -56,6 +56,8 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 				return;
 			}
 		}
+		
+		throw new DataException(entidade + " não existe");
 	}
 
 	@Override

@@ -44,12 +44,14 @@ public interface Dao {
 	/*@
 	 @	public normal_behavior 
 	 @		requires obj != null;
-	 @		requires list.isEmpty() == false;
 	 @		requires list.contains(obj);
-	 @ 		assignable list;	 
+	 @ 		assignable list;
+	 @		ensures	list.contains(obj);
+	 @		ensures obj.getCodigo() == \old(obj.getCodigo());	 
 	 @	also
 	 @	public exceptional_behavior
-	 @		assignable \nothing;
+	 @		requires obj != null;
+	 @		requires !list.contains(obj);
 	 @		signals_only DataException;
 	 @		signals (DataException e)
 	 @			list.isEmpty() || list.contains(obj) == false;
