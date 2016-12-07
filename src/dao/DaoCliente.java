@@ -73,7 +73,6 @@ public interface DaoCliente {
 	
 	/*@
 	 @ 	requires codigo > 0L;
-	 @	ensures this.get(codigo) != null ==> (\result == true);
 	 */
 	public /*@ pure @*/ boolean exists(long codigo);
 	
