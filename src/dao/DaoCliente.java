@@ -64,10 +64,8 @@ public interface DaoCliente {
 	 @		ensures \result != null;
 	 @	also
 	 @	public exceptional_behavior
-	 @		assignable \nothing;
+	 @		requires codigo <= 0L || listaClientes.isEmpty();
 	 @		signals_only DataException;
-	 @		signals (DataException e)
-	 @			codigo <= 0L || listaClientes.isEmpty();
 	 @*/	
 	public /*@ pure @*/ Cliente get(long codigo) throws DataException;
 	
