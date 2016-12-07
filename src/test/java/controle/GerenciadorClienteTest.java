@@ -1,4 +1,4 @@
-package junit;
+package controle;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +19,7 @@ import excecao.DataException;
 import instanciahotel.ClienteHotel;
 
 
-public class TestGerenciadorClientes {
+public class GerenciadorClienteTest {
 	
 	private GerenciadorClientes gerenciador = new GerenciadorClientes();
 	private Cliente clienteValido;

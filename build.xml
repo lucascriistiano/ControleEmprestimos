@@ -151,15 +151,10 @@
 		    multiplespeccasechecking="false" nocrosscutting="false" nocontractchecking="false" crossrefs="${crossref.dir}" 
 		    showweaveinfo="false" quiet="false" verbose="false" fork="false">
 		</ajmlc>
-		
-		<delete dir="bin/junit"/>
-		<mkdir dir="bin/junit"/>	
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
 	</target>
 	
 	<target name="build-testes-junit">
-		<delete dir="bin/junit"/>
-		<mkdir dir="bin/junit"/>	
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
 	</target>
 
