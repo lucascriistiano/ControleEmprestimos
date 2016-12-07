@@ -10,13 +10,31 @@ import excecao.DataException;
 
 public class GerenciadorClientes {
 	
-	protected DaoCliente daoCliente;
+	//@ public invariant daoCliente != null;
+	protected /*@ spec_public @*/ DaoCliente daoCliente;
 	
 	public GerenciadorClientes() {
 		daoCliente = DaoClienteMemoria.getInstance();
 	}
 	
-	public void cadastrarCliente(Cliente cliente) throws DataException, ClienteInvalidoException {	
+	/*@ 
+	@	public normal_behavior
+	@ 		requires cliente != null;
+	@		requires cliente.valido();
+	@		requires !exists((long) cliente.getCodigo());
+	@ 		ensures exists((long) cliente.getCodigo());
+	@	also
+	@	public exceptional_behavior
+	@		requires cliente != null;
+	@		requires cliente.valido();
+	@		requires exists((long) cliente.getCodigo());
+	@		signals_only DataException;
+	@	also
+	@	public exceptional_behavior
+	@		requires cliente == null || !cliente.valido();
+	@		signals_only ClienteInvalidoException;
+	@*/
+	public /*@ pure @*/ void cadastrarCliente(Cliente cliente) throws DataException, ClienteInvalidoException {	
 		if(cliente.valido()) {
 			this.daoCliente.add(cliente);
 		} else {
@@ -36,7 +54,7 @@ public class GerenciadorClientes {
 		return this.daoCliente.get(codigo);
 	}
 
-	public boolean exists(long codigo){
+	public /*@ pure @*/ boolean exists(long codigo){
 		return this.daoCliente.exists(codigo);
 	}
 }

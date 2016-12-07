@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.jmlspecs.ajmlrac.runtime.JMLAssertionError;
@@ -23,24 +23,33 @@ import instanciahotel.ClienteHotel;
 
 public class TestGerenciadorClientes {
 	
+	private GerenciadorClientes gerenciador;
 	private Cliente clienteValido;
 	private Cliente clienteInvalido;
 	
 	@Before
 	public void setUp() throws ParseException{
-		long codigoCliente = 1L;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date nascimento = sdf.parse("01/01/1998");
-		clienteValido = new ClienteHotel(codigoCliente,"Roberto","123456789","123123","rua importante", nascimento);
-		clienteInvalido = new ClienteHotel(2L, "","","","rua", new Date());
+		gerenciador = new GerenciadorClientes();
+		clienteValido = createClienteHotel(1L, "Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
+		clienteInvalido = createClienteHotel(2L, "", "", "", "Rua", new Date());
+	}
+	
+	private Cliente createClienteHotel(long codigo, String nome, String cpf, String rg, String endereco, int dia, int mes, int ano) {
+		Calendar dataNascimento = Calendar.getInstance();
+		dataNascimento.set(Calendar.DAY_OF_MONTH, dia);
+		dataNascimento.set(Calendar.MONTH, mes-1);
+		dataNascimento.set(Calendar.YEAR, ano);
+		return createClienteHotel(codigo, nome, cpf, rg, endereco, dataNascimento.getTime());
+	}
+	
+	private Cliente createClienteHotel(long codigo, String nome, String cpf, String rg, String endereco, Date nascimento) {
+		return new ClienteHotel(codigo, nome, cpf, rg, endereco, nascimento);
 	}
 	
 	@After 
 	public void tearDown(){
-		
-		/** Como é singleton precisa limpar os dados a cada teste */
+		//Como é singleton precisa limpar os dados a cada teste
 		DaoClienteMemoria.getInstance().clear();
-
 	}
 	
 	/**
@@ -51,43 +60,37 @@ public class TestGerenciadorClientes {
 	 */
 	@Test(expected=ClienteInvalidoException.class)
 	public void testPreconditionInvalid() throws DataException, ClienteInvalidoException, ParseException{
-		GerenciadorClientes gerenciador = new GerenciadorClientes();
-						
 		try{
 			gerenciador.cadastrarCliente(clienteInvalido);
 		} catch (JMLAssertionError e){
 			fail(e.toString());
 		}
-
 	}
 	
-	
 	@Test
-	public void testCadastrarClienteNormalBehavior() throws DataException, ClienteInvalidoException, ParseException{
-		GerenciadorClientes gerenciador = new GerenciadorClientes();
-				
-		assertTrue("Cliente Não deve ser nulo",clienteValido != null);
-		assertTrue("Cliente Deve ser Válido.",clienteValido.valido());
-		assertFalse("Não deve existir esse cliente", gerenciador.exists(clienteValido.getCodigo()));
+	public void testCadastrarClienteNormalBehavior() throws DataException, ClienteInvalidoException, ParseException{				
+		assertTrue("Cliente não deve ser nulo", clienteValido != null);
+		assertTrue("Cliente deve ser válido", clienteValido.valido());
+		assertFalse("Cliente não deve já estar cadastrado", gerenciador.exists(clienteValido.getCodigo()));
 		
-		gerenciador.cadastrarCliente(clienteValido);
-		
-		// Se alguma pós condição não for obedecida o teste falhará
-		// Não é obrigado esse assertTrue		
-		assertTrue("Deve existir o cliente",gerenciador.exists(clienteValido.getCodigo()));
+		gerenciador.cadastrarCliente(clienteValido); // Se alguma pós condição não for obedecida o teste falhará
+			
+		assertTrue("Deve existir o cliente", gerenciador.exists(clienteValido.getCodigo()));
 	}
 	
 	@Test(expected=DataException.class)
-	public void testCadastrarDataExceptionalBehavior() throws DataException, ClienteInvalidoException{
-		GerenciadorClientes gerenciador = new GerenciadorClientes();
+	public void testCadastrarClienteRepetidoExceptionalBehavior() throws DataException, ClienteInvalidoException{		
+		assertTrue("Cliente não deve ser nulo", clienteValido != null);
+		assertTrue("Cliente deve ser válido", clienteValido.valido());
+		assertFalse("Cliente não deve já estar cadastrado", gerenciador.exists(clienteValido.getCodigo()));
 		
-		assertTrue("Cliente Não deve ser nulo",clienteValido != null);
-		assertTrue("Cliente Deve ser Válido.",clienteValido.valido());
 		gerenciador.cadastrarCliente(clienteValido);
-		assertTrue("Deve existir esse cliente", gerenciador.exists(clienteValido.getCodigo()));
 		
-		// Tenta cadastrar novamente - Throws DataException
-		gerenciador.cadastrarCliente(clienteValido);
+		assertTrue("Cliente deve estar cadastrado", gerenciador.exists(clienteValido.getCodigo()));
+		
+		gerenciador.cadastrarCliente(clienteValido); //Tenta cadastrar novamente - Throws DataException
 	}
+	
+	
 
 }
