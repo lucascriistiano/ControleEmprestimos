@@ -96,9 +96,8 @@ public class GerenciadorClientes {
 		return (Cliente) this.daoCliente.get(codigo);
 	}
 
-	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Cliente> listarClientes() throws DataException {
-		return (List<Cliente>)(List<?>) this.daoCliente.list();
+		return this.daoCliente.list();
 	}
 
 	/*@

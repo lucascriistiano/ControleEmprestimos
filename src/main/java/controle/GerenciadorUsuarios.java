@@ -3,7 +3,6 @@ package controle;
 import java.util.List;
 
 import dao.DaoUsuario;
-import dao.DaoUsuario;
 import dominio.Usuario;
 import excecao.DataException;
 import excecao.UsuarioInvalidoException;
@@ -109,9 +108,8 @@ public class GerenciadorUsuarios {
 		return this.daoUsuario.exists(codigo);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Usuario> listarUsuarios() throws DataException {
-		return (List<Usuario>)(List<?>) daoUsuario.list();
+		return daoUsuario.list();
 	}
 	
 	public /*@ pure @*/ Usuario getUsuario(String login) throws DataException {

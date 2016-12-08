@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoRecurso;
-import dao.DaoRecurso;
 import dominio.Recurso;
 import excecao.DataException;
 import excecao.RecursoInvalidoException;
@@ -106,14 +105,12 @@ public class GerenciadorRecursos {
 		return this.daoRecurso.exists(codigo);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Recurso> listarRecursos() throws DataException {
-		return (List<Recurso>)(List<?>) this.daoRecurso.list();
+		return this.daoRecurso.list();
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public /*@ pure @*/ List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
-		List<Recurso> recursos = (List<Recurso>)(List<?>) this.daoRecurso.list();
+		List<Recurso> recursos = this.daoRecurso.list();
 		
 		List<Recurso> resultList = new ArrayList<Recurso>();
 		for(Recurso recurso : recursos) {
@@ -121,7 +118,7 @@ public class GerenciadorRecursos {
 				resultList.add(recurso);
 		}
 		
-		return (List<Recurso>)(List<?>) resultList;
+		return resultList;
 	}
 
 	
