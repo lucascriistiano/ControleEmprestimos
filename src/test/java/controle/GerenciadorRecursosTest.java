@@ -77,7 +77,7 @@ public class GerenciadorRecursosTest {
 	@Test(expected=DataException.class)
 	public void testRemoverRecursoIdInvalidoExceptionalBehavior() throws DataException {				
 		builder.criarRecursoValido()
-				.setCodigoInvalido()
+				.tornarCodigoInvalido()
 				.assertNotExists()
 				.removerRecurso();
 	}

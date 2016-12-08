@@ -16,13 +16,12 @@ public class ClienteLocadoraVeiculos extends Cliente{
 	private String carteiraMotorista;
 	private Date dataNascimento;
 
-	public ClienteLocadoraVeiculos(Long codigo, String nome) {
-		super(codigo, nome);
+	public ClienteLocadoraVeiculos(String nome) {
+		super(nome);
 	}
 	
-	public ClienteLocadoraVeiculos(Long codigo, String nome, String cpf, String rg, String carteiraMotorista, Date dataNascimento) {
-		super(codigo, nome);
-		
+	public ClienteLocadoraVeiculos(String nome, String cpf, String rg, String carteiraMotorista, Date dataNascimento) {
+		super(nome);
 		this.cpf = cpf;
 		this.rg = rg;
 		this.carteiraMotorista = carteiraMotorista;

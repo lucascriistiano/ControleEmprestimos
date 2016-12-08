@@ -101,7 +101,7 @@ public class GerenciadorEmprestimosTest {
 		Cliente cliente = builderClientes.criarClienteValido().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioInvalido().getUsuarioInstance();
 
-		Recurso recurso = new Quarto(1L, "Quarto Pequeno", 1);
+		Recurso recurso = new Quarto("Quarto Pequeno", 1);
 
 		gerenciador.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
 	}
@@ -112,7 +112,7 @@ public class GerenciadorEmprestimosTest {
 		Cliente cliente = builderClientes.criarClienteInvalido().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioValido().getUsuarioInstance();
 
-		Recurso recurso = new Quarto(1L, "Quarto Pequeno", 1);
+		Recurso recurso = new Quarto("Quarto Pequeno", 1);
 
 		gerenciador.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
 	}
@@ -123,7 +123,7 @@ public class GerenciadorEmprestimosTest {
 		Cliente cliente = builderClientes.criarClienteValido().assertNotExists().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioValido().cadastrarUsuario().assertExists().getUsuarioInstance();
 
-		Recurso recurso = new Quarto(1L, "Quarto Pequeno", 1);
+		Recurso recurso = new Quarto("Quarto Pequeno", 1);
 
 		gerenciador.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
 	}

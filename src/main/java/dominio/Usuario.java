@@ -10,8 +10,7 @@ public class Usuario extends Dominio {
 	
 	public Usuario() { }
 	
-	public Usuario(Long codigo,String nome, String login, String senha) {
-		this.codigo = codigo;
+	public Usuario(String nome, String login, String senha) {
 		this.nome = nome;
 		this.login = login;
 		this.senha = senha;

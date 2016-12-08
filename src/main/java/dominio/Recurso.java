@@ -8,15 +8,13 @@ public abstract class Recurso extends Dominio {
 	private /*@ spec_public @*/ int categoria;
 	private /*@ spec_public @*/ boolean disponivel;
 	
-	protected Recurso(Long codigo, String descricao, int categoria) {
-		this.codigo = codigo;
+	protected Recurso(String descricao, int categoria) {
 		this.descricao = descricao;
 		this.categoria = categoria;
 		this.disponivel = true;
 	}
 	
-	protected Recurso(Long codigo, String descricao, int categoria, boolean disponivel) {
-		this.codigo = codigo;
+	protected Recurso(String descricao, int categoria, boolean disponivel) {
 		this.descricao = descricao;
 		this.categoria = categoria;
 		this.disponivel =  disponivel;
@@ -57,7 +55,7 @@ public abstract class Recurso extends Dominio {
 	@Override
 	public boolean valido() {
 		boolean isValido = true;
-		if(codigo < 0){
+		if(codigo < 0L){
 			isValido = false;
 		} else if ("".equals(descricao) || descricao == null){
 			isValido = false;

@@ -78,7 +78,7 @@ public class GerenciadorClientesTest {
 	@Test(expected=DataException.class)
 	public void testRemoverClienteIdInvalidoExceptionalBehavior() throws DataException {				
 		builder.criarClienteValido()
-				.setCodigoInvalido()
+				.tornarCodigoInvalido()
 				.assertNotExists()
 				.removerCliente();
 	}

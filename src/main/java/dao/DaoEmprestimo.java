@@ -2,7 +2,7 @@ package dao;
 
 import dominio.Emprestimo;
 
-public class DaoEmprestimo extends DaoMemoria<Emprestimo> {
+public class DaoEmprestimo extends DaoImpl<Emprestimo> {
 	
 	private static /*@ nullable @*/ DaoEmprestimo daoEmprestimo = null;
 

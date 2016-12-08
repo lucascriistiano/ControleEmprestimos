@@ -16,13 +16,12 @@ public class ClienteHotel extends Cliente{
 	private /*@ nullable @*/ String endereco;
 	private /*@ nullable @*/ Date dataNascimento;
 
-	public ClienteHotel(Long codigo, String nome) {
-		super(codigo, nome);
+	public ClienteHotel(String nome) {
+		super(nome);
 	}
 	
-	public ClienteHotel(Long codigo, String nome, String cpf, String rg, String endereco, Date dataNascimento) {
-		super(codigo, nome);
-		
+	public ClienteHotel(String nome, String cpf, String rg, String endereco, Date dataNascimento) {
+		super(nome);
 		this.cpf = cpf;
 		this.rg = rg;
 		this.endereco = endereco;

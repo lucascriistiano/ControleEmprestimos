@@ -2,7 +2,6 @@ package builder;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.Random;
 
 import controle.GerenciadorRecursos;
@@ -20,28 +19,16 @@ public class GerenciadorRecursosScenarioBuilder {
 		this.gerenciador = gerenciador;
 	}
 	
-	public GerenciadorRecursosScenarioBuilder criarRecursoValido() {
-		long codigo;
-		try{
-			List<Recurso> lista = gerenciador.listarRecursos();
-			if(lista == null || lista.isEmpty()){
-				codigo = 1L;
-			} else {
-				codigo = lista.get(lista.size() -1).getCodigo() + 1L;
-			}
-		} catch (DataException e){
-			codigo = 1L;
-		}
-		
+	public GerenciadorRecursosScenarioBuilder criarRecursoValido() {		
 		Random rand = new Random();
-		recurso = new Quarto(codigo, "descricao" + rand.nextInt(), rand.nextInt());
+		recurso = new Quarto("descricao" + rand.nextInt(), rand.nextInt());
 		assertTrue("Recurso não deve ser nulo", recurso != null);
 		assertTrue("Recurso deve ser válido", recurso.valido());	
 		return this;
 	}
 	
 	public GerenciadorRecursosScenarioBuilder criarRecursoInvalido(){
-		recurso = new Quarto(1L, "", 0);
+		recurso = new Quarto("", 0);
 		assertTrue("Recurso não deve ser nulo", recurso != null);
 		assertTrue("Recurso deve ser inválido", !recurso.valido());	
 		return this;
@@ -61,14 +48,7 @@ public class GerenciadorRecursosScenarioBuilder {
 		gerenciador.removerRecurso(recurso);
 		return this;
 	}
-	
-	public GerenciadorRecursosScenarioBuilder setCodigoInvalido(){
-		if(recurso != null){
-			recurso.setCodigo(0L);
-		}
-		return this;
-	}
-	
+		
 	public GerenciadorRecursosScenarioBuilder setDescricaoRecurso(String nome){
 		if(recurso != null){
 			recurso.setDescricao(nome);
@@ -92,7 +72,7 @@ public class GerenciadorRecursosScenarioBuilder {
 	
 	public GerenciadorRecursosScenarioBuilder tornarCodigoInvalido(){
 		if(recurso != null){
-			recurso.setCodigo(0L);
+			recurso.setCodigo(-1L);
 		}
 		return this;
 	}	
@@ -118,7 +98,7 @@ public class GerenciadorRecursosScenarioBuilder {
 	}
 	
 	public GerenciadorRecursosScenarioBuilder assertCodigoValido(){
-		assertTrue("Id do recurso deve ser maior que 0", recurso.getCodigo() > 0);
+		assertTrue("Id do cliente não deve ser menor que 0", !(recurso.getCodigo() < 0));
 		return this;
 	}
 	

@@ -127,7 +127,7 @@ public class VerificadorPrazosTest {
 			EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
 		Cliente cliente = builderClientes.criarClienteValido().assertNotExists().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioValido().cadastrarUsuario().assertExists().getUsuarioInstance();
-		Recurso recurso = new Quarto(1L, "Quarto Pequeno", 1);
+		Recurso recurso = new Quarto("Quarto Pequeno", 1);
 		ComprovanteEmprestimo comprovante = gerenciadorEmprestimos.realizarEmprestimo(usuario, cliente,
 				Arrays.asList(recurso));
 

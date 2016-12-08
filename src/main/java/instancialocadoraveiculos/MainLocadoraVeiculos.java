@@ -67,8 +67,8 @@ public class MainLocadoraVeiculos {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuario.getInstance();
-		Usuario usuario1 = new Usuario(1L,"Joao da Silva", "joao", "123456");
-		Usuario usuario2 = new Usuario(2L,"Regina Costa", "regina", "456789");
+		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
+		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
 		try {
 			daoUsuario.add(usuario1);
@@ -79,9 +79,9 @@ public class MainLocadoraVeiculos {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecurso.getInstance();
-		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel", 1,"ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
-		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel", 2, "DEF-4567","Gol","Volkswagem","Branco",1000,50);
-		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno", 2, "HIJ-8901","Ka","Ford","Rosa",500,30);
+		Recurso carro1 = new Carro("Chevrolet Meriva 2002. Veiculo super agradavel", 1,"ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
+		Recurso carro2 = new Carro("VW Gol 2010. Veiculo muito confortavel", 2, "DEF-4567","Gol","Volkswagem","Branco",1000,50);
+		Recurso carro3 = new Carro("Ford Ka 2007. Veiculo muito pequeno", 2, "HIJ-8901","Ka","Ford","Rosa",500,30);
 		
 		try {
 			daoRecurso.add(carro1);
@@ -98,12 +98,12 @@ public class MainLocadoraVeiculos {
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteLocadoraVeiculos cliente1 = new ClienteLocadoraVeiculos(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
+		ClienteLocadoraVeiculos cliente1 = new ClienteLocadoraVeiculos("Pedro Inacio", "123.456.789-10", "123.456", "1233456784",calendar.getTime());
 		
 		calendar.set(Calendar.DAY_OF_MONTH, 31);
 		calendar.set(Calendar.MONTH, 4);
 		calendar.set(Calendar.YEAR, 1965);
-		ClienteLocadoraVeiculos cliente2 = new ClienteLocadoraVeiculos(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
+		ClienteLocadoraVeiculos cliente2 = new ClienteLocadoraVeiculos("Juvenal da Costa", "456.890.123-22", "342.312", "7125782334",calendar.getTime());
 		
 		try {
 			daoCliente.add(cliente1);

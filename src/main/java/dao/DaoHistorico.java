@@ -11,7 +11,7 @@ import dominio.Emprestimo;
 import dominio.Recurso;
 import excecao.DataException;
 
-public class DaoHistorico extends DaoMemoria<Emprestimo> {
+public class DaoHistorico extends DaoImpl<Emprestimo> {
 	
 	private static /*@ nullable @*/ DaoHistorico daoHistorico = null;
 	

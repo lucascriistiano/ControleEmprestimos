@@ -173,6 +173,7 @@
 			<batchtest skipNonTests="true" fork="false">
 			    <fileset dir="${dest.dir}">
 			    	 <include name="**/*Test.class" />
+			    	 <exclude name="**/SuiteDeTestes.class"/>
 			    </fileset>
 			  </batchtest>
 		</junit>
@@ -197,6 +198,7 @@
 			<batchtest skipNonTests="true" fork="false">
 			    <fileset dir="${dest.dir}">
 			    	 <include name="**/*Test.class" />
+			    	 <exclude name="**/SuiteDeTestes.class"/>
 			    </fileset>
 			  </batchtest>
 		</junit>

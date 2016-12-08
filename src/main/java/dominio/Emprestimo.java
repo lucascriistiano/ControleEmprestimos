@@ -11,19 +11,11 @@ public class Emprestimo extends Dominio {
 	private /*@ nullable spec_public @*/ Cliente cliente;		//Cliente que realizou o emprestimo
 	private /*@ nullable spec_public @*/ List<Recurso> recursos;//Lista de recursos emprestados
 	
-	private /*@ spec_public @*/ static Long CODIGO_ATUAL = (long) 1;
-	
-	public Emprestimo() {
-		this.codigo = CODIGO_ATUAL;
-		CODIGO_ATUAL++;
-		
+	public Emprestimo() {		
 		this.recursos = new ArrayList<Recurso>();
 	}
 	
-	public Emprestimo(Date dataEmprestimo, Usuario usuario, Cliente cliente, List<Recurso> recursos) {
-		this.codigo = CODIGO_ATUAL;
-		CODIGO_ATUAL++;
-		
+	public Emprestimo(Date dataEmprestimo, Usuario usuario, Cliente cliente, List<Recurso> recursos) {		
 		this.dataEmprestimo = dataEmprestimo;
 		this.usuario = usuario;
 		this.cliente = cliente;

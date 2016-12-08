@@ -13,7 +13,7 @@ public class GerenciadorEmprestimosScenarioBuilder {
 
 	public GerenciadorEmprestimosScenarioBuilder(GerenciadorEmprestimos gerenciadorEmprestimos) {
 		super();
-		this.gerenciador = gerenciadorEmprestimos	;
+		this.gerenciador = gerenciadorEmprestimos;
 	}
 
 	public GerenciadorEmprestimosScenarioBuilder comDevolucao(Date date){
@@ -25,11 +25,6 @@ public class GerenciadorEmprestimosScenarioBuilder {
 		return this;*/
 		return this;
 	}
-	
-	public Usuario getUsuarioInstance(){
-		return null;
-		/*return usuario;*/
-	}
-	
+		
 	
 }

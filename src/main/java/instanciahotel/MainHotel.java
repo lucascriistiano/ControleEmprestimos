@@ -68,8 +68,8 @@ public class MainHotel {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuario.getInstance();
-		Usuario usuario1 = new Usuario(1L,"Joao da Silva", "joao", "123456");
-		Usuario usuario2 = new Usuario(2L,"Regina Costa", "regina", "456789");
+		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
+		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
 		
 		try {
 			daoUsuario.add(usuario1);
@@ -80,9 +80,9 @@ public class MainHotel {
 		}
 		
 		DaoRecurso daoRecurso = DaoRecurso.getInstance();
-		Recurso quarto1 = new Quarto(Long.valueOf(1), "1 andar", 1, 700, 1, 2, 1000);
-		Recurso quarto2 = new Quarto(Long.valueOf(2), "2 andar", 2, 500, 2, 3, 2000);
-		Recurso quarto3 = new Quarto(Long.valueOf(3), "3 andar", 2, 600, 3, 4, 5000);
+		Recurso quarto1 = new Quarto("1 andar", 1, 700, 1, 2, 1000);
+		Recurso quarto2 = new Quarto("2 andar", 2, 500, 2, 3, 2000);
+		Recurso quarto3 = new Quarto("3 andar", 2, 600, 3, 4, 5000);
 				
 		try {
 			daoRecurso.add(quarto1);
@@ -99,12 +99,12 @@ public class MainHotel {
 		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		calendar.set(Calendar.MONTH, 5);
 		calendar.set(Calendar.YEAR, 1990);
-		ClienteHotel cliente1 = new ClienteHotel(Long.valueOf(1), "Pedro Inacio", "123.456.789-10", "endereco1", "1233456784",calendar.getTime());
+		ClienteHotel cliente1 = new ClienteHotel("Pedro Inacio", "123.456.789-10", "endereco1", "1233456784",calendar.getTime());
 		
 		calendar.set(Calendar.DAY_OF_MONTH, 31);
 		calendar.set(Calendar.MONTH, 4);
 		calendar.set(Calendar.YEAR, 1965);
-		ClienteHotel cliente2 = new ClienteHotel(Long.valueOf(2), "Juvenal da Costa", "456.890.123-22", "endereco2", "7125782334",calendar.getTime());
+		ClienteHotel cliente2 = new ClienteHotel("Juvenal da Costa", "456.890.123-22", "endereco2", "7125782334",calendar.getTime());
 		
 		try {
 			daoCliente.add(cliente1);
