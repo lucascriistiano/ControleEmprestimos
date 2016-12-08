@@ -9,11 +9,11 @@ import dominio.Recurso;
 
 public class ComprovanteEmprestimoBuilderHotel implements ComprovanteEmprestimoBuilder {
 
-	private /*@ nullable @*/ String locador;
-	private /*@ nullable @*/ Long codigo;
-	private /*@ nullable @*/ Date dataEmprestimo;
-	private /*@ nullable @*/ Date dataDevolucao;
-    private /*@ nullable @*/ List<Recurso> recursos;
+	private /*@ nullable spec_public @*/ String locador;
+	private /*@ nullable spec_public @*/ Long codigo;
+	private /*@ nullable spec_public @*/ Date dataEmprestimo;
+	private /*@ nullable spec_public @*/ Date dataDevolucao;
+    private /*@ nullable spec_public @*/ List<Recurso> recursos;
 
 	@Override
 	public void buildLocador(String nomeLocador) {

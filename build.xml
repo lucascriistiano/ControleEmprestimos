@@ -168,6 +168,7 @@
 			
 			<!-- Descomentar para detalhar testes -->
 			<!-- <formatter type="plain" usefile="false" /> --> 
+			<formatter usefile="false" type="brief"/>
 			<batchtest skipNonTests="true" fork="false">
 			    <fileset dir="${dest.dir}">
 			    	 <include name="**/*Test.class" />
@@ -189,7 +190,8 @@
 			<classpath refid="classpath"/>
 			
 			<!-- Descomentar para detalhar testes -->
-			<!-- <formatter type="plain" usefile="false" /> --> 
+			<!-- <formatter type="plain" usefile="false" /> -->
+			<formatter usefile="false" type="brief"/>
 			<batchtest skipNonTests="true" fork="false">
 			    <fileset dir="${dest.dir}">
 			    	 <include name="**/*Test.class" />
@@ -199,7 +201,7 @@
 	</target>
 
 	<!-- TYPE CHECKING -->
-	<target name="ajml" description="Ant task responsible for type checking Java files annotated with AspectJML using ajml type checker version ${AspectJML}">
+	<target name="ajml"  description="Ant task responsible for type checking Java files annotated with AspectJML using ajml type checker version ${AspectJML}">
 		<ajml destdir="${dest.dir}" srcdir="${src.dir}" sourcepathref="sourcepath" classpathref="classpath" verbose="false">
 		</ajml>
 	</target>

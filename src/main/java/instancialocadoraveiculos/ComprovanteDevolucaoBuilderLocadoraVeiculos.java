@@ -9,11 +9,11 @@ import dominio.Recurso;
 
 public class ComprovanteDevolucaoBuilderLocadoraVeiculos implements ComprovanteDevolucaoBuilder {
 
-	private String locador;
-	private Long codigo;
-	private Date dataEmprestimo;
-	private Date dataDevolucao;
-    private List<Recurso> recursos;
+	private /*@ nullable spec_public @*/ String locador;
+	private /*@ nullable spec_public @*/ Long codigo;
+	private /*@ nullable spec_public @*/ Date dataEmprestimo;
+	private /*@ nullable spec_public @*/ Date dataDevolucao;
+    private /*@ nullable spec_public @*/ List<Recurso> recursos;
     private double valor;
 
 	@Override
