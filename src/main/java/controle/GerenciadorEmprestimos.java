@@ -53,7 +53,7 @@ public class GerenciadorEmprestimos {
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
 		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
 	}
-	
+		
 	/*@
 	@ public normal_behavior
 	@ 	requires cliente != null;
@@ -67,24 +67,10 @@ public class GerenciadorEmprestimos {
 	@				0 <= i && i < recursos.size();
 	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
 	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
-	@*/
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
-		return realizarEmprestimo(usuario, cliente, recursos, null);
-	}
-	
-	/*@
-	@ public normal_behavior
-	@ 	requires cliente != null;
-	@	requires cliente.valido();
-	@	requires (\forall int i; 
-	@				0 <= i && i < recursos.size();
-	@				 recursos.get(i) != null);	
-	@ 	assignable \nothing;
-	@	ensures \result != null;
-	@	ensures (\forall int i; 
-	@				0 <= i && i < recursos.size();
-	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
-	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
+	@	also
+	@	public exceptional_behavior
+	@		requires cliente == null || !cliente.valido();
+	@		signals_only ClienteInvalidoException;
 	@*/
 	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException {
 		//Validacao do status do cliente para emprestimos
@@ -122,6 +108,10 @@ public class GerenciadorEmprestimos {
 	
 		ComprovanteEmprestimo comprovanteEmprestimo = geradorComprovante.gerarComprovanteEmprestimo(emprestimo);
 		return comprovanteEmprestimo;
+	}
+	
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
+		return realizarEmprestimo(usuario, cliente, recursos, null);
 	}
 	
 	/*@

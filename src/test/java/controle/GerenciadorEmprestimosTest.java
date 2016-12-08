@@ -2,7 +2,6 @@ package controle;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +10,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import builder.GerenciadorClientesScenarioBuilder;
+import dominio.Cliente;
 import dominio.ComprovanteDevolucaoBuilder;
 import dominio.ComprovanteEmprestimoBuilder;
 import dominio.FabricaNotificacao;
@@ -69,9 +69,10 @@ public class GerenciadorEmprestimosTest {
 		}
 	}
 
-	@Test
-	public void test(){
-		
+	@Test(expected=ClienteInvalidoException.class)
+	public void testPreconditionInvalid(){
+		Cliente cliente = builderClientes.criarClienteInvalido().assertNotExists().getClienteInstance();
+//		gerenciador.realizarEmprestimo(usuario, cliente, recursos);
 	}
 	
 }
