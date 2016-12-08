@@ -18,9 +18,13 @@ public class GerenciadorRecursos {
 	public void cadastrarRecurso(Recurso recurso) throws DataException {
 		this.daoRecurso.add(recurso);
 	}
-	
+		
 	public void removerRecurso(Recurso recurso) throws DataException {
 		this.daoRecurso.remove(recurso);
+	}
+	
+	public void updateUsuario(Recurso recurso) throws DataException{
+		this.daoRecurso.update(recurso);
 	}
 	
 	@SuppressWarnings("unchecked")

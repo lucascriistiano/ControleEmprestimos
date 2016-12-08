@@ -52,6 +52,7 @@ public interface Dao {
 	 @	public exceptional_behavior
 	 @		requires obj != null;
 	 @		requires !list.contains(obj);
+	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @		signals (DataException e)
 	 @			list.isEmpty() || list.contains(obj) == false;

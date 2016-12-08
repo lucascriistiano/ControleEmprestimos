@@ -42,9 +42,11 @@ public class Usuario extends Dominio {
 	}
 	
 	@Override
-	public boolean valido() {
+	public /*@ pure @*/ boolean valido() {
 		boolean isValido = true;
-		if("".equals(login) || login == null){
+		if(codigo < 0L){
+			isValido = false;
+		} else if("".equals(login) || login == null){
 			isValido = false;
 		} else if ("".equals(nome)){
 			isValido = false;
@@ -52,9 +54,11 @@ public class Usuario extends Dominio {
 		return isValido;
 	}
 	
-	public UsuarioInvalidoException toUsuarioInvalidoException(){
+	public /*@ pure @*/ UsuarioInvalidoException toUsuarioInvalidoException(){
 		UsuarioInvalidoException exception = new UsuarioInvalidoException("Usuário Inválido");
-		if("".equals(login) || login == null){
+		if(codigo < 0L){
+			exception = new UsuarioInvalidoException("Codigo Inválido < 0", exception);
+		} else if("".equals(login) || login == null){
 			exception = new UsuarioInvalidoException("Login Inválido", exception);
 		} else if ("".equals(nome)){
 			exception = new UsuarioInvalidoException("Nome Vazio", exception);
@@ -63,7 +67,7 @@ public class Usuario extends Dominio {
 	}
 	
 	@Override
-	public String toString() {
+	public /*@ pure @*/ String toString() {
 		return "Usuario [nome=" + nome + ", login=" + login + ", senha=" + senha + ", codigo=" + codigo + ", valido()="
 				+ valido() + "]";
 	}

@@ -57,13 +57,13 @@ public class GerenciadorEmprestimos {
 		
 	/*@
 	@ public normal_behavior
+	@	requires usuario != null;
 	@ 	requires cliente != null;
 	@	requires usuario.valido();
 	@	requires cliente.valido();
 	@	requires (\forall int i; 
 	@				0 <= i && i < recursos.size();
 	@				 recursos.get(i) != null);	
-	@ 	assignable \nothing;
 	@	ensures \result != null;
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();
@@ -78,7 +78,7 @@ public class GerenciadorEmprestimos {
 	@		requires !cliente.valido();
 	@		signals_only ClienteInvalidoException;
 	@*/
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, /*@ nullable @*/ Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException, UsuarioInvalidoException {
+	public /*@ pure @*/ ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, /*@ nullable @*/ Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException, UsuarioInvalidoException {
 		//Validacao do status do cliente para emprestimos
 		
 		if(!usuario.valido()){
