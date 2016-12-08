@@ -61,7 +61,7 @@ public class GerenciadorEmprestimos {
 	@	requires cliente.valido();
 	@	requires (\forall int i; 
 	@				0 <= i && i < recursos.size();
-	@				 recursos.get(i) != null);	
+	@				 recursos.get(i) != null && ((Recurso) recursos.get(i)).valido());	
 	@	ensures \result != null;
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();

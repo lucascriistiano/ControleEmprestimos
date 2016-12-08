@@ -25,7 +25,7 @@ public abstract class Dominio {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public /*@ pure @*/ boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
