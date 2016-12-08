@@ -10,9 +10,11 @@ public class Emprestimo extends Dominio {
 	private /*@ nullable spec_public @*/ Usuario usuario;		//Usuario que efetivou o emprestimo 
 	private /*@ nullable spec_public @*/ Cliente cliente;		//Cliente que realizou o emprestimo
 	private /*@ nullable spec_public @*/ List<Recurso> recursos;//Lista de recursos emprestados
+	private /*@ spec_public @*/ boolean quitado;
 	
 	public Emprestimo() {		
 		this.recursos = new ArrayList<Recurso>();
+		this.quitado = false;
 	}
 	
 	public Emprestimo(Date dataEmprestimo, Usuario usuario, Cliente cliente, List<Recurso> recursos) {		
@@ -21,6 +23,14 @@ public class Emprestimo extends Dominio {
 		this.cliente = cliente;
 		
 		this.recursos = new ArrayList<Recurso>(recursos);
+	}
+	
+	public /*@ pure @*/ boolean isQuitado() {
+		return quitado;
+	}
+
+	public void setQuitado(boolean quitado) {
+		this.quitado = quitado;
 	}
 	
 	public /*@ pure @*/ Date getDataEmprestimo() {

@@ -53,17 +53,7 @@ public class Quarto extends Recurso {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-
-	@Override
-	public void alocar() {
-		this.setDisponivel(false);
-	}
 	
-	@Override
-	public void desalocar() {
-		this.setDisponivel(true);
-	}
-
 	@Override
 	public boolean validar() throws RecursoInvalidoException {
 		if(!this.isDisponivel())

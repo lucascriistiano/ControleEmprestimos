@@ -18,6 +18,7 @@ import dao.DaoCliente;
 import dao.DaoEmprestimo;
 import dao.DaoUsuario;
 import dominio.Cliente;
+import dominio.ComprovanteEmprestimo;
 import dominio.FabricaNotificacao;
 import dominio.GeradorComprovante;
 import dominio.Recurso;
@@ -134,11 +135,24 @@ public class GerenciadorEmprestimosTest {
 	}
 
 	@Test
-	public void testCadastrarEmprestimoNormalBehavior() throws DataException, UsuarioInvalidoException,
+	public void testRealizarEmprestimoNormalBehavior() throws DataException, UsuarioInvalidoException,
 			EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
 		Cliente cliente = builderClientes.criarClienteValido().assertNotExists().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioValido().cadastrarUsuario().assertExists().getUsuarioInstance();
 		Recurso recurso = builderRecursos.criarRecursoValido().getRecursoInstance();
 		gerenciador.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
 	}
+	
+	@Test
+	public void testRealizarDevolucaoNormalBehavior() throws DataException, UsuarioInvalidoException,
+		EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
+		Cliente cliente = builderClientes.criarClienteValido().assertNotExists().getClienteInstance();
+		Usuario usuario = builderUsuarios.criarUsuarioValido().cadastrarUsuario().assertExists().getUsuarioInstance();
+		Recurso recurso = builderRecursos.criarRecursoValido().getRecursoInstance();
+		ComprovanteEmprestimo comprovante = gerenciador.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
+		
+		gerenciador.realizarDevolucao(comprovante.getEmprestimo(), 0);
+	}
+	
+
 }

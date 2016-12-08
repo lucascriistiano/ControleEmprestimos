@@ -50,10 +50,9 @@ public abstract class Recurso extends Dominio {
 				+ ", codigo=" + codigo + ", isDisponivel()=" + isDisponivel() + ", valido()=" + valido() + "]";
 	}
 	
-	
 
 	@Override
-	public boolean valido() {
+	public /*@ pure @*/ boolean valido() {
 		boolean isValido = true;
 		if(codigo < 0L){
 			isValido = false;
@@ -72,8 +71,6 @@ public abstract class Recurso extends Dominio {
 		} 
 		return exception;
 	}
-
-	public abstract void alocar();
-	public abstract void desalocar();
+	
 	public /*@ pure @*/ abstract boolean validar() throws RecursoInvalidoException;
 }

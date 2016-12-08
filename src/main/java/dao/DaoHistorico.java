@@ -1,17 +1,15 @@
 package dao;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import dominio.Emprestimo;
+import dominio.HistoricoEmprestimo;
 import dominio.Recurso;
 import excecao.DataException;
 
-public class DaoHistorico extends DaoImpl<Emprestimo> {
+public class DaoHistorico extends DaoImpl<HistoricoEmprestimo> {
 	
 	private static /*@ nullable @*/ DaoHistorico daoHistorico = null;
 	
@@ -19,33 +17,38 @@ public class DaoHistorico extends DaoImpl<Emprestimo> {
 		super("Emprestimo");
 	}
 	
+	
+	/*@
+	 @ also
+	 @ public normal_behavior
+	 @	requires historico.getEmprestimo().isQuitado();		
+	 @*/
+	@Override
+	public void add(HistoricoEmprestimo historico) throws DataException {
+		super.add(historico);
+	}
+
 	public static DaoHistorico getInstance() {
 		if(daoHistorico == null)
 			daoHistorico = new DaoHistorico();
 				
 		return daoHistorico;
 	}
+	
+	public /*@ pure @*/ boolean existsEmprestimo(long codigo) throws DataException {
+		return list.stream().filter(x -> x.getEmprestimo().getCodigo().equals(codigo)).count() > 0;
+	}
 
-	public List<Emprestimo> getHistoricoCliente(Long codigo) throws DataException {
-		List<Emprestimo> resultList = new ArrayList<Emprestimo>();
-		
-		Iterator<Emprestimo> it = list.iterator();
-		while(it.hasNext()) {
-			Emprestimo emprestimo = it.next();
-			if(emprestimo.getCliente().getCodigo().equals(codigo)) {
-				resultList.add(emprestimo);
-			}
-		}
-		
-		return resultList;
+	public /*@ pure @*/ List<HistoricoEmprestimo> getHistoricoCliente(long codigo) throws DataException {
+		return list.stream().filter(x -> x.getEmprestimo().getCliente().getCodigo().equals(codigo)).collect(Collectors.toList());
 	}
 	
-	public Integer findCategoriaAltaByCliente(long codigoCliente) throws DataException{
+	public /*@ pure @*/ Integer findCategoriaAltaByCliente(long codigoCliente) throws DataException{
 		
-		List<Emprestimo> historicoEmprestimos = this.getHistoricoCliente(codigoCliente);
+		List<HistoricoEmprestimo> historicoEmprestimos = this.getHistoricoCliente(codigoCliente);
 		
 		Map<Integer, List<Recurso>> recursosByCategoria = historicoEmprestimos.stream()
-		.map(e -> e.getRecursos())
+		.map(e -> e.getEmprestimo().getRecursos())
 		.flatMap(r -> r.stream())
 		.collect(Collectors.groupingBy(Recurso::getCategoria));
 		

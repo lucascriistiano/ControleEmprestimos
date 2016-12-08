@@ -13,6 +13,7 @@ import dominio.ComprovanteEmprestimo;
 import dominio.Emprestimo;
 import dominio.FabricaNotificacao;
 import dominio.GeradorComprovante;
+import dominio.HistoricoEmprestimo;
 import dominio.Recurso;
 import dominio.RegraEmprestimo;
 import dominio.Usuario;
@@ -61,11 +62,12 @@ public class GerenciadorEmprestimos {
 	@	requires cliente.valido();
 	@	requires (\forall int i; 
 	@				0 <= i && i < recursos.size();
-	@				 recursos.get(i) != null && ((Recurso) recursos.get(i)).valido());	
+	@				 recursos.get(i) != null && ((Recurso) recursos.get(i)).valido() && ((Recurso) recursos.get(i)).isDisponivel() );	
 	@	ensures \result != null;
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();
-	@				((List<Recursos>) \result.getEmprestimo().getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
+	@				((List<Recursos>) \result.getEmprestimo().getRecursos()) .contains( ((Recurso) recursos.get(i)) )  
+	@								&&	!( (Recurso) \result.getEmprestimo().getRecursos().get(i)).isDisponivel()	 );	
 	@	ensures daoEmprestimo.exists((long) \result.getEmprestimo().getCodigo());
 	@	also
 	@	public exceptional_behavior
@@ -109,7 +111,7 @@ public class GerenciadorEmprestimos {
 		
 		for(Recurso recurso : recursos) {
 			emprestimo.adicionarRecurso(recurso);
-			recurso.alocar();
+			recurso.setDisponivel(false);
 		}
 		
 		daoEmprestimo.add(emprestimo);
@@ -125,7 +127,7 @@ public class GerenciadorEmprestimos {
 	/*@
 	 @ requires emprestimo != null;
 	 @ assignable \nothing;
-	 @ ensures this.daoHistorico.exists((long) \result.getEmprestimo().getCodigo());
+	 @ ensures this.daoHistorico.existsEmprestimo((long) \result.getEmprestimo().getCodigo());
  	 @ ensures !this.daoEmprestimo.exists((long) \result.getEmprestimo().getCodigo());
  	 @ ensures \result.getValor() == regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 	 @*/
@@ -135,10 +137,11 @@ public class GerenciadorEmprestimos {
 		//TODO Implementar a realizacao do pagamento
 
 		for(Recurso recurso : emprestimo.getRecursos()) {
-			recurso.desalocar();
+			recurso.setDisponivel(true);
 		}
 		
-		daoHistorico.add(emprestimo); // Antes de remover da memoria adiciona no historico
+		emprestimo.setQuitado(true);
+		daoHistorico.add(new HistoricoEmprestimo(emprestimo)); // Antes de remover da memoria adiciona no historico
 		daoEmprestimo.remove(emprestimo);
 
 		ComprovanteDevolucao comprovanteDevolucao = geradorComprovante.gerarComprovanteDevolucao(emprestimo, valorFinal);

@@ -38,7 +38,7 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @*/
-	public final void add(T obj) throws DataException {	
+	public void add(T obj) throws DataException {	
 		if(list.contains(obj)) throw new DataException(entidade + " já Cadastrado");
 
 		contador++;

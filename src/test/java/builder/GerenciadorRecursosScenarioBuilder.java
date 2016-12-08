@@ -76,6 +76,20 @@ public class GerenciadorRecursosScenarioBuilder {
 		return this;
 	}
 	
+	public GerenciadorRecursosScenarioBuilder tornarRecursoIndisponivel(){
+		if(recurso != null){
+			recurso.setDisponivel(false);
+		}
+		return this;
+	}
+	
+	public GerenciadorRecursosScenarioBuilder tornarRecursoDisponivel(){
+		if(recurso != null){
+			recurso.setDisponivel(true);
+		}
+		return this;
+	}
+	
 	public GerenciadorRecursosScenarioBuilder tornarRecursoInvalido(){
 		if(recurso != null){
 			recurso.setDescricao("");
