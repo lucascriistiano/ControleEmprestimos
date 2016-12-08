@@ -5,29 +5,29 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import builder.GerenciadorUsuariosScenarioBuilder;
+import builder.GerenciadorRecursosScenarioBuilder;
 import dao.DaoUsuarioMemoria;
 
-public class GerenciadorUsuariosTest {
-
-	private static GerenciadorUsuarios gerenciador;
-	private GerenciadorUsuariosScenarioBuilder builder;
+public class GerenciadorRecursosTest {
+	
+	private static GerenciadorRecursos gerenciador;
+	private GerenciadorRecursosScenarioBuilder builder;
 	
 	@BeforeClass
 	public static void beforeClass(){
-		gerenciador = new GerenciadorUsuarios();
+		gerenciador = new GerenciadorRecursos();
 	}
 	
 	@Before
 	public void before(){
-		builder = new GerenciadorUsuariosScenarioBuilder(gerenciador);
+		builder = new GerenciadorRecursosScenarioBuilder(gerenciador);
 	}
 		
 	@After 
 	public void tearDown(){
 		DaoUsuarioMemoria.getInstance().clear();
 	}
-	
+
 	@Test
 	public void test(){
 		
