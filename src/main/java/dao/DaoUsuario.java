@@ -5,7 +5,7 @@ import java.util.Iterator;
 import dominio.Usuario;
 import excecao.DataException;
 
-public class DaoUsuario extends DaoMemoria<Usuario> {
+public class DaoUsuario extends DaoImpl<Usuario> {
 	
 	static /*@ nullable @*/ DaoUsuario daoUsuario = null;
 	

@@ -13,12 +13,12 @@ public class Carro extends Recurso {
 	private int quilometragemFinal; 	// Quilometragem rodada pelo veiculo antes do momento do emprestimo
 	private double preco; 				// Referente ao valor do aluguel
 	
-	public Carro(Long codigo, String descricao, int categoria) {
-		super(codigo, descricao, categoria);
+	public Carro(String descricao, int categoria) {
+		super(descricao, categoria);
 	}
 	
-	public Carro(Long codigo, String descricao, int categoria, String placa, String modelo, String fabricante, String cor, int quilometragemInicial, double preco) {
-		super(codigo, descricao, categoria);
+	public Carro(String descricao, int categoria, String placa, String modelo, String fabricante, String cor, int quilometragemInicial, double preco) {
+		super(descricao, categoria);
 		
 		this.placa = placa;
 		this.modelo = modelo;

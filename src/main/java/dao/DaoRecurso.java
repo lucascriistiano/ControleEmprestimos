@@ -7,7 +7,7 @@ import java.util.List;
 import dominio.Recurso;
 import excecao.DataException;
 
-public class DaoRecurso extends DaoMemoria<Recurso> {
+public class DaoRecurso extends DaoImpl<Recurso> {
 
 	private static /*@ nullable @*/ DaoRecurso daoRecurso = null;
 	

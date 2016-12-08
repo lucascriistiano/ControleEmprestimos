@@ -18,13 +18,12 @@ public class GerenciadorUsuarios {
 	
 	/*@ 
 	@	public normal_behavior
-	@ 		requires usuario != null;
+    @		requires ((long) usuario.getCodigo()) == 0L;
 	@		requires usuario.valido();
 	@		requires !exists((long) usuario.getCodigo());
 	@ 		ensures exists((long) usuario.getCodigo());
 	@	also
 	@	public exceptional_behavior
-	@		requires usuario != null;
 	@		requires usuario.valido();
 	@		requires exists((long) usuario.getCodigo());
 	@		signals_only DataException;

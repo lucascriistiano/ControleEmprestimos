@@ -81,9 +81,9 @@ public class VerificadorPrazosTest {
 		
 		Recurso recurso;
 		if(tipoClasse.equals(Quarto.class)) {
-			recurso =  new Quarto(1L, "Quarto Pequeno", 1);
+			recurso =  new Quarto("Quarto Pequeno", 1);
 		} else {
-			recurso =  new Carro(1L, "Meriva Joy", 1);
+			recurso =  new Carro("Meriva Joy", 1);
 		}
 		
 		GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(regra, geradorComprovante, notificacao, gerenciadorDatasNaoModificado);

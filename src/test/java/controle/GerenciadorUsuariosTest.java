@@ -77,7 +77,7 @@ public class GerenciadorUsuariosTest {
 	@Test(expected=DataException.class)
 	public void testRemoverUsuarioIdInvalidoExceptionalBehavior() throws DataException {				
 		builder.criarUsuarioValido()
-				.setCodigoInvalido()
+				.tornarCodigoInvalido()
 				.assertNotExists()
 				.removerUsuario();
 	}

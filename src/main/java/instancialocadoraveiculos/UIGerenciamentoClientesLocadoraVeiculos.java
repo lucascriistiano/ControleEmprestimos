@@ -7,11 +7,11 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import visao.UIGerenciamentoClientes;
 import controle.GerenciadorClientes;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
+import visao.UIGerenciamentoClientes;
 
 public class UIGerenciamentoClientesLocadoraVeiculos implements UIGerenciamentoClientes {
 
@@ -42,7 +42,7 @@ public class UIGerenciamentoClientesLocadoraVeiculos implements UIGerenciamentoC
 		
 			dataNascimento = dateFormat.parse(strDataNascimento);
 			
-			Cliente cliente = new ClienteLocadoraVeiculos(codigo,nome,cpf,rg,carteiraMotorista,dataNascimento);
+			Cliente cliente = new ClienteLocadoraVeiculos(nome,cpf,rg,carteiraMotorista,dataNascimento);
 			gerenciadorClientes.cadastrarCliente(cliente);
 		
 		} catch (DataException e) {
@@ -69,7 +69,7 @@ public class UIGerenciamentoClientesLocadoraVeiculos implements UIGerenciamentoC
 			Long codigo = in.nextLong();
 			in.nextLine();
 	
-			Cliente cliente = new ClienteLocadoraVeiculos(codigo,"");
+			Cliente cliente = new ClienteLocadoraVeiculos("");
 			gerenciadorClientes.removerCliente(cliente);
 		
 		} catch (DataException e) {

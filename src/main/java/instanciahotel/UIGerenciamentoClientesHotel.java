@@ -42,7 +42,7 @@ public class UIGerenciamentoClientesHotel implements UIGerenciamentoClientes {
 		
 			dataNascimento = dateFormat.parse(strDataNascimento);
 			
-			Cliente cliente = new ClienteHotel(codigo,nome,cpf,rg,endereco,dataNascimento);
+			Cliente cliente = new ClienteHotel(nome,cpf,rg,endereco,dataNascimento);
 			gerenciadorClientes.cadastrarCliente(cliente);
 		
 		} catch (DataException e) {
@@ -68,7 +68,7 @@ public class UIGerenciamentoClientesHotel implements UIGerenciamentoClientes {
 			Long codigo = in.nextLong();
 			in.nextLine();
 	
-			Cliente cliente = new ClienteHotel(codigo,"");
+			Cliente cliente = new ClienteHotel("");
 			gerenciadorClientes.removerCliente(cliente);
 		
 		} catch (DataException e) {

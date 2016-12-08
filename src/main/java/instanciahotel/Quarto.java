@@ -10,12 +10,12 @@ public class Quarto extends Recurso {
 	private int quantidadePessoas;
 	private double preco; 				// Referente ao valor do aluguel
 	
-	public Quarto(Long codigo, String descricao, int categoria) {
-		super(codigo, descricao, categoria);
+	public Quarto(String descricao, int categoria) {
+		super(descricao, categoria);
 	}
 	
-	public Quarto(Long codigo, String descricao, int categoria, double area, int numero, int quantidadePessoas, double preco) {
-		super(codigo, descricao, categoria);
+	public Quarto(String descricao, int categoria, double area, int numero, int quantidadePessoas, double preco) {
+		super(descricao, categoria);
 		this.area = area;
 		this.numero = numero;
 		this.quantidadePessoas = quantidadePessoas;

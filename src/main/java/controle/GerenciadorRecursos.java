@@ -19,13 +19,12 @@ public class GerenciadorRecursos {
 	
 	/*@ 
 	@	public normal_behavior
-	@ 		requires recurso != null;
+    @		requires ((long) recurso.getCodigo()) == 0L;
 	@		requires recurso.valido();
 	@		requires !exists((long) recurso.getCodigo());
 	@ 		ensures exists((long) recurso.getCodigo());
 	@	also
 	@	public exceptional_behavior
-	@		requires recurso != null;
 	@		requires recurso.valido();
 	@		requires exists((long) recurso.getCodigo());
 	@		signals_only DataException;

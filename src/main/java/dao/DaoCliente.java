@@ -2,7 +2,7 @@ package dao;
 
 import dominio.Cliente;
 
-public class DaoCliente extends DaoMemoria<Cliente> {
+public class DaoCliente extends DaoImpl<Cliente> {
 				
 	private static /*@ nullable @*/ DaoCliente daoCliente = null;
 

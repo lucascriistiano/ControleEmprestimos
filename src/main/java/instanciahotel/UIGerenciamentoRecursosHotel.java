@@ -35,7 +35,7 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			System.out.print("Preco de aluguel: ");
 			double preco = in.nextDouble();
 					
-			Recurso recurso = new Quarto(codigo, descricao, categoria, area, numero, quantidadePessoas, preco);
+			Recurso recurso = new Quarto(descricao, categoria, area, numero, quantidadePessoas, preco);
 			
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
@@ -56,7 +56,7 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Quarto(codigo,"",0);
+			Recurso recurso = new Quarto("",0);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {

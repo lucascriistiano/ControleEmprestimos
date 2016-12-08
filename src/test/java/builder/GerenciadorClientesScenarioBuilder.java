@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import controle.GerenciadorClientes;
 import dominio.Cliente;
@@ -22,27 +21,15 @@ public class GerenciadorClientesScenarioBuilder {
 		this.gerenciador = gerenciador;
 	}
 
-	public GerenciadorClientesScenarioBuilder criarClienteValido() {
-		long codigo;
-		try{
-			List<Cliente> lista = gerenciador.listarClientes();
-			if(lista == null || lista.isEmpty()){
-				codigo = 1L;
-			} else {
-				codigo = lista.get(lista.size() -1).getCodigo() + 1L;
-			}
-		} catch (DataException e){
-			codigo = 1L;
-		}
-		
-		cliente = createClienteHotel(codigo, "Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
+	public GerenciadorClientesScenarioBuilder criarClienteValido() {		
+		cliente = createClienteHotel("Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
 		assertTrue("Cliente não deve ser nulo", cliente != null);
 		assertTrue("Cliente deve ser válido", cliente.valido());	
 		return this;
 	}
 	
 	public GerenciadorClientesScenarioBuilder criarClienteInvalido(){
-		cliente = createClienteHotel(1L, "", "", "", "Rua ", 1, 1, 2016);
+		cliente = createClienteHotel("", "", "", "Rua ", 1, 1, 2016);
 		assertTrue("Cliente não deve ser nulo", cliente != null);
 		assertTrue("Cliente deve ser inválido", !cliente.valido());	
 		return this;
@@ -62,14 +49,7 @@ public class GerenciadorClientesScenarioBuilder {
 		gerenciador.removerCliente(cliente);
 		return this;
 	}
-	
-	public GerenciadorClientesScenarioBuilder setCodigoInvalido(){
-		if(cliente != null){
-			cliente.setCodigo(0L);
-		}
-		return this;
-	}
-	
+		
 	public GerenciadorClientesScenarioBuilder setNomeCliente(String nome){
 		if(cliente != null){
 			cliente.setNome(nome);
@@ -93,7 +73,7 @@ public class GerenciadorClientesScenarioBuilder {
 	
 	public GerenciadorClientesScenarioBuilder tornarCodigoInvalido(){
 		if(cliente != null){
-			cliente.setCodigo(0L);
+			cliente.setCodigo(-1L);
 		}
 		return this;
 	}	
@@ -119,7 +99,7 @@ public class GerenciadorClientesScenarioBuilder {
 	}
 	
 	public GerenciadorClientesScenarioBuilder assertCodigoValido(){
-		assertTrue("Id do cliente deve ser maior que 0", cliente.getCodigo() > 0);
+		assertTrue("Id do cliente não deve ser menor que 0", !(cliente.getCodigo() < 0));
 		return this;
 	}
 	
@@ -128,16 +108,16 @@ public class GerenciadorClientesScenarioBuilder {
 	}
 	
 	
-	private Cliente createClienteHotel(long codigo, String nome, String cpf, String rg, String endereco, int dia, int mes, int ano) {
+	private Cliente createClienteHotel(String nome, String cpf, String rg, String endereco, int dia, int mes, int ano) {
 		Calendar dataNascimento = Calendar.getInstance();
 		dataNascimento.set(Calendar.DAY_OF_MONTH, dia);
 		dataNascimento.set(Calendar.MONTH, mes-1);
 		dataNascimento.set(Calendar.YEAR, ano);
-		return createClienteHotel(codigo, nome, cpf, rg, endereco, dataNascimento.getTime());
+		return createClienteHotel(nome, cpf, rg, endereco, dataNascimento.getTime());
 	}
 	
-	private Cliente createClienteHotel(long codigo, String nome, String cpf, String rg, String endereco, Date nascimento) {
-		return new ClienteHotel(codigo, nome, cpf, rg, endereco, nascimento);
+	private Cliente createClienteHotel(String nome, String cpf, String rg, String endereco, Date nascimento) {
+		return new ClienteHotel(nome, cpf, rg, endereco, nascimento);
 	}
 
 }

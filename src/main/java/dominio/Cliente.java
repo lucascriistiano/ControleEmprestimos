@@ -6,8 +6,7 @@ public abstract class Cliente extends Dominio {
 	
 	private /*@ spec_public @*/ String nome;
 	
-	protected Cliente(Long codigo, String nome) {
-		this.codigo = codigo;
+	protected Cliente(String nome) {
 		this.nome = nome;
 	}
 	

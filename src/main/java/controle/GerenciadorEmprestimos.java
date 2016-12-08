@@ -66,6 +66,7 @@ public class GerenciadorEmprestimos {
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();
 	@				((List<Recursos>) \result.getEmprestimo().getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
+	@	ensures daoEmprestimo.exists((long) \result.getEmprestimo().getCodigo());
 	@	also
 	@	public exceptional_behavior
 	@		requires !usuario.valido();

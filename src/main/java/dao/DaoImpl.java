@@ -7,13 +7,16 @@ import java.util.List;
 import dominio.Dominio;
 import excecao.DataException;
 
-public abstract class DaoMemoria<T extends Dominio> implements Dao<T> {
+public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	
+	private long contador;
 	private final String entidade;
 	protected /*@ spec_public @*/ List<T> list; 
+	
 		
-	public DaoMemoria(String entidade) {
+	public DaoImpl(String entidade) {
 		super();
+		this.contador = 0;
 		this.entidade = entidade;
 		this.list = new ArrayList<>();
 	}
@@ -22,10 +25,12 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao<T> {
 	 @ also
 	 @ public normal_behavior
 	 @ 		requires obj != null;
+ 	 @		requires ((long) obj.getCodigo()) == 0L;
 	 @		requires !list.contains(obj);
 	 @ 		assignable list;
 	 @ 		ensures list.size() == \old(list.size()) + 1;
 	 @ 		ensures list.get(list.size()-1) == obj;
+	 @		ensures ((long) obj.getCodigo()) > 0L;
 	 @	also
 	 @	public exceptional_behavior
 	 @ 		requires obj != null;
@@ -33,13 +38,12 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao<T> {
 	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @*/
-	public final void add(T obj) throws DataException {
-		T cobj = (T) obj;
-		if(!list.contains(cobj)){
-			list.add(cobj);
-		} else {
-			throw new DataException(entidade + " já Cadastrado");
-		}
+	public final void add(T obj) throws DataException {	
+		if(list.contains(obj)) throw new DataException(entidade + " já Cadastrado");
+
+		contador++;
+		obj.setCodigo(contador);
+		list.add(obj);
 	}
 
 	/*@
@@ -192,6 +196,7 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao<T> {
 	public final void clear() {
 		if(list != null){
 			list.clear();
+			contador = 0;
 		}
 	}
 

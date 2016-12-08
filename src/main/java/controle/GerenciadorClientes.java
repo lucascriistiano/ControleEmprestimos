@@ -19,13 +19,12 @@ public class GerenciadorClientes {
 	
 	/*@ 
 	@	public normal_behavior
-	@ 		requires cliente != null;
+    @		requires ((long) cliente.getCodigo()) == 0L;
 	@		requires cliente.valido();
 	@		requires !exists((long) cliente.getCodigo());
 	@ 		ensures exists((long) cliente.getCodigo());
 	@	also
 	@	public exceptional_behavior
-	@		requires cliente != null;
 	@		requires cliente.valido();
 	@		requires exists((long) cliente.getCodigo());
 	@		signals_only DataException;

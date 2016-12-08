@@ -4,10 +4,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import visao.UIGerenciamentoRecursos;
 import controle.GerenciadorRecursos;
 import dominio.Recurso;
 import excecao.DataException;
+import visao.UIGerenciamentoRecursos;
 
 public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoRecursos {
 
@@ -39,7 +39,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			System.out.print("Preco de aluguel: ");
 			double preco = in.nextDouble();
 			
-			Recurso recurso = new Carro(codigo, descricao, categoria, placa, modelo, fabricante, cor, quilometragemInicial, preco);
+			Recurso recurso = new Carro(descricao, categoria, placa, modelo, fabricante, cor, quilometragemInicial, preco);
 			
 			gerenciadorRecursos.cadastrarRecurso(recurso);
 		} catch (DataException e) {
@@ -60,7 +60,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Carro(codigo,"",0);
+			Recurso recurso = new Carro("",0);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
