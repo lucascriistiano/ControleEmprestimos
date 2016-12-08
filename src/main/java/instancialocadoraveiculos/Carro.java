@@ -5,10 +5,10 @@ import excecao.RecursoInvalidoException;
 
 public class Carro extends Recurso {
 	
-	private String placa;
-	private String modelo;
-	private String fabricante;
-	private String cor;
+	private /*@ nullable @*/ String placa;
+	private /*@ nullable @*/ String modelo;
+	private /*@ nullable @*/ String fabricante;
+	private /*@ nullable @*/ String cor;
 	private int quilometragemInicial; 	// Quilometragem rodada pelo veiculo antes do momento do emprestimo
 	private int quilometragemFinal; 	// Quilometragem rodada pelo veiculo antes do momento do emprestimo
 	private double preco; 				// Referente ao valor do aluguel

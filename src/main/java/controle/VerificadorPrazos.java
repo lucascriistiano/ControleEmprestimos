@@ -21,19 +21,20 @@ public class VerificadorPrazos {
 	}
 	
 	/*@
-	 @ ensures (gerenciadorDatas.getDataAtual().getTime() - emprestimo.getDataDevolucao().getTime() <= 0) ==> \result == false;
-	 @ ensures (gerenciadorDatas.getDataAtual().getTime() - emprestimo.getDataDevolucao().getTime() > 0) ==> \result == true; 
+	 @ requires gerenciadorDatas != null;
+	 @ requires emprestimo.getDataDevolucao() != null;
+	 @ requires gerenciadorDatas.getDataAtual() != null;
+	 @ ensures gerenciadorDatas.getDataAtual().after(emprestimo.getDataDevolucao()) ==> \result == true;
+	 @ ensures !gerenciadorDatas.getDataAtual().after(emprestimo.getDataDevolucao()) ==> \result == false;
 	 @*/
 	public /*@ pure @*/ boolean prazoExpirado(Emprestimo emprestimo) {
 		Date dataAtual = gerenciadorDatas.getDataAtual();
-		
+	
 		long tempoExpirado = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime());
-		
 		if(tempoExpirado > 0)			
 			return true;
 		else
 			return false;
-		
 	}
 
 	public /*@ pure @*/ boolean prazoProximo(Emprestimo emprestimo) {
@@ -47,8 +48,12 @@ public class VerificadorPrazos {
 			return false;
 	}
 	
-	//TODO expirado -> true
-	//TOO proximo -> true
+	/*@
+	 @ requires emprestimo.getDataDevolucao() != null;
+	 @ ensures prazoExpirado(emprestimo) ==> \result == true;
+	 @ ensures prazoProximo(emprestimo) ==> \result == true;
+	 @ ensures !prazoExpirado(emprestimo) && !prazoProximo(emprestimo) ==> \result == false;
+	 @*/
 	public /*@ pure @*/ boolean notificarPrazoDevolucao(Emprestimo emprestimo) {
 		if(prazoExpirado(emprestimo)) {
 			notificadorPrazos.notificarPrazoExpirado(emprestimo);
@@ -67,8 +72,7 @@ public class VerificadorPrazos {
 			if(prazoExpirado(emprestimo)) {
 				notificadorPrazos.notificarPrazoExpirado(emprestimo);
 				notificado = true;
-			}
-			else if(prazoProximo(emprestimo)) {
+			} else if(prazoProximo(emprestimo)) {
 				notificadorPrazos.notificarPrazoProximo(emprestimo);
 				notificado = true;
 			}
