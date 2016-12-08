@@ -10,17 +10,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import builder.GerenciadorRecursosScenarioBuilder;
 import dao.DaoRecurso;
 import dominio.Recurso;
 import excecao.DataException;
 import excecao.RecursoInvalidoException;
+import instanciahotel.Quarto;
+import instancialocadoraveiculos.Carro;
 
+@RunWith(Parameterized.class)
 public class GerenciadorRecursosTest {
 	
 	private static GerenciadorRecursos gerenciador;
 	private GerenciadorRecursosScenarioBuilder builder;
+	private Class<Recurso> classeRecurso;
 	
 	@BeforeClass
 	public static void beforeClass(){
@@ -29,14 +36,24 @@ public class GerenciadorRecursosTest {
 	
 	@Before
 	public void before(){
-		builder = new GerenciadorRecursosScenarioBuilder(gerenciador);
+		builder = new GerenciadorRecursosScenarioBuilder(gerenciador, classeRecurso);
 	}
 		
 	@After 
 	public void tearDown(){
 		DaoRecurso.getInstance().clear();
 	}
-
+	
+	@Parameters
+	public static Object[] parameters(){
+		return new Object[] {Quarto.class, Carro.class};
+	}
+	
+	public GerenciadorRecursosTest(Class<Recurso> classeRecurso){
+		super();
+		this.classeRecurso = classeRecurso;	
+	}
+		
 	@Test(expected=RecursoInvalidoException.class)
 	public void testPreconditionInvalid() throws DataException, RecursoInvalidoException {
 		builder.criarRecursoInvalido()

@@ -9,26 +9,39 @@ import dominio.Recurso;
 import excecao.DataException;
 import excecao.RecursoInvalidoException;
 import instanciahotel.Quarto;
+import instancialocadoraveiculos.Carro;
 
 public class GerenciadorRecursosScenarioBuilder {
 	
 	private Recurso recurso;
 	private GerenciadorRecursos gerenciador;
+	private Class<Recurso> classeRecurso;
 
-	public GerenciadorRecursosScenarioBuilder(GerenciadorRecursos gerenciador) {
+	public GerenciadorRecursosScenarioBuilder(GerenciadorRecursos gerenciador, Class<Recurso> classeRecurso) {
 		this.gerenciador = gerenciador;
+		this.classeRecurso = classeRecurso;
 	}
 	
 	public GerenciadorRecursosScenarioBuilder criarRecursoValido() {		
 		Random rand = new Random();
-		recurso = new Quarto("descricao" + rand.nextInt(), rand.nextInt());
+		
+		if(classeRecurso.equals(Quarto.class)) {
+			recurso = new Quarto(classeRecurso.getSimpleName() + rand.nextInt(), rand.nextInt());
+		} else {
+			recurso =  new Carro(classeRecurso.getSimpleName() + rand.nextInt(), rand.nextInt());
+		}
+	
 		assertTrue("Recurso não deve ser nulo", recurso != null);
 		assertTrue("Recurso deve ser válido", recurso.valido());	
 		return this;
 	}
 	
 	public GerenciadorRecursosScenarioBuilder criarRecursoInvalido(){
-		recurso = new Quarto("", 0);
+		if(classeRecurso.equals(Quarto.class)) {
+			recurso = new Quarto("", 1);
+		} else {
+			recurso =  new Carro("", 1);
+		}
 		assertTrue("Recurso não deve ser nulo", recurso != null);
 		assertTrue("Recurso deve ser inválido", !recurso.valido());	
 		return this;

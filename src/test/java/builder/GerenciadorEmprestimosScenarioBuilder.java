@@ -4,7 +4,6 @@ import java.util.Date;
 
 import controle.GerenciadorEmprestimos;
 import dominio.Emprestimo;
-import dominio.Usuario;
 
 public class GerenciadorEmprestimosScenarioBuilder {
 

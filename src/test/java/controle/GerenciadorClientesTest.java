@@ -3,6 +3,8 @@ package controle;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -10,16 +12,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import builder.GerenciadorClientesScenarioBuilder;
 import dao.DaoCliente;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
+import instanciahotel.ClienteHotel;
+import instancialocadoraveiculos.ClienteLocadoraVeiculos;
 
-
+@RunWith(Parameterized.class)
 public class GerenciadorClientesTest {
 	
+	private Class<Cliente> classeTest;
 	private static GerenciadorClientes gerenciador;
 	private GerenciadorClientesScenarioBuilder builder;
 	
@@ -30,7 +38,7 @@ public class GerenciadorClientesTest {
 	
 	@Before
 	public void before(){
-		builder = new GerenciadorClientesScenarioBuilder(gerenciador);
+		builder = new GerenciadorClientesScenarioBuilder(gerenciador, classeTest);
 	}
 		
 	@After 
@@ -38,6 +46,17 @@ public class GerenciadorClientesTest {
 		DaoCliente.getInstance().clear();
 	}
 	
+	@Parameters
+	public static Object[] parameters(){
+		return new Object[] {ClienteHotel.class, ClienteLocadoraVeiculos.class};
+	}
+	
+	
+	public GerenciadorClientesTest(Class<Cliente> classeTest) {
+		super();
+		this.classeTest = classeTest;
+	}
+
 	@Test(expected=ClienteInvalidoException.class)
 	public void testPreconditionInvalid() throws DataException, ClienteInvalidoException {
 		builder.criarClienteInvalido()

@@ -17,6 +17,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import builder.GerenciadorClientesScenarioBuilder;
+import builder.GerenciadorRecursosScenarioBuilder;
 import builder.GerenciadorUsuariosScenarioBuilder;
 import dao.DaoCliente;
 import dao.DaoEmprestimo;
@@ -34,11 +35,13 @@ import excecao.DataException;
 import excecao.EmprestimoInvalidoException;
 import excecao.RecursoInvalidoException;
 import excecao.UsuarioInvalidoException;
+import instanciahotel.ClienteHotel;
 import instanciahotel.FabricaNotificacaoHotel;
 import instanciahotel.GeradorComprovanteHotel;
 import instanciahotel.Quarto;
 import instanciahotel.RegraHotel;
 import instancialocadoraveiculos.Carro;
+import instancialocadoraveiculos.ClienteLocadoraVeiculos;
 import instancialocadoraveiculos.FabricaNotificacaoLocadoraVeiculos;
 import instancialocadoraveiculos.GeradorComprovanteLocadoraVeiculos;
 import instancialocadoraveiculos.RegraLocadoraVeiculos;
@@ -48,10 +51,10 @@ import util.GerenciadorDatas;
 public class VerificadorPrazosTest {
 
 	private static final Object[] PARAMETROS_HOTEL = new Object[] { new RegraHotel(), new GeradorComprovanteHotel(),
-			new FabricaNotificacaoHotel(), Quarto.class };
+			new FabricaNotificacaoHotel(), Quarto.class, ClienteHotel.class };
 
 	private static final Object[] PARAMETROS_LOCADORA_VEICULOS = new Object[] { new RegraLocadoraVeiculos(),
-			new GeradorComprovanteLocadoraVeiculos(), new FabricaNotificacaoLocadoraVeiculos(), Carro.class };
+			new GeradorComprovanteLocadoraVeiculos(), new FabricaNotificacaoLocadoraVeiculos(), Carro.class, ClienteLocadoraVeiculos.class };
 
 	private GerenciadorDatas gerenciadorDatasNaoModificado;
 	private RegraEmprestimo regra;
@@ -65,27 +68,23 @@ public class VerificadorPrazosTest {
 	}
 
 	public VerificadorPrazosTest(RegraEmprestimo regra, GeradorComprovante geradorComprovante,
-			FabricaNotificacao notificacao, Class<Recurso> tipoClasse) throws DataException, UsuarioInvalidoException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
+			FabricaNotificacao notificacao, Class<Recurso> classeRecurso, Class<Cliente> classeCliente) throws DataException, UsuarioInvalidoException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
 		this.gerenciadorDatasNaoModificado = new GerenciadorDatas();
 		this.regra = regra;
 		this.notificacao = notificacao;
 		
 		GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 		GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
+		GerenciadorRecursos gerenciadorRecursos = new GerenciadorRecursos();
 		
 		GerenciadorUsuariosScenarioBuilder builderUsuarios = new GerenciadorUsuariosScenarioBuilder(gerenciadorUsuarios);
-		GerenciadorClientesScenarioBuilder builderClientes = new GerenciadorClientesScenarioBuilder(gerenciadorClientes);
+		GerenciadorClientesScenarioBuilder builderClientes = new GerenciadorClientesScenarioBuilder(gerenciadorClientes,classeCliente);
+		GerenciadorRecursosScenarioBuilder builderRecursos = new GerenciadorRecursosScenarioBuilder(gerenciadorRecursos, classeRecurso);
 		
 		Cliente cliente = builderClientes.criarClienteValido().assertNotExists().getClienteInstance();
 		Usuario usuario = builderUsuarios.criarUsuarioValido().cadastrarUsuario().assertExists().getUsuarioInstance();
-		
-		Recurso recurso;
-		if(tipoClasse.equals(Quarto.class)) {
-			recurso =  new Quarto("Quarto Pequeno", 1);
-		} else {
-			recurso =  new Carro("Meriva Joy", 1);
-		}
-		
+		Recurso recurso = builderRecursos.criarRecursoValido().getRecursoInstance();
+	
 		GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(regra, geradorComprovante, notificacao, gerenciadorDatasNaoModificado);
 		ComprovanteEmprestimo comprovante = gerenciadorEmprestimos.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
 		this.emprestimo = comprovante.getEmprestimo();

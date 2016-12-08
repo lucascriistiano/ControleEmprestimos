@@ -10,26 +10,29 @@ import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
 import instanciahotel.ClienteHotel;
+import instancialocadoraveiculos.ClienteLocadoraVeiculos;
 
 public class GerenciadorClientesScenarioBuilder {
 	
 	private Cliente cliente;
 	private GerenciadorClientes gerenciador;
+	private Class<Cliente> classeCliente;
 
-	public GerenciadorClientesScenarioBuilder(GerenciadorClientes gerenciador) {
+	public GerenciadorClientesScenarioBuilder(GerenciadorClientes gerenciador, Class<Cliente> classeCliente) {
 		super();
 		this.gerenciador = gerenciador;
+		this.classeCliente = classeCliente;
 	}
 
 	public GerenciadorClientesScenarioBuilder criarClienteValido() {		
-		cliente = createClienteHotel("Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
+		cliente = createCliente(classeCliente.getSimpleName(), "12345678900", "123123", "Rua importante", 1, 1, 1980);
 		assertTrue("Cliente não deve ser nulo", cliente != null);
 		assertTrue("Cliente deve ser válido", cliente.valido());	
 		return this;
 	}
 	
 	public GerenciadorClientesScenarioBuilder criarClienteInvalido(){
-		cliente = createClienteHotel("", "", "", "Rua ", 1, 1, 2016);
+		cliente = createCliente("", "", "", "Rua ", 1, 1, 2016);
 		assertTrue("Cliente não deve ser nulo", cliente != null);
 		assertTrue("Cliente deve ser inválido", !cliente.valido());	
 		return this;
@@ -108,16 +111,24 @@ public class GerenciadorClientesScenarioBuilder {
 	}
 	
 	
-	private Cliente createClienteHotel(String nome, String cpf, String rg, String endereco, int dia, int mes, int ano) {
+	private Cliente createCliente(String nome, String cpf, String rg, String endereco, int dia, int mes, int ano) {
 		Calendar dataNascimento = Calendar.getInstance();
 		dataNascimento.set(Calendar.DAY_OF_MONTH, dia);
 		dataNascimento.set(Calendar.MONTH, mes-1);
 		dataNascimento.set(Calendar.YEAR, ano);
-		return createClienteHotel(nome, cpf, rg, endereco, dataNascimento.getTime());
+		return createCliente(nome, cpf, rg, endereco, dataNascimento.getTime());
 	}
+
 	
-	private Cliente createClienteHotel(String nome, String cpf, String rg, String endereco, Date nascimento) {
-		return new ClienteHotel(nome, cpf, rg, endereco, nascimento);
+	private Cliente createCliente(String nome, String cpf, String rg, String endereco, Date nascimento) {
+		
+		if(classeCliente.equals(ClienteHotel.class)){
+			return new ClienteHotel(nome, cpf, rg, endereco, nascimento);
+		} else {
+			return new ClienteLocadoraVeiculos(nome, cpf, rg, "415485", nascimento);
+		}
+		
+		
 	}
 
 }
