@@ -35,11 +35,8 @@ public class GerenciadorClientes {
 	@		signals_only ClienteInvalidoException;
 	@*/
 	public /*@ pure @*/ void cadastrarCliente(Cliente cliente) throws DataException, ClienteInvalidoException {	
-		if(cliente.valido()) {
-			this.daoCliente.add(cliente);
-		} else {
-			throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
-		}
+		if(!cliente.valido()) throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
+		this.daoCliente.add(cliente);
 	}
 
 	/*@  
@@ -76,11 +73,8 @@ public class GerenciadorClientes {
 	@		signals_only ClienteInvalidoException;
 	@*/
 	public /*@ pure @*/ void updateCliente(Cliente cliente) throws DataException, ClienteInvalidoException {
-		if(cliente.valido()) {
-			this.daoCliente.update(cliente);
-		} else {
-			throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
-		}
+		if(!cliente.valido()) throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
+		this.daoCliente.update(cliente);
 	}
  	
 	/*@

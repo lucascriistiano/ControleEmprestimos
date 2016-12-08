@@ -7,4 +7,20 @@ public class RecursoInvalidoException extends Exception {
 	public RecursoInvalidoException(String message) {
 		super(message);
 	}
+
+	
+	
+	public RecursoInvalidoException(Throwable cause) {
+		super(cause);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public RecursoInvalidoException(String message, Throwable cause) {
+		super(message, cause);
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }

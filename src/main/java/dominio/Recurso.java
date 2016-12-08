@@ -51,6 +51,29 @@ public abstract class Recurso extends Dominio {
 		return "Recurso [descricao=" + descricao + ", categoria=" + categoria + ", disponivel=" + disponivel
 				+ ", codigo=" + codigo + ", isDisponivel()=" + isDisponivel() + ", valido()=" + valido() + "]";
 	}
+	
+	
+
+	@Override
+	public boolean valido() {
+		boolean isValido = true;
+		if(codigo < 0){
+			isValido = false;
+		} else if ("".equals(descricao) || descricao == null){
+			isValido = false;
+		}
+		return isValido;
+	}
+	
+	public /*@ pure @*/ RecursoInvalidoException toRecursoInvalidoException(){
+		RecursoInvalidoException exception = new RecursoInvalidoException("Usuário Inválido");
+		if(codigo < 0L){
+			exception = new RecursoInvalidoException("Codigo Inválido < 0", exception);
+		} else if("".equals(descricao) || descricao == null){
+			exception = new RecursoInvalidoException("Descrição Inválida", exception);
+		} 
+		return exception;
+	}
 
 	public abstract void alocar();
 	public abstract void desalocar();

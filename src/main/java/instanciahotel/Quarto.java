@@ -70,6 +70,6 @@ public class Quarto extends Recurso {
 			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O quarto de codigo " + getCodigo() + " ja esta alocado.");
 			
 		return true;
-	}
+	}	
 	
 }

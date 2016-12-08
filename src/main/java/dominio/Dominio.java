@@ -41,12 +41,6 @@ public abstract class Dominio {
 	/*@
 	@ ensures ((long) codigo) < 0L ==> \result == false;
 	@*/
-	public /*@ pure @*/ boolean valido(){
-		if(codigo < 0L){
-			return false;
-		} else {
-			return true;
-		}
-	}
+	public /*@ pure @*/ abstract boolean valido();
 	
 }

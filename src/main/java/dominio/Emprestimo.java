@@ -80,5 +80,16 @@ public class Emprestimo extends Dominio {
 		return "Emprestimo [dataEmprestimo=" + dataEmprestimo + ", dataDevolucao=" + dataDevolucao + ", usuario="
 				+ usuario + ", cliente=" + cliente + ", recursos=" + recursos + ", codigo=" + codigo + "]";
 	}
+
+	@Override
+	public boolean valido() {
+		if(codigo < 0){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
 	
 }
