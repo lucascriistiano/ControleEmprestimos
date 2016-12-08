@@ -17,6 +17,25 @@ public class GerenciadorRecursos {
 		this.daoRecurso = DaoRecurso.getInstance();
 	}
 	
+	/*@
+	 @	public normal_behavior
+	 @		ensures \result != null;
+	 @		ensures (\forall int i; 
+	 @				0 <= i && i < \result.size();
+	 @				 ((Recurso) \result.get(i)).isDisponivel() == isDisponivel );
+	 @*/
+	public /*@ pure @*/ List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
+		List<Recurso> recursos = this.daoRecurso.list();
+		
+		List<Recurso> resultList = new ArrayList<Recurso>();
+		for(Recurso recurso : recursos) {
+			if(recurso.isDisponivel() == isDisponivel)
+				resultList.add(recurso);
+		}
+		
+		return resultList;
+	}
+	
 	/*@ 
 	@	public normal_behavior
     @		requires ((long) recurso.getCodigo()) == 0L;
@@ -106,25 +125,6 @@ public class GerenciadorRecursos {
 	
 	public /*@ pure @*/ List<Recurso> listarRecursos() throws DataException {
 		return this.daoRecurso.list();
-	}
-
-	/*@
-	 @	public normal_behavior
-	 @		ensures \result != null;
-	 @		ensures (\forall int i; 
-	 @				0 <= i && i < \result.size();
-	 @				 ((Recurso) \result.get(i)).isDisponivel() == isDisponivel );
-	 @*/
-	public /*@ pure @*/ List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
-		List<Recurso> recursos = this.daoRecurso.list();
-		
-		List<Recurso> resultList = new ArrayList<Recurso>();
-		for(Recurso recurso : recursos) {
-			if(recurso.isDisponivel() == isDisponivel)
-				resultList.add(recurso);
-		}
-		
-		return resultList;
 	}
 
 	
