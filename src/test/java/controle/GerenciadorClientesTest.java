@@ -4,12 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import builder.GerenciadorClientesScenarioBuilder;
 import dao.DaoClienteMemoria;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
@@ -54,7 +56,7 @@ public class GerenciadorClientesTest {
 		builder.criarClienteValido()
 				.cadastrarCliente()
 				.assertExists()
-				.cadastrarCliente(); // Cadastra um cliente que já existe
+				.cadastrarCliente(); 
 	}
 	
 	@Test
@@ -75,7 +77,6 @@ public class GerenciadorClientesTest {
 	
 	@Test(expected=DataException.class)
 	public void testRemoverClienteIdInvalidoExceptionalBehavior() throws DataException {				
-		//Id <= 0 verifica uma condição especial da verificação e do exists()
 		builder.criarClienteValido()
 				.setCodigoInvalido()
 				.assertNotExists()
@@ -87,7 +88,7 @@ public class GerenciadorClientesTest {
 		builder.criarClienteValido()
 				.cadastrarCliente()
 				.assertExists()
-				.setNomeCliente("Maria")
+				.setNomeCliente("Maria" + new Random().nextInt())
 				.atualizarCliente();
 	}
 	
@@ -106,9 +107,7 @@ public class GerenciadorClientesTest {
 				.assertNotExists()
 				.atualizarCliente();
 	}
-	
-	/** TESTES GET */
-	
+		
 	@Test
 	public void testGetClienteNormalBehavior() throws DataException, ClienteInvalidoException {			
 		builder.criarClienteValido()
@@ -135,12 +134,9 @@ public class GerenciadorClientesTest {
 	
 	@Test(expected=DataException.class)
 	public void testGetClienteIdInvalidoExceptionalBehavior() throws DataException {
-		//Id <= 0 verifica uma condição especial da verificação e do exists()
 		builder.criarClienteValido().tornarCodigoInvalido().assertNotExists().getCliente();
 	}
-	
-	/** TESTES LISTAR */
-	
+		
 	public void testListarClientesListaVaziaNormalBehavior() throws DataException {		
 		List<Cliente> clientes = gerenciador.listarClientes();
 		assertFalse("Lista não deve ser nula", clientes == null);
@@ -148,7 +144,6 @@ public class GerenciadorClientesTest {
 	}
 	
 	public void testListarClientesNormalBehavior() throws DataException, ClienteInvalidoException {	
-		
 		builder.criarClienteValido()
 				.assertNotExists()
 				.cadastrarCliente()
@@ -163,9 +158,7 @@ public class GerenciadorClientesTest {
 		assertTrue("Lista deve ter o cliente inserido", clientes.get(0).getCodigo() == clienteCadastrado.getCodigo());
 	}
 	
-	/** TESTES EXISTS */
-	
-	public void testExistsIdsInvalidosNormalBehavior() {		
+	public void testExistsIdsInvalidosNormalBehavior() throws DataException {		
 		builder.criarClienteValido().setCodigo(-5L).assertNotExists();
 		builder.criarClienteValido().setCodigo(0L).assertNotExists();
 		builder.criarClienteValido().setCodigo(2L).assertNotExists();

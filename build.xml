@@ -20,7 +20,7 @@
  * $Id: build.xml,v 4.0 2016/4/14 03:09:30 henriquerebelo Exp $ 
 -->
 <!-- THE FUN HAS JUST BEGUN!! AspectJML team -->
-<project name="AspectJML tools release 1.8.0" default="ajmlc">
+<project name="AspectJML tools release 1.8.0" default="ajmlc-e-testes-junit">
 
 	<!-- THE ASPECTJML COMPILER (ajmlc) VERSION BEING USED  -->
 
@@ -144,6 +144,10 @@
 		</ajmlc>
 	</target>
 	
+	<path id="test.classpath">
+		 <pathelement location="${dest.dir}" />
+	</path>
+	
 	<target name="ajmlc-e-testes-junit"  depends="clean,prepare">
 		
 		<ajmlc destdir="${dest.dir}" srcdir="${src.dir}" sourcepathref="sourcepath" classpathref="classpath" inpath="inpath" print="false" source="1.8" ajweaver="ajc" 
@@ -152,10 +156,46 @@
 		    showweaveinfo="false" quiet="false" verbose="false" fork="false">
 		</ajmlc>
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
+		
+		<junit printsummary="yes" fork="false" haltonfailure="no" showoutput="true">
+			<classpath>
+					<pathelement path="${dest.dir}"/> <!-- .class do projeto -->
+			        <pathelement location="${app.lib}/junit-4.12.jar" />
+					<pathelement location="${app.lib}/hamcrest-core-1.3.jar" />
+		    </classpath>
+			
+			<classpath refid="classpath"/>
+			
+			<!-- Descomentar para detalhar testes -->
+			<!-- <formatter type="plain" usefile="false" /> --> 
+			<batchtest skipNonTests="true" fork="false">
+			    <fileset dir="${dest.dir}">
+			    	 <include name="**/*Test.class" />
+			    </fileset>
+			  </batchtest>
+		</junit>
+		
 	</target>
 	
 	<target name="build-testes-junit">
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
+		<junit printsummary="yes" fork="false" haltonfailure="no" showoutput="true">
+			<classpath>
+					<pathelement path="${dest.dir}"/> <!-- .class do projeto -->
+			        <pathelement location="${app.lib}/junit-4.12.jar" />
+					<pathelement location="${app.lib}/hamcrest-core-1.3.jar" />
+		    </classpath>
+			
+			<classpath refid="classpath"/>
+			
+			<!-- Descomentar para detalhar testes -->
+			<!-- <formatter type="plain" usefile="false" /> --> 
+			<batchtest skipNonTests="true" fork="false">
+			    <fileset dir="${dest.dir}">
+			    	 <include name="**/*Test.class" />
+			    </fileset>
+			  </batchtest>
+		</junit>
 	</target>
 
 	<!-- TYPE CHECKING -->

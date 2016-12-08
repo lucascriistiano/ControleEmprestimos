@@ -101,14 +101,7 @@ public class GerenciadorClientes {
 	public /*@ pure @*/ Cliente getCliente(long codigo) throws DataException {
 		return (Cliente) this.daoCliente.get(codigo);
 	}
-	
-	/*@
-	@ public normal_behavior
-	@ 		ensures \result != null;
-	@ also
-	@ public exceptional_behavior
-	@		signals_only DataException;
-	@*/
+
 	@SuppressWarnings("unchecked")
 	public /*@ pure @*/ List<Cliente> listarClientes() throws DataException {
 		return (List<Cliente>)(List<?>) this.daoCliente.list();

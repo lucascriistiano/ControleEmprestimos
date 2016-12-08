@@ -1,10 +1,12 @@
-package controle;
+package builder;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import controle.GerenciadorClientes;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
@@ -14,16 +16,26 @@ public class GerenciadorClientesScenarioBuilder {
 	
 	private Cliente cliente;
 	private GerenciadorClientes gerenciador;
-	
 
 	public GerenciadorClientesScenarioBuilder(GerenciadorClientes gerenciador) {
 		super();
 		this.gerenciador = gerenciador;
 	}
 
-	public GerenciadorClientesScenarioBuilder criarClienteValido(){
-		// TODO Pegar último indice e incrementar - possivelmente mudar nome para criarNovoClienteValido
-		cliente = createClienteHotel(1L, "Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
+	public GerenciadorClientesScenarioBuilder criarClienteValido() {
+		long codigo;
+		try{
+			List<Cliente> lista = gerenciador.listarClientes();
+			if(lista == null || lista.isEmpty()){
+				codigo = 1L;
+			} else {
+				codigo = lista.get(lista.size() -1).getCodigo() + 1L;
+			}
+		} catch (DataException e){
+			codigo = 1L;
+		}
+		
+		cliente = createClienteHotel(codigo, "Roberto", "12345678900", "123123", "Rua importante", 1, 1, 1998);
 		assertTrue("Cliente não deve ser nulo", cliente != null);
 		assertTrue("Cliente deve ser válido", cliente.valido());	
 		return this;

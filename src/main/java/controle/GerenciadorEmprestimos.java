@@ -30,17 +30,19 @@ import excecao.RecursoInvalidoException;
 public class GerenciadorEmprestimos {
 	
 	//@ public invariant daoEmprestimo != null;
-	private /*@ spec_public @*/ DaoEmprestimo daoEmprestimo;
+	private final /*@ spec_public @*/ DaoEmprestimo daoEmprestimo;
 	
 	//@ public invariant daoHistorico != null;
-	private /*@ spec_public @*/ DaoHistorico daoHistorico;
+	private final /*@ spec_public @*/ DaoHistorico daoHistorico;
 	
 	//@ public invariant daoRecurso != null;
-	private /*@ spec_public @*/ DaoRecurso daoRecurso;
+	private final /*@ spec_public @*/ DaoRecurso daoRecurso;
 	
-	private /*@ spec_public @*/ RegraEmprestimo regraEmprestimo;
-	private /*@ spec_public @*/ GeradorComprovante geradorComprovante;
-	private /*@ spec_public @*/ VerificadorPrazos verificadorPrazos;
+	private final /*@ spec_public @*/ RegraEmprestimo regraEmprestimo;
+	
+	private final /*@ spec_public @*/ GeradorComprovante geradorComprovante;
+	
+	private final /*@ spec_public @*/ VerificadorPrazos verificadorPrazos;
 		
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
