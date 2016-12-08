@@ -19,13 +19,17 @@ public class DaoHistorico extends DaoImpl<HistoricoEmprestimo> {
 	
 	
 	/*@
-	 @ also
-	 @ public normal_behavior
-	 @	requires historico.getEmprestimo().isQuitado();		
+ 	 @	requires obj.getEmprestimo().isQuitado();
+ 	 @ 	requires obj != null;
+ 	 @	requires ((long) obj.getCodigo()) == 0L;
+	 @	requires !list.contains(obj);
+	 @ 	ensures list.size() == \old(list.size()) + 1;
+	 @ 	ensures list.get(list.size()-1) == obj;
+	 @	ensures ((long) obj.getCodigo()) > 0L;		
 	 @*/
 	@Override
-	public void add(HistoricoEmprestimo historico) throws DataException {
-		super.add(historico);
+	public /*@ pure @*/ void add(HistoricoEmprestimo obj) throws DataException {
+		super.add(obj);
 	}
 
 	public static DaoHistorico getInstance() {

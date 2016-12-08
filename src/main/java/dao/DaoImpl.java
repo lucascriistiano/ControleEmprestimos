@@ -27,7 +27,6 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @ 		requires obj != null;
  	 @		requires ((long) obj.getCodigo()) == 0L;
 	 @		requires !list.contains(obj);
-	 @ 		assignable list;
 	 @ 		ensures list.size() == \old(list.size()) + 1;
 	 @ 		ensures list.get(list.size()-1) == obj;
 	 @		ensures ((long) obj.getCodigo()) > 0L;
@@ -38,7 +37,7 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @		assignable \nothing;
 	 @		signals_only DataException;
 	 @*/
-	public void add(T obj) throws DataException {	
+	public /*@ pure @*/ void add(T obj) throws DataException {	
 		if(list.contains(obj)) throw new DataException(entidade + " já Cadastrado");
 
 		contador++;
@@ -52,8 +51,7 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @		requires obj != null;
 	 @		requires ((long) obj.getCodigo()) > 0;
 	 @		requires list.isEmpty() == false;
-	 @		requires list.contains(obj);
-	 @ 		assignable list;	 
+	 @		requires list.contains(obj);	 
 	 @		ensures !list.contains(obj);
 	 @	also
 	 @	public exceptional_behavior
@@ -61,7 +59,7 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @		assignable \nothing;
     @		signals_only DataException;
 	 @*/
-	public final void remove(T obj) throws DataException {
+	public /*@ pure @*/ final void remove(T obj) throws DataException {
 		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();
@@ -80,7 +78,6 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @ public normal_behavior
 	 @		requires obj != null;
 	 @		requires list.contains(obj);
-	 @ 		assignable list;
 	 @		ensures	list.contains(obj);
 	 @		ensures obj.getCodigo() == \old(obj.getCodigo());	 
 	 @	also
@@ -92,7 +89,7 @@ public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	 @		signals (DataException e)
 	 @			list.isEmpty() || list.contains(obj) == false;
 	 @*/
-	public final void update(T obj) throws DataException {	
+	public /*@ pure @*/ final void update(T obj) throws DataException {	
 		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();

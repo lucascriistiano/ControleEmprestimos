@@ -33,9 +33,9 @@ public class GerenciadorUsuarios {
 	@		signals_only UsuarioInvalidoException;
 	@*/
 	public /*@ pure @*/ void cadastrarUsuario(Usuario usuario) throws UsuarioInvalidoException, DataException {
-		if(validarUsuario(usuario)){
-			this.daoUsuario.add(usuario);
-		}
+		validarUsuario(usuario);
+		this.daoUsuario.add(usuario);
+		
 	}
 	
 	/*@  
@@ -115,23 +115,22 @@ public class GerenciadorUsuarios {
 		return daoUsuario.get(login);
 	}
 	
-	public boolean validarUsuario(Usuario usuario) throws UsuarioInvalidoException, DataException {
+	/*@
+	 @ public normal_behavior
+	 @  requires usuario.valido();
+	 @	requires !daoUsuario.existsLogin(usuario.getLogin());
+	 @ also
+	 @ public exceptional_behavior
+	 @	requires !usuario.valido() || daoUsuario.existsLogin(usuario.getLogin());
+	 @	signals_only UsuarioInvalidoException;
+	 @*/
+	public /*@ pure @*/ void validarUsuario(Usuario usuario) throws UsuarioInvalidoException {
 		
 		if(!usuario.valido()){
 			throw usuario.toUsuarioInvalidoException();
+		} else if (daoUsuario.existsLogin(usuario.getLogin())){
+			throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
 		}
-		
-		try {
-			Usuario usuarioBusca = daoUsuario.get(usuario.getLogin());
-			if(usuarioBusca != null){
-				throw new DataException("Nome de usuario ja esta em uso");
-			}
-			
-		} catch (DataException e){
-			return true;
-		}
-		
-		return true;
 		
 	}
 }

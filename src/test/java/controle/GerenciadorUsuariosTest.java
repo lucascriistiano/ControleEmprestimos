@@ -50,7 +50,7 @@ public class GerenciadorUsuariosTest {
 				.assertExists();
 	}
 	
-	@Test(expected=DataException.class)
+	@Test(expected=UsuarioInvalidoException.class)
 	public void testCadastrarUsuarioRepetidoExceptionalBehavior() throws DataException, UsuarioInvalidoException{		
 		builder.criarUsuarioValido()
 				.cadastrarUsuario()

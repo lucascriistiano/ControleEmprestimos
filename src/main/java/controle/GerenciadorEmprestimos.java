@@ -127,6 +127,7 @@ public class GerenciadorEmprestimos {
 	/*@
 	 @ requires emprestimo != null;
 	 @ assignable \nothing;
+	 @ ensures emprestimo.isQuitado();
 	 @ ensures this.daoHistorico.existsEmprestimo((long) \result.getEmprestimo().getCodigo());
  	 @ ensures !this.daoEmprestimo.exists((long) \result.getEmprestimo().getCodigo());
  	 @ ensures \result.getValor() == regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
@@ -134,8 +135,6 @@ public class GerenciadorEmprestimos {
 	public /*@ pure @*/ ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 		
-		//TODO Implementar a realizacao do pagamento
-
 		for(Recurso recurso : emprestimo.getRecursos()) {
 			recurso.setDisponivel(true);
 		}
@@ -180,12 +179,7 @@ public class GerenciadorEmprestimos {
 		List<Emprestimo> emprestimos = daoEmprestimo.list();
 		return this.verificadorPrazos.verificarEmprestimos(emprestimos);
 	}
-	
-	public boolean verificarStatusCliente(Cliente cliente) {
-		//TODO Implementar verificacao de status do cliente
-		return false;
-	}
-	
+		
 	public /*@ pure @*/ List<Emprestimo> listarEmprestimos() throws DataException {
 		return this.daoEmprestimo.list();
 	}

@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.Iterator;
-
 import dominio.Usuario;
 import excecao.DataException;
 
@@ -19,21 +17,24 @@ public class DaoUsuario extends DaoImpl<Usuario> {
 		
 		return daoUsuario;
 	}
+	
+	public /*@ pure @*/ boolean existsLogin(String login) {
+		return list.stream().filter(x -> x.getLogin().equals(login)).count() > 0;
+	}
 
-	public Usuario get(String login) throws DataException {
+	public /*@ pure @*/ Usuario get(String login) throws DataException {
 		if("".equals(login)) {
 			throw new DataException("Login Vazio");
 		}
+			
+		Usuario usuario = list.stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
 		
-		Iterator<Usuario> it = list.iterator();
-		while(it.hasNext()) {
-			Usuario c = it.next();
-			if(c.getLogin().equals(login)) {
-				return c;
-			}
-		}
+		if(usuario == null){
+			throw new DataException("Cliente não cadastrado");
+		}		
 		
-		throw new DataException("Cliente não cadastrado");
+		return usuario;
+		
 	}
 	
 }
