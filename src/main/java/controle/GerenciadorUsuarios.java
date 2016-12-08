@@ -16,6 +16,24 @@ public class GerenciadorUsuarios {
 		this.daoUsuario = DaoUsuario.getInstance();
 	}
 	
+	/*@
+	 @ public normal_behavior
+	 @  requires usuario.valido();
+	 @	requires !daoUsuario.existsLogin(usuario.getLogin());
+	 @ also
+	 @ public exceptional_behavior
+	 @	requires !usuario.valido() || daoUsuario.existsLogin(usuario.getLogin());
+	 @	signals_only UsuarioInvalidoException;
+	 @*/
+	public /*@ pure @*/ void validarUsuario(Usuario usuario) throws UsuarioInvalidoException {
+		
+		if(!usuario.valido()){
+			throw usuario.toUsuarioInvalidoException();
+		} else if (daoUsuario.existsLogin(usuario.getLogin())){
+			throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
+		}
+	}
+	
 	/*@ 
 	@	public normal_behavior
     @		requires ((long) usuario.getCodigo()) == 0L;
@@ -115,22 +133,5 @@ public class GerenciadorUsuarios {
 		return daoUsuario.get(login);
 	}
 	
-	/*@
-	 @ public normal_behavior
-	 @  requires usuario.valido();
-	 @	requires !daoUsuario.existsLogin(usuario.getLogin());
-	 @ also
-	 @ public exceptional_behavior
-	 @	requires !usuario.valido() || daoUsuario.existsLogin(usuario.getLogin());
-	 @	signals_only UsuarioInvalidoException;
-	 @*/
-	public /*@ pure @*/ void validarUsuario(Usuario usuario) throws UsuarioInvalidoException {
-		
-		if(!usuario.valido()){
-			throw usuario.toUsuarioInvalidoException();
-		} else if (daoUsuario.existsLogin(usuario.getLogin())){
-			throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
-		}
-		
-	}
+
 }

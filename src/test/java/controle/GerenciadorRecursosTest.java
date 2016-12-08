@@ -153,12 +153,14 @@ public class GerenciadorRecursosTest {
 		builder.criarRecursoValido().tornarCodigoInvalido().assertNotExists().getRecurso();
 	}
 		
+	@Test
 	public void testListarRecursosListaVaziaNormalBehavior() throws DataException {		
 		List<Recurso> clientes = gerenciador.listarRecursos();
 		assertFalse("Lista não deve ser nula", clientes == null);
 		assertTrue("Lista deve estar vazia", clientes.isEmpty());
 	}
 	
+	@Test
 	public void testListarRecursosNormalBehavior() throws DataException, RecursoInvalidoException {	
 		builder.criarRecursoValido()
 				.assertNotExists()
@@ -174,16 +176,39 @@ public class GerenciadorRecursosTest {
 		assertTrue("Lista deve ter o cliente inserido", clientes.get(0).getCodigo() == clienteCadastrado.getCodigo());
 	}
 	
+	@Test
 	public void testExistsIdsInvalidosNormalBehavior() throws DataException {		
 		builder.criarRecursoValido().setCodigo(-5L).assertNotExists();
 		builder.criarRecursoValido().setCodigo(0L).assertNotExists();
 		builder.criarRecursoValido().setCodigo(2L).assertNotExists();
 	}
 	
+	@Test
 	public void testExistsIdsValidosNormalBehavior() throws DataException, RecursoInvalidoException {	
 		builder.criarRecursoValido()
 				.cadastrarRecurso()
 				.assertExists();
+	}
+	
+	@Test
+	public void testListarRecursosDisponiveis() throws DataException, RecursoInvalidoException{
+		
+		builder.criarRecursoValido().tornarRecursoDisponivel().cadastrarRecurso().assertExists();
+		builder.criarRecursoValido().tornarRecursoDisponivel().cadastrarRecurso().assertExists();
+		builder.criarRecursoValido().tornarRecursoIndisponivel().cadastrarRecurso().assertExists();
+		
+		gerenciador.listarRecursos(true);
+	}
+	
+	@Test
+	public void testListarRecursosIndisponiveis() throws DataException, RecursoInvalidoException{
+		
+
+		builder.criarRecursoValido().tornarRecursoDisponivel().cadastrarRecurso().assertExists();
+		builder.criarRecursoValido().tornarRecursoDisponivel().cadastrarRecurso().assertExists();
+		builder.criarRecursoValido().tornarRecursoIndisponivel().cadastrarRecurso().assertExists();
+		
+		gerenciador.listarRecursos(false);
 	}
 	
 }

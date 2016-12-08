@@ -108,6 +108,13 @@ public class GerenciadorRecursos {
 		return this.daoRecurso.list();
 	}
 
+	/*@
+	 @	public normal_behavior
+	 @		ensures \result != null;
+	 @		ensures (\forall int i; 
+	 @				0 <= i && i < \result.size();
+	 @				 ((Recurso) \result.get(i)).isDisponivel() == isDisponivel );
+	 @*/
 	public /*@ pure @*/ List<Recurso> listarRecursos(boolean isDisponivel) throws DataException {
 		List<Recurso> recursos = this.daoRecurso.list();
 		

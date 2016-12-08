@@ -156,12 +156,14 @@ public class GerenciadorClientesTest {
 		builder.criarClienteValido().tornarCodigoInvalido().assertNotExists().getCliente();
 	}
 		
+	@Test
 	public void testListarClientesListaVaziaNormalBehavior() throws DataException {		
 		List<Cliente> clientes = gerenciador.listarClientes();
 		assertFalse("Lista não deve ser nula", clientes == null);
 		assertTrue("Lista deve estar vazia", clientes.isEmpty());
 	}
 	
+	@Test
 	public void testListarClientesNormalBehavior() throws DataException, ClienteInvalidoException {	
 		builder.criarClienteValido()
 				.assertNotExists()
@@ -177,12 +179,14 @@ public class GerenciadorClientesTest {
 		assertTrue("Lista deve ter o cliente inserido", clientes.get(0).getCodigo() == clienteCadastrado.getCodigo());
 	}
 	
+	@Test
 	public void testExistsIdsInvalidosNormalBehavior() throws DataException {		
 		builder.criarClienteValido().setCodigo(-5L).assertNotExists();
 		builder.criarClienteValido().setCodigo(0L).assertNotExists();
 		builder.criarClienteValido().setCodigo(2L).assertNotExists();
 	}
 	
+	@Test
 	public void testExistsIdsValidosNormalBehavior() throws DataException, ClienteInvalidoException {	
 		builder.criarClienteValido()
 				.cadastrarCliente()
