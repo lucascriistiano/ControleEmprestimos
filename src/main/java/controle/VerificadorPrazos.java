@@ -1,25 +1,31 @@
 package controle;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import dominio.Emprestimo;
 import dominio.FabricaNotificacao;
 import dominio.RegraEmprestimo;
+import util.GerenciadorDatas;
 
 public class VerificadorPrazos {
 	
-	private RegraEmprestimo regraEmprestimo;
-	private NotificadorPrazos notificadorPrazos;
+	private /*@ spec_public @*/ RegraEmprestimo regraEmprestimo;
+	private /*@ spec_public @*/ NotificadorPrazos notificadorPrazos;
+	private /*@ spec_public @*/ GerenciadorDatas gerenciadorDatas;
 	
-	public VerificadorPrazos(RegraEmprestimo regraEmprestimo, FabricaNotificacao fabricaNotificacao) {
+	public VerificadorPrazos(RegraEmprestimo regraEmprestimo, FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
 		this.regraEmprestimo = regraEmprestimo;
 		this.notificadorPrazos = new NotificadorPrazos(fabricaNotificacao);
+		this.gerenciadorDatas = gerenciadorDatas;
 	}
 	
-	private boolean prazoExpirado(Emprestimo emprestimo) {
-		Date dataAtual = Calendar.getInstance().getTime();
+	/*@
+	 @ ensures (gerenciadorDatas.getDataAtual() - emprestimo.getDataDevolucao().getTime() <= 0) ==> \result == false;
+	 @ ensures (gerenciadorDatas.getDataAtual() - emprestimo.getDataDevolucao().getTime() > 0) ==> \result == true; 
+	 @*/
+	private boolean prazoExpirado(/*@ non_nullable @*/ Emprestimo emprestimo) {
+		Date dataAtual = gerenciadorDatas.getDataAtual();
 		
 		long tempoExpirado = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime());
 		
@@ -27,10 +33,11 @@ public class VerificadorPrazos {
 			return true;
 		else
 			return false;
+		
 	}
 
-	private boolean prazoProximo(Emprestimo emprestimo) {
-		Date dataAtual = Calendar.getInstance().getTime();
+	private boolean prazoProximo(/*@ non_nullable @*/ Emprestimo emprestimo) {
+		Date dataAtual = gerenciadorDatas.getDataAtual();
 		long tempoExpirado = dataAtual.getTime() - emprestimo.getDataDevolucao().getTime();
 		long diasExpirado = tempoExpirado / (1000 * 60 * 60 * 24);
 		
@@ -40,12 +47,11 @@ public class VerificadorPrazos {
 			return false;
 	}
 	
-	public boolean verificarEmprestimo(Emprestimo emprestimo) {
+	public boolean verificarEmprestimo(/*@ non_nullable @*/ Emprestimo emprestimo) {
 		if(prazoExpirado(emprestimo)) {
 			notificadorPrazos.notificarPrazoExpirado(emprestimo);
 			return false;
-		}
-		else if(prazoProximo(emprestimo)) {
+		} else if(prazoProximo(emprestimo)) {
 			notificadorPrazos.notificarPrazoProximo(emprestimo);
 			return false;
 		}
@@ -53,7 +59,7 @@ public class VerificadorPrazos {
 		return true;
 	}
 	
-	public boolean verificarEmprestimos(List<Emprestimo> emprestimos) {
+	public boolean verificarEmprestimos(/*@ non_nullable @*/ List<Emprestimo> emprestimos) {
 		boolean notificado = false;
 		for(Emprestimo emprestimo : emprestimos) {
 			if(prazoExpirado(emprestimo)) {

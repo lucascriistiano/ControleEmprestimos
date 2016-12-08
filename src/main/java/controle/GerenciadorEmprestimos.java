@@ -1,7 +1,6 @@
 package controle;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +26,7 @@ import excecao.DataException;
 import excecao.EmprestimoInvalidoException;
 import excecao.RecursoInvalidoException;
 import excecao.UsuarioInvalidoException;
+import util.GerenciadorDatas;
 
 public class GerenciadorEmprestimos {
 	
@@ -44,15 +44,19 @@ public class GerenciadorEmprestimos {
 	private final /*@ spec_public @*/ GeradorComprovante geradorComprovante;
 	
 	private final /*@ spec_public @*/ VerificadorPrazos verificadorPrazos;
+	
+	private final /*@ spec_public @*/ GerenciadorDatas gerenciadorDatas;
 		
-	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao) {
+	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, 
+			ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
 		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
 		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
 		this.daoRecurso = DaoRecursoMemoria.getInstance();
 		
 		this.regraEmprestimo = regraEmprestimo;
 		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
-		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao);
+		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao, gerenciadorDatas);
+		this.gerenciadorDatas = gerenciadorDatas;
 	}
 		
 	/*@
@@ -99,7 +103,7 @@ public class GerenciadorEmprestimos {
 		emprestimo.setUsuario(usuario);
 		emprestimo.setCliente(cliente);
 		
-		Date dataAtual = Calendar.getInstance().getTime();
+		Date dataAtual = gerenciadorDatas.getDataAtual();
 		emprestimo.setDataEmprestimo(dataAtual);
 		
 		if(dataDevolucao != null){
