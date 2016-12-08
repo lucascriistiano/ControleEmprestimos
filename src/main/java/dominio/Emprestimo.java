@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Emprestimo extends Dominio {
-	private /*@ spec_public @*/ Date dataEmprestimo;	//Data de realizacao do emprestimo
-	private /*@ spec_public @*/ Date dataDevolucao;		//Data de realizacao do emprestimo
-	private /*@ spec_public @*/ Usuario usuario;		//Usuario que efetivou o emprestimo 
-	private /*@ spec_public @*/ Cliente cliente;		//Cliente que realizou o emprestimo
-	private /*@ spec_public @*/ List<Recurso> recursos;//Lista de recursos emprestados
+	private /*@ nullable spec_public @*/ Date dataEmprestimo;	//Data de realizacao do emprestimo
+	private /*@ nullable spec_public @*/ Date dataDevolucao;		//Data de realizacao do emprestimo
+	private /*@ nullable spec_public @*/ Usuario usuario;		//Usuario que efetivou o emprestimo 
+	private /*@ nullable spec_public @*/ Cliente cliente;		//Cliente que realizou o emprestimo
+	private /*@ nullable spec_public @*/ List<Recurso> recursos;//Lista de recursos emprestados
 	
 	private /*@ spec_public @*/ static Long CODIGO_ATUAL = (long) 1;
 	
@@ -74,4 +74,11 @@ public class Emprestimo extends Dominio {
 	public /*@ pure @*/ List<Recurso> getRecursos() {
 		return recursos;
 	}
+
+	@Override
+	public String toString() {
+		return "Emprestimo [dataEmprestimo=" + dataEmprestimo + ", dataDevolucao=" + dataDevolucao + ", usuario="
+				+ usuario + ", cliente=" + cliente + ", recursos=" + recursos + ", codigo=" + codigo + "]";
+	}
+	
 }

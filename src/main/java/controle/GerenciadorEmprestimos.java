@@ -26,6 +26,7 @@ import excecao.ClienteInvalidoException;
 import excecao.DataException;
 import excecao.EmprestimoInvalidoException;
 import excecao.RecursoInvalidoException;
+import excecao.UsuarioInvalidoException;
 
 public class GerenciadorEmprestimos {
 	
@@ -57,6 +58,7 @@ public class GerenciadorEmprestimos {
 	/*@
 	@ public normal_behavior
 	@ 	requires cliente != null;
+	@	requires usuario.valido();
 	@	requires cliente.valido();
 	@	requires (\forall int i; 
 	@				0 <= i && i < recursos.size();
@@ -69,11 +71,19 @@ public class GerenciadorEmprestimos {
 	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
 	@	also
 	@	public exceptional_behavior
-	@		requires cliente == null || !cliente.valido();
+	@		requires !usuario.valido();
+	@		signals_only UsuarioInvalidoException;	
+	@	also
+	@	public exceptional_behavior
+	@		requires !cliente.valido();
 	@		signals_only ClienteInvalidoException;
 	@*/
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos, /*@ nullable @*/ Date dataDevolucao) throws ClienteInvalidoException, EmprestimoInvalidoException, DataException, RecursoInvalidoException, UsuarioInvalidoException {
 		//Validacao do status do cliente para emprestimos
+		
+		if(!usuario.valido()){
+			throw new UsuarioInvalidoException(usuario.toUsuarioInvalidoException());
+		}
 		
 		if(!cliente.valido()){
 			throw new ClienteInvalidoException(cliente.toClienteInvalidoException());
@@ -110,7 +120,7 @@ public class GerenciadorEmprestimos {
 		return comprovanteEmprestimo;
 	}
 	
-	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException {
+	public ComprovanteEmprestimo realizarEmprestimo(Usuario usuario, Cliente cliente, List<Recurso> recursos) throws DataException, EmprestimoInvalidoException, ClienteInvalidoException, RecursoInvalidoException, UsuarioInvalidoException {
 		return realizarEmprestimo(usuario, cliente, recursos, null);
 	}
 	

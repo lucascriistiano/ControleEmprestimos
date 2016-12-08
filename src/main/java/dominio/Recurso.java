@@ -45,6 +45,12 @@ public abstract class Recurso extends Dominio {
 	public void setDisponivel(boolean disponivel) {
 		this.disponivel = disponivel;
 	}
+	
+	@Override
+	public String toString() {
+		return "Recurso [descricao=" + descricao + ", categoria=" + categoria + ", disponivel=" + disponivel
+				+ ", codigo=" + codigo + ", isDisponivel()=" + isDisponivel() + ", valido()=" + valido() + "]";
+	}
 
 	public abstract void alocar();
 	public abstract void desalocar();

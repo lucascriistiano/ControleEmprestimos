@@ -69,8 +69,8 @@ public class MainHotel {
  
 	private static void populateDAOs() {
 		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
-		Usuario usuario1 = new Usuario("Joao da Silva", "joao", "123456");
-		Usuario usuario2 = new Usuario("Regina Costa", "regina", "456789");
+		Usuario usuario1 = new Usuario(1L,"Joao da Silva", "joao", "123456");
+		Usuario usuario2 = new Usuario(2L,"Regina Costa", "regina", "456789");
 		
 		try {
 			daoUsuario.add(usuario1);

@@ -23,10 +23,10 @@ public abstract class Cliente extends Dominio {
 		this.nome = nome;
 	}
 		
-	/*@
-	@ ensures ((long) codigo) <= 0L ==> \result == false;
-	@*/
-	public /*@ pure @*/ abstract boolean valido();
-	
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", codigo=" + codigo + ", getNome()=" + getNome() + "]";
+	}
+
 	public /*@ pure @*/ abstract ClienteInvalidoException toClienteInvalidoException();
 }

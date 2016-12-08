@@ -1,14 +1,17 @@
 package dominio;
 
+import excecao.UsuarioInvalidoException;
+
 public class Usuario extends Dominio {
 	
-	private /*@ spec_public @*/ String nome;
-	private /*@ spec_public @*/ String login;
-	private /*@ spec_public @*/ String senha;
+	private /*@ nullable spec_public @*/ String nome;
+	private /*@ nullable spec_public @*/ String login;
+	private /*@ nullable spec_public @*/ String senha;
 	
 	public Usuario() { }
 	
-	public Usuario(String nome, String login, String senha) {
+	public Usuario(Long codigo,String nome, String login, String senha) {
+		this.codigo = codigo;
 		this.nome = nome;
 		this.login = login;
 		this.senha = senha;
@@ -37,6 +40,33 @@ public class Usuario extends Dominio {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	@Override
+	public boolean valido() {
+		boolean isValido = true;
+		if("".equals(login) || login == null){
+			isValido = false;
+		} else if ("".equals(nome)){
+			isValido = false;
+		}
+		return isValido;
+	}
+	
+	public UsuarioInvalidoException toUsuarioInvalidoException(){
+		UsuarioInvalidoException exception = new UsuarioInvalidoException("Usuário Inválido");
+		if("".equals(login) || login == null){
+			exception = new UsuarioInvalidoException("Login Inválido", exception);
+		} else if ("".equals(nome)){
+			exception = new UsuarioInvalidoException("Nome Vazio", exception);
+		}
+		return exception;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + nome + ", login=" + login + ", senha=" + senha + ", codigo=" + codigo + ", valido()="
+				+ valido() + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -62,6 +92,7 @@ public class Usuario extends Dominio {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

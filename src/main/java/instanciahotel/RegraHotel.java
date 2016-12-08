@@ -41,19 +41,26 @@ public class RegraHotel implements RegraEmprestimo{
 	public Date calcularDataDevolucao(Emprestimo emprestimo) {
 		//Retorna a data minima para emprestimo (1 dia)
 		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(emprestimo.getDataEmprestimo());
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		return calendar.getTime();
 	}
 
 	@Override
 	public boolean validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {
-		//Verificar se o periodo de emprestimo eh de pelo menos 1 dia (prazo minimo) 
-		Long msDiff = dataDevolucao.getTime() - dataEmprestimo.getTime();
-		Long diasDiff = TimeUnit.DAYS.convert(msDiff, TimeUnit.MILLISECONDS);
+		Emprestimo emprestimo = new Emprestimo();
+		emprestimo.setDataEmprestimo(dataEmprestimo);
+		emprestimo.setDataDevolucao(dataDevolucao);
 		
-		if(diasDiff < 1)
-			throw new EmprestimoInvalidoException("O periodo do emprestimo deve ser de pelo menos uma diaria");
-
-		return false;
+		Date dataDevolucaoPrevista = calcularDataDevolucao(emprestimo);
+		
+		if (dataDevolucao.after(dataDevolucaoPrevista)){
+			throw new EmprestimoInvalidoException("Passou do limite de devolução");
+		}
+		
+		return true;
+		
 	}
+	
+	
 }

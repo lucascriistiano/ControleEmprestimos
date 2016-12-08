@@ -9,6 +9,8 @@ import excecao.DataException;
 import excecao.UsuarioInvalidoException;
 
 public class GerenciadorUsuarios {
+	
+	
 	private DaoUsuario daoUsuario; 
 	
 	public GerenciadorUsuarios() {
@@ -20,6 +22,10 @@ public class GerenciadorUsuarios {
 			this.daoUsuario.add(usuario);
 	}
 	
+	public void updateUsuario(Usuario usuario) throws DataException{
+		this.daoUsuario.update(usuario);
+	}
+	
 	public void removerUsuario(Usuario usuario) throws DataException {
 		this.daoUsuario.remove(usuario);
 	}
@@ -29,25 +35,35 @@ public class GerenciadorUsuarios {
 		return (List<Usuario>)(List<?>) daoUsuario.list();
 	}
 	
+	public Usuario getUsuario(Long codigo) throws DataException {
+		return (Usuario) daoUsuario.get(codigo);
+	}
+	
 	public Usuario getUsuario(String login) throws DataException {
 		return daoUsuario.get(login);
 	}
 	
+	public /*@ pure @*/ boolean exists(long codigo){
+		return this.daoUsuario.exists(codigo);
+	}
+	
 	public boolean validarUsuario(Usuario usuario) throws UsuarioInvalidoException, DataException {
 		
-		if(usuario.getLogin().equals("")) {
-			throw new UsuarioInvalidoException("Login vazio");
+		if(!usuario.valido()){
+			throw usuario.toUsuarioInvalidoException();
 		}
-		if(usuario.getNome().equals("")) {
-			throw new UsuarioInvalidoException("Nome do usuario vazio");
-		}
-		if(usuario.getNome().equals("")) {
-			throw new UsuarioInvalidoException("Senha vazia");
-		}
-		if(daoUsuario.get(usuario.getLogin()) != null) {
-			throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
+		
+		try {
+			Usuario usuarioBusca = daoUsuario.get(usuario.getLogin());
+			if(usuarioBusca != null){
+				throw new UsuarioInvalidoException("Nome de usuario ja esta em uso");
+			}
+			
+		} catch (DataException e){
+			return true;
 		}
 		
 		return true;
+		
 	}
 }
