@@ -66,6 +66,15 @@ public class VerificadorPrazos {
 		return false;
 	}
 	
+	public /*@ pure @*/ long contarPendentesNotificacao(List<Emprestimo> emprestimos){
+		return emprestimos.stream().filter(x -> prazoExpirado(x) || prazoProximo(x)).count();
+	}
+
+	/*@
+	 @ requires emprestimos != null;
+	 @ ensures contarPendentesNotificacao(emprestimos) > 0 ==> \result == true;	
+	 @ ensures contarPendentesNotificacao(emprestimos) <= 0 ==> \result == false;	
+	 @*/
 	public /*@ pure @*/ boolean verificarEmprestimos(List<Emprestimo> emprestimos) {
 		boolean notificado = false;
 		for(Emprestimo emprestimo : emprestimos) {

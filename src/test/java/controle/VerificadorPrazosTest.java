@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Test;
@@ -73,6 +75,13 @@ public class VerificadorPrazosTest {
 		this.regra = regra;
 		this.notificacao = notificacao;
 		
+		emprestimo = criarEmprestimo(regra, geradorComprovante, notificacao, classeRecurso, classeCliente);
+	}
+
+	private Emprestimo criarEmprestimo(RegraEmprestimo regra, GeradorComprovante geradorComprovante,
+			FabricaNotificacao notificacao, Class<Recurso> classeRecurso, Class<Cliente> classeCliente)
+			throws DataException, UsuarioInvalidoException, EmprestimoInvalidoException, ClienteInvalidoException,
+			RecursoInvalidoException {
 		GerenciadorUsuarios gerenciadorUsuarios = new GerenciadorUsuarios();
 		GerenciadorClientes gerenciadorClientes = new GerenciadorClientes();
 		GerenciadorRecursos gerenciadorRecursos = new GerenciadorRecursos();
@@ -87,7 +96,7 @@ public class VerificadorPrazosTest {
 	
 		GerenciadorEmprestimos gerenciadorEmprestimos = new GerenciadorEmprestimos(regra, geradorComprovante, notificacao, gerenciadorDatasNaoModificado);
 		ComprovanteEmprestimo comprovante = gerenciadorEmprestimos.realizarEmprestimo(usuario, cliente, Arrays.asList(recurso));
-		this.emprestimo = comprovante.getEmprestimo();
+		return comprovante.getEmprestimo();
 	}
 
 	@After
@@ -114,6 +123,17 @@ public class VerificadorPrazosTest {
 		VerificadorPrazos verificadorPrazos = new VerificadorPrazos(regra, notificacao, criarGerenciadorDatasComAvanco(-1));
 		assertTrue(verificadorPrazos.prazoProximo(emprestimo));
 	}
+	
+	@Test
+	public void testVerificarEmprestimos() {
+		VerificadorPrazos verificadorPrazos = new VerificadorPrazos(regra, notificacao, criarGerenciadorDatasComAvanco(-1));
+		assertTrue(verificadorPrazos.prazoProximo(emprestimo));
+		List<Emprestimo> emprestimos = new ArrayList<>();
+		emprestimos.add(emprestimo);
+		assertTrue(verificadorPrazos.verificarEmprestimos(emprestimos));
+	}
+	
+	
 	
 	private GerenciadorDatas criarGerenciadorDatasComAvanco(int dias) {
 		GerenciadorDatas gerenciadorDatasModificado = mock(GerenciadorDatas.class);
