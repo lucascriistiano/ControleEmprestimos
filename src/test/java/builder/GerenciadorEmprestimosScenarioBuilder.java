@@ -1,17 +1,10 @@
 package builder;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 import controle.GerenciadorEmprestimos;
-import controle.GerenciadorUsuarios;
 import dominio.Emprestimo;
 import dominio.Usuario;
-import excecao.DataException;
-import excecao.UsuarioInvalidoException;
 
 public class GerenciadorEmprestimosScenarioBuilder {
 
@@ -20,20 +13,22 @@ public class GerenciadorEmprestimosScenarioBuilder {
 
 	public GerenciadorEmprestimosScenarioBuilder(GerenciadorEmprestimos gerenciadorEmprestimos) {
 		super();
-		this.gerenciador = gerenciador;
+		this.gerenciador = gerenciadorEmprestimos	;
 	}
 
 	public GerenciadorEmprestimosScenarioBuilder comDevolucao(Date date){
-		//
+		return null;
 	}
 	
-	public GerenciadorUsuariosScenarioBuilder realizarEmprestimo(){
-		assertTrue("Id do usuario deve ser maior que 0", usuario.getCodigo() > 0);
+	public GerenciadorEmprestimosScenarioBuilder realizarEmprestimo(){
+		/*assertTrue("Id do usuario deve ser maior que 0", usuario.getCodigo() > 0);
+		return this;*/
 		return this;
 	}
 	
 	public Usuario getUsuarioInstance(){
-		return usuario;
+		return null;
+		/*return usuario;*/
 	}
 	
 	

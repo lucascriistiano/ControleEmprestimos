@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import builder.GerenciadorClientesScenarioBuilder;
-import dao.DaoClienteMemoria;
+import dao.DaoCliente;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
@@ -35,7 +35,7 @@ public class GerenciadorClientesTest {
 		
 	@After 
 	public void tearDown(){
-		DaoClienteMemoria.getInstance().clear();
+		DaoCliente.getInstance().clear();
 	}
 	
 	@Test(expected=ClienteInvalidoException.class)

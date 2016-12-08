@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import builder.GerenciadorRecursosScenarioBuilder;
-import dao.DaoRecursoMemoria;
+import dao.DaoRecurso;
 import dominio.Recurso;
 import excecao.DataException;
 import excecao.RecursoInvalidoException;
@@ -34,7 +34,7 @@ public class GerenciadorRecursosTest {
 		
 	@After 
 	public void tearDown(){
-		DaoRecursoMemoria.getInstance().clear();
+		DaoRecurso.getInstance().clear();
 	}
 
 	@Test(expected=RecursoInvalidoException.class)

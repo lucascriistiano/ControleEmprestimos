@@ -4,11 +4,10 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import dao.Dao;
-import dao.DaoClienteMemoria;
+import dao.DaoCliente;
 import dao.DaoRecurso;
-import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
-import dao.DaoUsuarioMemoria;
+import dominio.Cliente;
 //*************************************
 import dominio.Recurso;
 import dominio.Usuario;
@@ -68,7 +67,7 @@ public class MainHotel {
 	}
  
 	private static void populateDAOs() {
-		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
+		DaoUsuario daoUsuario = DaoUsuario.getInstance();
 		Usuario usuario1 = new Usuario(1L,"Joao da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario(2L,"Regina Costa", "regina", "456789");
 		
@@ -80,7 +79,7 @@ public class MainHotel {
 			e.printStackTrace();
 		}
 		
-		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
+		DaoRecurso daoRecurso = DaoRecurso.getInstance();
 		Recurso quarto1 = new Quarto(Long.valueOf(1), "1 andar", 1, 700, 1, 2, 1000);
 		Recurso quarto2 = new Quarto(Long.valueOf(2), "2 andar", 2, 500, 2, 3, 2000);
 		Recurso quarto3 = new Quarto(Long.valueOf(3), "3 andar", 2, 600, 3, 4, 5000);
@@ -94,7 +93,7 @@ public class MainHotel {
 			e.printStackTrace();
 		}
 		
-		Dao daoCliente = DaoClienteMemoria.getInstance();
+		Dao<Cliente> daoCliente = DaoCliente.getInstance();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);

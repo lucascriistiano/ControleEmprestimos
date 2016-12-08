@@ -4,11 +4,10 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import dao.Dao;
-import dao.DaoClienteMemoria;
+import dao.DaoCliente;
 import dao.DaoRecurso;
-import dao.DaoRecursoMemoria;
 import dao.DaoUsuario;
-import dao.DaoUsuarioMemoria;
+import dominio.Cliente;
 import dominio.Recurso;
 import dominio.Usuario;
 import excecao.DataException;
@@ -67,7 +66,7 @@ public class MainLocadoraVeiculos {
 	}
  
 	private static void populateDAOs() {
-		DaoUsuario daoUsuario = DaoUsuarioMemoria.getInstance();
+		DaoUsuario daoUsuario = DaoUsuario.getInstance();
 		Usuario usuario1 = new Usuario(1L,"Joao da Silva", "joao", "123456");
 		Usuario usuario2 = new Usuario(2L,"Regina Costa", "regina", "456789");
 		
@@ -79,7 +78,7 @@ public class MainLocadoraVeiculos {
 			e.printStackTrace();
 		}
 		
-		DaoRecurso daoRecurso = DaoRecursoMemoria.getInstance();
+		DaoRecurso daoRecurso = DaoRecurso.getInstance();
 		Recurso carro1 = new Carro(Long.valueOf(1),"Chevrolet Meriva 2002. Veiculo super agradavel", 1,"ABC-1234","Meriva","Chevrolet","Prata",0,40.5);
 		Recurso carro2 = new Carro(Long.valueOf(2),"VW Gol 2010. Veiculo muito confortavel", 2, "DEF-4567","Gol","Volkswagem","Branco",1000,50);
 		Recurso carro3 = new Carro(Long.valueOf(3),"Ford Ka 2007. Veiculo muito pequeno", 2, "HIJ-8901","Ka","Ford","Rosa",500,30);
@@ -93,7 +92,7 @@ public class MainLocadoraVeiculos {
 			e.printStackTrace();
 		}
 		
-		Dao daoCliente = DaoClienteMemoria.getInstance();
+		Dao<Cliente> daoCliente = DaoCliente.getInstance();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 27);

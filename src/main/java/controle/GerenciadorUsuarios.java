@@ -3,7 +3,7 @@ package controle;
 import java.util.List;
 
 import dao.DaoUsuario;
-import dao.DaoUsuarioMemoria;
+import dao.DaoUsuario;
 import dominio.Usuario;
 import excecao.DataException;
 import excecao.UsuarioInvalidoException;
@@ -14,7 +14,7 @@ public class GerenciadorUsuarios {
 	protected /*@ spec_public @*/ DaoUsuario daoUsuario; 
 	
 	public GerenciadorUsuarios() {
-		this.daoUsuario = DaoUsuarioMemoria.getInstance();
+		this.daoUsuario = DaoUsuario.getInstance();
 	}
 	
 	/*@ 

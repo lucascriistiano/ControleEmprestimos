@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import builder.GerenciadorUsuariosScenarioBuilder;
-import dao.DaoUsuarioMemoria;
+import dao.DaoUsuario;
 import dominio.Usuario;
 import excecao.UsuarioInvalidoException;
 import excecao.DataException;
@@ -34,7 +34,7 @@ public class GerenciadorUsuariosTest {
 		
 	@After 
 	public void tearDown(){
-		DaoUsuarioMemoria.getInstance().clear();
+		DaoUsuario.getInstance().clear();
 	}
 	
 	@Test(expected=UsuarioInvalidoException.class)

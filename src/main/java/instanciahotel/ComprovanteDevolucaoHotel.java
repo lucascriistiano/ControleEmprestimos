@@ -1,30 +1,29 @@
 package instanciahotel;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import dominio.ComprovanteDevolucao;
+import dominio.Emprestimo;
 import dominio.Recurso;
 
 public class ComprovanteDevolucaoHotel extends ComprovanteDevolucao {
     
-	public ComprovanteDevolucaoHotel(String empresa, String locador, Long codigo, Date dataEmprestimo, Date dataDevolucao, List<Recurso> recursos, double valor) {
-		super(empresa, locador, codigo, dataEmprestimo, dataDevolucao, recursos, valor);
+	public ComprovanteDevolucaoHotel(Emprestimo emprestimo, double valor) {
+		super(emprestimo, valor);
 	}
 
 	@Override
 	public void imprimir() {
-		System.out.println("------- " + this.getEmpresa() + " -------");
+		System.out.println("------- HOTEL 5 ESTRELAS -------");
 		
 		System.out.println("----- Comprovante de Checkout -----");
-		System.out.println("Codigo do aluguel: " + this.getCodigo());
-		System.out.println("Nome do locador: " + this.getLocador());
-		System.out.println("Data de checkin: " + new SimpleDateFormat("dd/MM/yyyy").format(this.getDataEmprestimo()));
-		System.out.println("Data de checkout: " + new SimpleDateFormat("dd/MM/yyyy").format(this.getDataDevolucao()));
+		System.out.println("Codigo do aluguel: " + emprestimo.getCodigo());
+		System.out.println("Nome do locador: " + emprestimo.getCliente().getNome());
+		System.out.println("Data de checkin: " + new SimpleDateFormat("dd/MM/yyyy").format(emprestimo.getDataEmprestimo()));
+		System.out.println("Data de checkout: " + new SimpleDateFormat("dd/MM/yyyy").format(emprestimo.getDataDevolucao()));
 		
 		System.out.println("Lista de Quartos Alugados: ");
-		for (Recurso recurso : getRecursos()) {
+		for (Recurso recurso : emprestimo.getRecursos()) {
 			Quarto quarto = (Quarto) recurso;
 			
 			System.out.print("\tCodigo: " + quarto.getCodigo());
@@ -36,6 +35,6 @@ public class ComprovanteDevolucaoHotel extends ComprovanteDevolucao {
 			System.out.println();
 		}
 		
-		System.out.println("Valor do aluguel: R$ " + this.getValor());
+		System.out.println("Valor do aluguel: R$ " + valor);
 	}
 }

@@ -7,31 +7,58 @@ import java.util.List;
 import dominio.Dominio;
 import excecao.DataException;
 
-public abstract class DaoMemoria<T extends Dominio> implements Dao {
+public abstract class DaoMemoria<T extends Dominio> implements Dao<T> {
 	
 	private final String entidade;
+	protected /*@ spec_public @*/ List<T> list; 
 		
 	public DaoMemoria(String entidade) {
 		super();
 		this.entidade = entidade;
+		this.list = new ArrayList<>();
 	}
 	
-	protected abstract List<T> getLista();
-
-	@Override
-	public final void add(Dominio obj) throws DataException {
-		@SuppressWarnings("unchecked")
+	/*@ 
+	 @ also
+	 @ public normal_behavior
+	 @ 		requires obj != null;
+	 @		requires !list.contains(obj);
+	 @ 		assignable list;
+	 @ 		ensures list.size() == \old(list.size()) + 1;
+	 @ 		ensures list.get(list.size()-1) == obj;
+	 @	also
+	 @	public exceptional_behavior
+	 @ 		requires obj != null;
+	 @		requires list.contains(obj);
+	 @		assignable \nothing;
+	 @		signals_only DataException;
+	 @*/
+	public final void add(T obj) throws DataException {
 		T cobj = (T) obj;
-		if(!getLista().contains(cobj)){
-			getLista().add(cobj);
+		if(!list.contains(cobj)){
+			list.add(cobj);
 		} else {
 			throw new DataException(entidade + " já Cadastrado");
 		}
 	}
 
-	@Override
-	public final void remove(Dominio obj) throws DataException {
-		Iterator<T> it = getLista().iterator();
+	/*@
+	 @ also
+	 @ public normal_behavior
+	 @		requires obj != null;
+	 @		requires ((long) obj.getCodigo()) > 0;
+	 @		requires list.isEmpty() == false;
+	 @		requires list.contains(obj);
+	 @ 		assignable list;	 
+	 @		ensures !list.contains(obj);
+	 @	also
+	 @	public exceptional_behavior
+	 @		requires obj == null || ((long) obj.getCodigo()) <= 0 || list.isEmpty() || list.contains(obj) == false;
+	 @		assignable \nothing;
+    @		signals_only DataException;
+	 @*/
+	public final void remove(T obj) throws DataException {
+		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();
 			
@@ -44,9 +71,25 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 		throw new DataException(entidade + " nao encontrado");
 	}
 
-	@Override
-	public final void update(Dominio obj) throws DataException {	
-		Iterator<T> it = getLista().iterator();
+	/*@
+	 @ also
+	 @ public normal_behavior
+	 @		requires obj != null;
+	 @		requires list.contains(obj);
+	 @ 		assignable list;
+	 @		ensures	list.contains(obj);
+	 @		ensures obj.getCodigo() == \old(obj.getCodigo());	 
+	 @	also
+	 @	public exceptional_behavior
+	 @		requires obj != null;
+	 @		requires !list.contains(obj);
+	 @		assignable \nothing;
+	 @		signals_only DataException;
+	 @		signals (DataException e)
+	 @			list.isEmpty() || list.contains(obj) == false;
+	 @*/
+	public final void update(T obj) throws DataException {	
+		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();
 			
@@ -60,15 +103,31 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 		throw new DataException(entidade + " não existe");
 	}
 
-	@Override
-	public final  Dominio get(long codigo) throws DataException {
+	/*@
+	 @ also
+	 @ public normal_behavior
+	 @		requires ((long) codigo) > 0;
+	 @		requires this.exists(codigo);
+	 @		ensures ((Dominio)\result) != null;
+	 @		ensures ((Dominio) \result).getCodigo() == codigo;
+	 @	also
+	 @	public exceptional_behavior 
+	 @		requires ((long) codigo) > 0;
+	 @		requires !this.exists(codigo);
+	 @		signals_only DataException;
+	 @	also
+	 @	public exceptional_behavior
+	 @		requires ((long) codigo) <= 0;
+	 @		signals_only DataException;
+	 @*/
+	public /*@ pure @*/ Dominio get(long codigo) throws DataException {
 		if(codigo <= 0L) {
 			throw new DataException("Codigo menor que zero");
 		}
 		
-		Iterator<T> it = getLista().iterator();
+		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
-			Dominio c = it.next();
+			T c = it.next();
 			if(Long.compare(c.getCodigo(), codigo) == 0) {
 				return c;
 			}
@@ -77,17 +136,29 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 		throw new DataException("Cliente não cadastrado");
 	}
 
-	@Override
-	public final List<Dominio> list() throws DataException {
-		if(getLista()== null){
+	/*@ 
+	 @ also
+	 @ public normal_behavior
+	 @ 		requires list != null;
+	 @		ensures \result != null;
+	 @	also
+	 @	public exceptional_behavior
+	 @		requires list == null;
+	 @		signals_only DataException;
+	 @*/
+	public /*@ pure @*/final List<T> list() throws DataException {
+		if(list== null){
 			throw new DataException("Não há " + entidade + "s cadastrados.");
 		}
-		return new ArrayList<Dominio>(getLista());
+		return new ArrayList<T>(list);
 	}
 
-	@Override
-	public final boolean exists(long codigo) {
-		List<Dominio> list;
+	/*@
+	 @ also
+	 @ ensures ((long) codigo) <= 0 ==> \result == false;
+	 @*/
+	public /*@ pure @*/ boolean exists(long codigo) {
+		List<T> list;
 		try{
 			list = list();
 		} catch (DataException e){
@@ -103,9 +174,12 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 		}		
 	}
 
-	@Override
-	public final boolean exists(Dominio obj) {
-		Iterator<T> it = getLista().iterator();
+	/*@
+	 @ also
+	 @ ensures ((long) obj.getCodigo()) <= 0 ==> \result == false;
+	 @*/
+	public /*@ pure @*/ boolean exists(T obj) {
+		Iterator<T> it = list.iterator();
 		while(it.hasNext()) {
 			Dominio c = it.next();
 			if(Long.compare(c.getCodigo(), obj.getCodigo()) == 0) {
@@ -115,10 +189,9 @@ public abstract class DaoMemoria<T extends Dominio> implements Dao {
 		return false;
 	}
 
-	@Override
 	public final void clear() {
-		if(getLista() != null){
-			getLista().clear();
+		if(list != null){
+			list.clear();
 		}
 	}
 

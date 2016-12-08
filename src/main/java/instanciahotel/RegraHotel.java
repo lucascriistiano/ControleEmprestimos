@@ -47,19 +47,12 @@ public class RegraHotel implements RegraEmprestimo{
 	}
 
 	@Override
-	public boolean validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {
-		Emprestimo emprestimo = new Emprestimo();
-		emprestimo.setDataEmprestimo(dataEmprestimo);
-		emprestimo.setDataDevolucao(dataDevolucao);
+	public void validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {		
 		
-		Date dataDevolucaoPrevista = calcularDataDevolucao(emprestimo);
-		
-		if (dataDevolucao.after(dataDevolucaoPrevista)){
-			throw new EmprestimoInvalidoException("Passou do limite de devolução");
+		if (dataDevolucao.before(dataEmprestimo)){
+			throw new EmprestimoInvalidoException("Data de devolução precisa ser após data do empréstimo");
 		}
-		
-		return true;
-		
+				
 	}
 	
 	

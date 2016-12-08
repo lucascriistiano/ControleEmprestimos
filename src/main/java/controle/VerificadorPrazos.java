@@ -21,10 +21,10 @@ public class VerificadorPrazos {
 	}
 	
 	/*@
-	 @ ensures (gerenciadorDatas.getDataAtual() - emprestimo.getDataDevolucao().getTime() <= 0) ==> \result == false;
-	 @ ensures (gerenciadorDatas.getDataAtual() - emprestimo.getDataDevolucao().getTime() > 0) ==> \result == true; 
+	 @ ensures (gerenciadorDatas.getDataAtual().getTime() - emprestimo.getDataDevolucao().getTime() <= 0) ==> \result == false;
+	 @ ensures (gerenciadorDatas.getDataAtual().getTime() - emprestimo.getDataDevolucao().getTime() > 0) ==> \result == true; 
 	 @*/
-	private boolean prazoExpirado(/*@ non_nullable @*/ Emprestimo emprestimo) {
+	public /*@ pure @*/ boolean prazoExpirado(Emprestimo emprestimo) {
 		Date dataAtual = gerenciadorDatas.getDataAtual();
 		
 		long tempoExpirado = (dataAtual.getTime() - emprestimo.getDataDevolucao().getTime());
@@ -36,7 +36,7 @@ public class VerificadorPrazos {
 		
 	}
 
-	private boolean prazoProximo(/*@ non_nullable @*/ Emprestimo emprestimo) {
+	public /*@ pure @*/ boolean prazoProximo(Emprestimo emprestimo) {
 		Date dataAtual = gerenciadorDatas.getDataAtual();
 		long tempoExpirado = dataAtual.getTime() - emprestimo.getDataDevolucao().getTime();
 		long diasExpirado = tempoExpirado / (1000 * 60 * 60 * 24);
@@ -47,19 +47,21 @@ public class VerificadorPrazos {
 			return false;
 	}
 	
-	public boolean verificarEmprestimo(/*@ non_nullable @*/ Emprestimo emprestimo) {
+	//TODO expirado -> true
+	//TOO proximo -> true
+	public /*@ pure @*/ boolean notificarPrazoDevolucao(Emprestimo emprestimo) {
 		if(prazoExpirado(emprestimo)) {
 			notificadorPrazos.notificarPrazoExpirado(emprestimo);
-			return false;
+			return true;
 		} else if(prazoProximo(emprestimo)) {
 			notificadorPrazos.notificarPrazoProximo(emprestimo);
-			return false;
+			return true;
 		}
-		
-		return true;
+	
+		return false;
 	}
 	
-	public boolean verificarEmprestimos(/*@ non_nullable @*/ List<Emprestimo> emprestimos) {
+	public /*@ pure @*/ boolean verificarEmprestimos(List<Emprestimo> emprestimos) {
 		boolean notificado = false;
 		for(Emprestimo emprestimo : emprestimos) {
 			if(prazoExpirado(emprestimo)) {

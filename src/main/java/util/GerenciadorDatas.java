@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class GerenciadorDatas {
 
-	public Date getDataAtual() {
+	public /*@ pure @*/ Date getDataAtual() {
 		return Calendar.getInstance().getTime();
 	}
 	

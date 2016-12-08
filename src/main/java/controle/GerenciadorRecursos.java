@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoRecurso;
-import dao.DaoRecursoMemoria;
+import dao.DaoRecurso;
 import dominio.Recurso;
 import excecao.DataException;
 import excecao.RecursoInvalidoException;
@@ -15,7 +15,7 @@ public class GerenciadorRecursos {
 	private /*@ spec_public @*/ DaoRecurso daoRecurso;
 	
 	public GerenciadorRecursos() {
-		this.daoRecurso = DaoRecursoMemoria.getInstance();
+		this.daoRecurso = DaoRecurso.getInstance();
 	}
 	
 	/*@ 

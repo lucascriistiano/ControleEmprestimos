@@ -5,16 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import dao.DaoEmprestimo;
-import dao.DaoEmprestimoMemoria;
 import dao.DaoHistorico;
-import dao.DaoHistoricoMemoria;
 import dao.DaoRecurso;
-import dao.DaoRecursoMemoria;
 import dominio.Cliente;
 import dominio.ComprovanteDevolucao;
-import dominio.ComprovanteDevolucaoBuilder;
 import dominio.ComprovanteEmprestimo;
-import dominio.ComprovanteEmprestimoBuilder;
 import dominio.Emprestimo;
 import dominio.FabricaNotificacao;
 import dominio.GeradorComprovante;
@@ -47,14 +42,13 @@ public class GerenciadorEmprestimos {
 	
 	private final /*@ spec_public @*/ GerenciadorDatas gerenciadorDatas;
 		
-	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, ComprovanteEmprestimoBuilder comprovanteEmprestimoBuilder, 
-			ComprovanteDevolucaoBuilder comprovanteDevolucaoBuilder, FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
-		this.daoEmprestimo = DaoEmprestimoMemoria.getInstance();
-		this.daoHistorico = DaoHistoricoMemoria.getInstance(); 
-		this.daoRecurso = DaoRecursoMemoria.getInstance();
-		
+	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, GeradorComprovante geradorComprovante, 
+			 FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
+		this.daoEmprestimo = DaoEmprestimo.getInstance();
+		this.daoHistorico = DaoHistorico.getInstance(); 
+		this.daoRecurso = DaoRecurso.getInstance();
 		this.regraEmprestimo = regraEmprestimo;
-		this.geradorComprovante = new GeradorComprovante(comprovanteEmprestimoBuilder, comprovanteDevolucaoBuilder);
+		this.geradorComprovante = geradorComprovante;
 		this.verificadorPrazos = new VerificadorPrazos(regraEmprestimo, fabricaNotificacao, gerenciadorDatas);
 		this.gerenciadorDatas = gerenciadorDatas;
 	}
@@ -71,8 +65,7 @@ public class GerenciadorEmprestimos {
 	@	ensures \result != null;
 	@	ensures (\forall int i; 
 	@				0 <= i && i < recursos.size();
-	@				((List<Recursos>) \result.getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
-	@	ensures	regraEmprestimo.validarDataDevolucao(\result.getDataEmprestimo(), \result.getDataDevolucao());
+	@				((List<Recursos>) \result.getEmprestimo().getRecursos()) .contains( ((Recurso) recursos.get(i)) )   );	
 	@	also
 	@	public exceptional_behavior
 	@		requires !usuario.valido();
@@ -131,11 +124,11 @@ public class GerenciadorEmprestimos {
 	/*@
 	 @ requires emprestimo != null;
 	 @ assignable \nothing;
-	 @ ensures this.daoHistorico.exists((long) \result.getCodigo());
- 	 @ ensures !this.daoEmprestimo.exists((long) \result.getCodigo());
+	 @ ensures this.daoHistorico.exists((long) \result.getEmprestimo().getCodigo());
+ 	 @ ensures !this.daoEmprestimo.exists((long) \result.getEmprestimo().getCodigo());
  	 @ ensures \result.getValor() == regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 	 @*/
-	public ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
+	public /*@ pure @*/ ComprovanteDevolucao realizarDevolucao(Emprestimo emprestimo, double taxaExtra) throws DataException {
 		double valorFinal = regraEmprestimo.calcularValorFinal(emprestimo, taxaExtra);
 		
 		//TODO Implementar a realizacao do pagamento

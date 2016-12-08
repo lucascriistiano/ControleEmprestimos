@@ -3,7 +3,7 @@ package controle;
 import java.util.List;
 
 import dao.Dao;
-import dao.DaoClienteMemoria;
+import dao.DaoCliente;
 import dominio.Cliente;
 import excecao.ClienteInvalidoException;
 import excecao.DataException;
@@ -11,10 +11,10 @@ import excecao.DataException;
 public class GerenciadorClientes {
 	
 	//@ public invariant daoCliente != null;
-	protected /*@ spec_public @*/ Dao daoCliente;
+	protected /*@ spec_public @*/ Dao<Cliente> daoCliente;
 	
 	public GerenciadorClientes() {
-		daoCliente = DaoClienteMemoria.getInstance();
+		daoCliente = DaoCliente.getInstance();
 	}
 	
 	/*@ 
