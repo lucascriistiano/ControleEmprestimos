@@ -53,10 +53,9 @@ public abstract class Recurso extends Dominio {
 
 	@Override
 	public /*@ pure @*/ boolean valido() {
-		boolean isValido = true;
-		if(codigo < 0L){
-			isValido = false;
-		} else if ("".equals(descricao) || descricao == null){
+		boolean isValido = super.valido();
+		
+		if ("".equals(descricao) || descricao == null){
 			isValido = false;
 		}
 		return isValido;
@@ -72,5 +71,4 @@ public abstract class Recurso extends Dominio {
 		return exception;
 	}
 	
-	public /*@ pure @*/ abstract boolean validar() throws RecursoInvalidoException;
 }

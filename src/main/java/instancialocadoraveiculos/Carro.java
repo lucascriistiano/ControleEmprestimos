@@ -88,13 +88,28 @@ public class Carro extends Recurso {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
+		
 	@Override
-	public /*@ pure @*/ boolean validar() throws RecursoInvalidoException {
+	public boolean valido() {
+		boolean isValido = super.valido();
+		if("".equals(placa)){
+			isValido = false;
+		} else if ("".equals(modelo)){
+			isValido = false;
+		} else if ("".equals(fabricante)){
+			isValido = false;
+		} else if ("".equals(cor)){
+			isValido = false;
+		}
+		return isValido;
+	}
+
+	@Override
+	public RecursoInvalidoException toRecursoInvalidoException() {
+		RecursoInvalidoException exception = super.toRecursoInvalidoException();
 		if(!this.isDisponivel())
-			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O carro de codigo " + getCodigo() + " ja esta alocado.");
-			
-		return true;
+			exception = new RecursoInvalidoException("Recurso invalido para emprestimo. O carro de codigo " + getCodigo() + " ja esta alocado.", exception);
+		return exception;
 	}
 	
 }

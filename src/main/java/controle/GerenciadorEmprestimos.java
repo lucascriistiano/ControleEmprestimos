@@ -91,7 +91,9 @@ public class GerenciadorEmprestimos {
 		
 		//Validacao do recurso para emprestimo
 		for(Recurso recurso : recursos) {
-			recurso.validar();
+			if(!recurso.valido()){
+				throw recurso.toRecursoInvalidoException();
+			}
 		}
 		
 		//Realiza o emprestimo
