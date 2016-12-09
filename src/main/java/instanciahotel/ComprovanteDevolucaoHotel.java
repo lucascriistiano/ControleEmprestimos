@@ -13,7 +13,7 @@ public class ComprovanteDevolucaoHotel extends ComprovanteDevolucao {
 	}
 
 	@Override
-	public void imprimir() {
+	public /*@ pure @*/ void imprimir() {
 		System.out.println("------- HOTEL 5 ESTRELAS -------");
 		
 		System.out.println("----- Comprovante de Checkout -----");

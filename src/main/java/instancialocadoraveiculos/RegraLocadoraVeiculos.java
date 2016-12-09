@@ -17,12 +17,12 @@ public class RegraLocadoraVeiculos implements RegraEmprestimo{
 	private static final int DIAS_PARA_NOTIFICACAO = 2;
 
 	@Override
-	public int getDiasNotificacaoPrevia() {
+	public /*@ pure @*/ int getDiasNotificacaoPrevia() {
 		return DIAS_PARA_NOTIFICACAO;
 	}
 	
 	@Override
-	public double calcularValorFinal(Emprestimo emprestimo, double taxaExtra) {
+	public /*@ pure @*/ double calcularValorFinal(Emprestimo emprestimo, double taxaExtra) {
 		Date dataAtual = Calendar.getInstance().getTime();
 		Long msDiff = dataAtual.getTime() - emprestimo.getDataEmprestimo().getTime();
 		Long diasEmprestimo = TimeUnit.DAYS.convert(msDiff, TimeUnit.MILLISECONDS);
@@ -63,7 +63,7 @@ public class RegraLocadoraVeiculos implements RegraEmprestimo{
 	}
 
 	@Override
-	public Date calcularDataDevolucao(Emprestimo emprestimo) {
+	public /*@ pure @*/ Date calcularDataDevolucao(Emprestimo emprestimo) {
 		//Retorna a data minima para emprestimo (1 diaria)
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(emprestimo.getDataEmprestimo());
@@ -72,7 +72,7 @@ public class RegraLocadoraVeiculos implements RegraEmprestimo{
 	}
 
 	@Override
-	public void validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {
+	public /*@ pure @*/ void validarDataDevolucao(Date dataEmprestimo, Date dataDevolucao) throws EmprestimoInvalidoException {
 		if (dataDevolucao.before(dataEmprestimo)){
 			throw new EmprestimoInvalidoException("Data de devolução precisa ser após data do empréstimo");
 		}

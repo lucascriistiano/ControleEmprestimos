@@ -28,7 +28,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public String getCpf() {
+	public /*@ pure @*/ String getCpf() {
 		return cpf;
 	}
 
@@ -36,7 +36,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		this.cpf = cpf;
 	}
 
-	public String getRg() {
+	public /*@ pure @*/ String getRg() {
 		return rg;
 	}
 
@@ -44,7 +44,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		this.rg = rg;
 	}
 
-	public String getCarteiraMotorista() {
+	public /*@ pure @*/ String getCarteiraMotorista() {
 		return carteiraMotorista;
 	}
 
@@ -52,7 +52,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		this.carteiraMotorista = carteiraMotorista;
 	}
 	
-	public Date getDataNascimento() {
+	public /*@ pure @*/ Date getDataNascimento() {
 		return dataNascimento;
 	}
 	
@@ -60,7 +60,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public int getIdade() {
+	public /*@ pure @*/ int getIdade() {
 		Calendar dataNascimento = new GregorianCalendar();
 		dataNascimento.setTime(this.dataNascimento);
 
@@ -79,7 +79,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 		return idade;
 	}
 
-	public boolean valido() {
+	public /*@ pure @*/ boolean valido() {
 		boolean valido = true;
 		
 		if(this.getNome().trim().isEmpty()) {
@@ -102,7 +102,7 @@ public class ClienteLocadoraVeiculos extends Cliente{
 	}
 	
 	@Override
-	public ClienteInvalidoException toClienteInvalidoException() {
+	public /*@ pure @*/ ClienteInvalidoException toClienteInvalidoException() {
 		if(this.getNome().trim().isEmpty()) {
 			return new ClienteInvalidoException("Nome do cliente vazio");
 		}

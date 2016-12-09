@@ -11,7 +11,7 @@ import dominio.Recurso;
 public class FabricaNotificacaoHotel implements FabricaNotificacao {
 
 	@Override
-	public Notificacao getNotificacaoPrazoExpirado(Emprestimo emprestimo) {
+	public /*@ pure @*/ Notificacao getNotificacaoPrazoExpirado(Emprestimo emprestimo) {
 		String mensagem = "---------- Hotel H ----------\n";
 		mensagem += "-Notificacao de Emprestimo Expirado-\n";
 		mensagem += "O prazo do seu emprestimo foi expirado. Compareca a recepcao para verificar a possibilidade de renovacao do prazo.\n";
@@ -34,7 +34,7 @@ public class FabricaNotificacaoHotel implements FabricaNotificacao {
 	}
 
 	@Override
-	public Notificacao getNotificacaoPrazoProximo(Emprestimo emprestimo) {
+	public /*@ pure @*/ Notificacao getNotificacaoPrazoProximo(Emprestimo emprestimo) {
 		String mensagem = "---------- Hotel H ----------\n";
 		mensagem += "-Notificacao de Emprestimo Proximo de Expirar-\n";
 		mensagem += "O prazo do seu emprestimo esta expirando. Caso deseje renovar o prazo da estadia, compareca a recepcao do hotel para verificar a possibilidade de extensao do prazo.\n";

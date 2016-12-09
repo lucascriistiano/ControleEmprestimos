@@ -33,7 +33,7 @@ public class Carro extends Recurso {
 		this.preco = preco;
 	}
 	
-	public String getPlaca() {
+	public /*@ pure @*/ String getPlaca() {
 		return placa;
 	}
 
@@ -41,7 +41,7 @@ public class Carro extends Recurso {
 		this.placa = placa;
 	}
 
-	public String getModelo() {
+	public /*@ pure @*/ String getModelo() {
 		return modelo;
 	}
 
@@ -49,7 +49,7 @@ public class Carro extends Recurso {
 		this.modelo = modelo;
 	}
 
-	public String getFabricante() {
+	public /*@ pure @*/ String getFabricante() {
 		return fabricante;
 	}
 
@@ -57,7 +57,7 @@ public class Carro extends Recurso {
 		this.fabricante = fabricante;
 	}
 
-	public String getCor() {
+	public /*@ pure @*/ String getCor() {
 		return cor;
 	}
 
@@ -65,7 +65,7 @@ public class Carro extends Recurso {
 		this.cor = cor;
 	}
 
-	public int getQuilometragemInicial() {
+	public /*@ pure @*/ int getQuilometragemInicial() {
 		return quilometragemInicial;
 	}
 
@@ -73,7 +73,7 @@ public class Carro extends Recurso {
 		this.quilometragemInicial = quilometragemInicial;
 	}
 
-	public int getQuilometragemFinal() {
+	public /*@ pure @*/ int getQuilometragemFinal() {
 		return quilometragemFinal;
 	}
 
@@ -81,7 +81,7 @@ public class Carro extends Recurso {
 		this.quilometragemFinal = quilometragemFinal;
 	}
 
-	public double getPreco() {
+	public /*@ pure @*/ double getPreco() {
 		return preco;
 	}
 
@@ -90,7 +90,7 @@ public class Carro extends Recurso {
 	}
 	
 	@Override
-	public boolean validar() throws RecursoInvalidoException {
+	public /*@ pure @*/ boolean validar() throws RecursoInvalidoException {
 		if(!this.isDisponivel())
 			throw new RecursoInvalidoException("Recurso invalido para emprestimo. O carro de codigo " + getCodigo() + " ja esta alocado.");
 			

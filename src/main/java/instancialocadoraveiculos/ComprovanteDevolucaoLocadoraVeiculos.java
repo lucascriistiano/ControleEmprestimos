@@ -14,7 +14,7 @@ public class ComprovanteDevolucaoLocadoraVeiculos extends ComprovanteDevolucao {
 	}
 
 	@Override
-	public void imprimir() {
+	public /*@ pure @*/ void imprimir() {
 		System.out.println("------- LOCADORA VEICULOS -------");
 		
 		System.out.println("----- Comprovante de Devolucao -----");

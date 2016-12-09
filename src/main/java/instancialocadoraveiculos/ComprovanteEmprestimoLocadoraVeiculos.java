@@ -13,7 +13,7 @@ public class ComprovanteEmprestimoLocadoraVeiculos extends ComprovanteEmprestimo
 	}
 
 	@Override
-	public void imprimir() {
+	public /*@ pure @*/ void imprimir() {
 		System.out.println("------- LOCADORA VEICULOS -------");
 		
 		System.out.println("----- Comprovante de Emprestimo -----");

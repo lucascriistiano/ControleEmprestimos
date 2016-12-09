@@ -60,7 +60,7 @@ public class ClienteHotel extends Cliente{
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public int getIdade() {
+	public /*@ pure @*/ int getIdade() {
 		Calendar dataNascimento = new GregorianCalendar();
 		dataNascimento.setTime(this.dataNascimento);
 
