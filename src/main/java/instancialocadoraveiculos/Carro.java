@@ -15,11 +15,16 @@ public class Carro extends Recurso {
 	
 	public Carro(String descricao, int categoria) {
 		super(descricao, categoria);
+		this.placa = "PlacaPadrao";
+		this.modelo = "ModeloPadrao";
+		this.fabricante = "FabricantePadrao";
+		this.cor = "CorPadrao";
+		this.quilometragemInicial = 0;
+		this.preco = 0;
 	}
 	
 	public Carro(String descricao, int categoria, String placa, String modelo, String fabricante, String cor, int quilometragemInicial, double preco) {
-		super(descricao, categoria);
-		
+		super(descricao, categoria);	
 		this.placa = placa;
 		this.modelo = modelo;
 		this.fabricante = fabricante;
