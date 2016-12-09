@@ -1,0 +1,28 @@
+Projeto: Framework de Controle de Empréstimos
+Componentes: Lucas Cristiano e Roberto Dantas
+
+Métricas do Projeto
+
+  Seguem as informações solicitadas sobre métricas do projeto:
+    (61)    Número de Classes (total de classes e interfaces no projeto)
+    (260)   Quantidade de Métodos (total de métodos com implementação, incluindo construtores)
+    (40)    Herança e Interface (soma de extends e implements)
+    (2935)  LOC (total de linhas de código efetivas)
+    (7)     invariant (ocorrências da palavra reservada em especificações)
+    (26)    initially (ocorrências da palavra reservada em especificações)
+    (0)     constraint (ocorrências da palavra reservada em especificações)
+    (8)     assignable (ocorrências da palavra reservada em especificações)
+    (114)   requires (ocorrências da palavra reservada em especificações)
+    (68)    ensures (ocorrências da palavra reservada em especificações)
+    (20)    normal_behaviors (ocorrências da palavra reservada em especificações)
+    (31)    exceptional_behaviors (ocorrências da palavra reservada em especificações)
+    (5)     \forall (ocorrências da palavra reservada em especificações)
+    (0)     \exists (ocorrências da palavra reservada em especificações)
+    (0)     represents (ocorrências da palavra reservada em especificações)
+    (10)    behaviour subtyping (total de overrides da especificação pai nos filhos)
+
+  Seguem também algumas informações extras sobre classes auxiliares criadas para
+  realizar testes durante o projeto:
+    (6)     Número de Classes de Testes Implementadas
+    (59)    Número de Casos de Testes Implementados
+    (101)   Número de Casos de Testes Executados
