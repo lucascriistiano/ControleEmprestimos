@@ -4,6 +4,7 @@ public class HistoricoEmprestimo extends Dominio {
 
 	private /*@ spec_public @*/ Emprestimo emprestimo;
 	
+	//@ protected initially emprestimo != null;	
 	public HistoricoEmprestimo(Emprestimo emprestimo) {
 		super();
 		this.emprestimo = emprestimo;

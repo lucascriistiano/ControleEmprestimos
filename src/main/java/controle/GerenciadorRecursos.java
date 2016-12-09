@@ -13,6 +13,7 @@ public class GerenciadorRecursos {
 	//@ public invariant daoRecurso != null;		
 	private /*@ spec_public @*/ DaoRecurso daoRecurso;
 	
+	//@ public initially daoRecurso != null;
 	public GerenciadorRecursos() {
 		this.daoRecurso = DaoRecurso.getInstance();
 	}

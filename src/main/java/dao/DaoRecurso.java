@@ -9,7 +9,8 @@ import excecao.DataException;
 
 public class DaoRecurso extends DaoImpl<Recurso> {
 
-	private static /*@ nullable @*/ DaoRecurso daoRecurso = null;
+	//@ public initially daoRecurso == null;	
+	private static /*@ spec_public nullable @*/ DaoRecurso daoRecurso = null;
 	
 	public DaoRecurso() {
 		super("Recurso");

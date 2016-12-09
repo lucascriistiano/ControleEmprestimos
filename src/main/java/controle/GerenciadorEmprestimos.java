@@ -43,6 +43,13 @@ public class GerenciadorEmprestimos {
 	
 	private final /*@ spec_public @*/ GerenciadorDatas gerenciadorDatas;
 		
+	//@ public initially daoEmprestimo != null;
+	//@ public initially daoHistorico != null;
+	//@ public initially daoRecurso != null;
+	//@ public initially regraEmprestimo != null;
+	//@ public initially geradorComprovante != null;
+	//@ public initially verificadorPrazos != null;
+	//@ public initially gerenciadorDatas != null;
 	public GerenciadorEmprestimos(RegraEmprestimo regraEmprestimo, GeradorComprovante geradorComprovante, 
 			 FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
 		this.daoEmprestimo = DaoEmprestimo.getInstance();

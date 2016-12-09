@@ -13,6 +13,7 @@ public class GerenciadorClientes {
 	//@ public invariant daoCliente != null;
 	protected /*@ spec_public @*/ Dao<Cliente> daoCliente;
 	
+	//@ public initially daoCliente != null;
 	public GerenciadorClientes() {
 		daoCliente = DaoCliente.getInstance();
 	}

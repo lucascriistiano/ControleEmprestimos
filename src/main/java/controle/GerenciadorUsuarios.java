@@ -12,6 +12,7 @@ public class GerenciadorUsuarios {
 	//@ public invariant daoUsuario != null;		
 	protected /*@ spec_public @*/ DaoUsuario daoUsuario; 
 	
+	//@ public initially daoUsuario != null;
 	public GerenciadorUsuarios() {
 		this.daoUsuario = DaoUsuario.getInstance();
 	}

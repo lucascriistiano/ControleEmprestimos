@@ -3,8 +3,9 @@ package dao;
 import dominio.Cliente;
 
 public class DaoCliente extends DaoImpl<Cliente> {
-				
-	private static /*@ nullable @*/ DaoCliente daoCliente = null;
+	
+	//@ public initially daoCliente == null;			
+	private static /*@ spec_public nullable @*/ DaoCliente daoCliente = null;
 
 	private DaoCliente() {
 		super("Cliente");
