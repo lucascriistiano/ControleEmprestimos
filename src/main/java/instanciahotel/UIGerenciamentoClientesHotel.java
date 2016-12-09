@@ -24,9 +24,6 @@ public class UIGerenciamentoClientesHotel implements UIGerenciamentoClientes {
 		try {
 			System.out.println("---------- Cadastrar Cliente ----------");
 			
-			System.out.print("Codigo: ");
-			Long codigo = in.nextLong();
-			in.nextLine();
 			System.out.print("Nome: ");
 			String nome = in.nextLine();
 			System.out.print("CPF: ");
@@ -68,7 +65,7 @@ public class UIGerenciamentoClientesHotel implements UIGerenciamentoClientes {
 			Long codigo = in.nextLong();
 			in.nextLine();
 	
-			Cliente cliente = new ClienteHotel("");
+			Cliente cliente = gerenciadorClientes.getCliente(codigo);
 			gerenciadorClientes.removerCliente(cliente);
 		
 		} catch (DataException e) {

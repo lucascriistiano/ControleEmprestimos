@@ -18,10 +18,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 	public void cadastrarRecurso() {
 		try {
 			System.out.println("---------- Cadastrar Carro ----------");
-			
-			System.out.print("Codigo: ");
-			Long codigo = in.nextLong();
-			in.nextLine();
+		
 			System.out.print("Descricao: ");
 			String descricao = in.nextLine();
 			System.out.print("Categoria: ");
@@ -60,7 +57,7 @@ public class UIGerenciamentoRecursosLocadoraVeiculos implements UIGerenciamentoR
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Carro("",0);
+			Recurso recurso = gerenciadorRecursos.getRecurso(codigo);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {

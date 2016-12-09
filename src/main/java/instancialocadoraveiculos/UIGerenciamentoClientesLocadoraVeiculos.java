@@ -24,9 +24,6 @@ public class UIGerenciamentoClientesLocadoraVeiculos implements UIGerenciamentoC
 		try {
 			System.out.println("---------- Cadastrar Cliente ----------");
 			
-			System.out.print("Codigo: ");
-			Long codigo = in.nextLong();
-			in.nextLine();
 			System.out.print("Nome: ");
 			String nome = in.nextLine();
 			System.out.print("CPF: ");
@@ -69,7 +66,7 @@ public class UIGerenciamentoClientesLocadoraVeiculos implements UIGerenciamentoC
 			Long codigo = in.nextLong();
 			in.nextLine();
 	
-			Cliente cliente = new ClienteLocadoraVeiculos("");
+			Cliente cliente = gerenciadorClientes.getCliente(codigo);
 			gerenciadorClientes.removerCliente(cliente);
 		
 		} catch (DataException e) {

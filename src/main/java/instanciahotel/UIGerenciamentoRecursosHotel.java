@@ -19,9 +19,6 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 		try {
 			System.out.println("---------- Cadastrar Quarto ----------");
 			
-			System.out.print("Codigo: ");
-			Long codigo = in.nextLong();
-			in.nextLine();
 			System.out.print("Descricao: ");
 			String descricao = in.nextLine();
 			System.out.print("Categoria: ");
@@ -56,7 +53,7 @@ public class UIGerenciamentoRecursosHotel implements UIGerenciamentoRecursos {
 			Long codigo = in.nextLong();
 			in.nextLine();
 			
-			Recurso recurso = new Quarto("",0);
+			Recurso recurso = gerenciadorRecursos.getRecurso(codigo);
 		
 			gerenciadorRecursos.removerRecurso(recurso);
 		} catch (DataException e) {
