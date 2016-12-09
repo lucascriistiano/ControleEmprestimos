@@ -9,11 +9,13 @@ import excecao.DataException;
 
 public abstract class DaoImpl<T extends Dominio> implements Dao<T> {
 	
-	private long contador;
-	private final String entidade;
+  	private /*@ spec_public @*/ long contador;
+	private /*@ spec_public @*/ final String entidade;
 	protected /*@ spec_public @*/ List<T> list; 
-	
 		
+	//@ public initially contador == 0;
+	//@ public initially entidade != null;
+	//@ public initially list != null && list.isEmpty();
 	public DaoImpl(String entidade) {
 		super();
 		this.contador = 0;

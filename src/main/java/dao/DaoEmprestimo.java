@@ -4,7 +4,8 @@ import dominio.Emprestimo;
 
 public class DaoEmprestimo extends DaoImpl<Emprestimo> {
 	
-	private static /*@ nullable @*/ DaoEmprestimo daoEmprestimo = null;
+	//@ public initially daoEmprestimo == null;	
+	private static /*@ spec_public nullable @*/ DaoEmprestimo daoEmprestimo = null;
 
 	private DaoEmprestimo() {
 		super("Emprestimo");

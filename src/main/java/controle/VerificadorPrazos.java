@@ -14,6 +14,9 @@ public class VerificadorPrazos {
 	private /*@ spec_public @*/ NotificadorPrazos notificadorPrazos;
 	private /*@ spec_public @*/ GerenciadorDatas gerenciadorDatas;
 	
+	//@ public initially regraEmprestimo != null;
+	//@ public initially notificadorPrazos != null;
+	//@ public initially gerenciadorDatas != null;
 	public VerificadorPrazos(RegraEmprestimo regraEmprestimo, FabricaNotificacao fabricaNotificacao, GerenciadorDatas gerenciadorDatas) {
 		this.regraEmprestimo = regraEmprestimo;
 		this.notificadorPrazos = new NotificadorPrazos(fabricaNotificacao);

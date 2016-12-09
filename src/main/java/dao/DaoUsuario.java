@@ -5,7 +5,8 @@ import excecao.DataException;
 
 public class DaoUsuario extends DaoImpl<Usuario> {
 	
-	static /*@ nullable @*/ DaoUsuario daoUsuario = null;
+	//@ public initially daoUsuario == null;	
+	private static /*@ spec_public nullable @*/ DaoUsuario daoUsuario = null;
 	
 	private DaoUsuario() {
 		super ("Usuario");

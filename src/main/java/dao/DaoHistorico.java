@@ -11,7 +11,8 @@ import excecao.DataException;
 
 public class DaoHistorico extends DaoImpl<HistoricoEmprestimo> {
 	
-	private static /*@ nullable @*/ DaoHistorico daoHistorico = null;
+	//@ public initially daoHistorico == null;	
+	private static /*@ spec_public nullable @*/ DaoHistorico daoHistorico = null;
 	
 	private DaoHistorico() {
 		super("Emprestimo");
