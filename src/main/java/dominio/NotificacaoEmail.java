@@ -9,7 +9,6 @@ public class NotificacaoEmail extends Notificacao{
 	@Override
 	public void enviar() {
 		System.out.println("Enviando notificacao por email...");
-		System.out.println(getMensagem());
 	}
 
 }

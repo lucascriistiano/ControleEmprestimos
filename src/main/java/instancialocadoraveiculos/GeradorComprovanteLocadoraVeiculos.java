@@ -7,13 +7,19 @@ import dominio.GeradorComprovante;
 
 public class GeradorComprovanteLocadoraVeiculos implements GeradorComprovante {
 
+	/*@ also
+	  @ ensures \result != null; 
+	  @*/
 	@Override
-	public ComprovanteEmprestimo gerarComprovanteEmprestimo(Emprestimo emprestimo) {
+	public /*@ pure @*/ ComprovanteEmprestimo gerarComprovanteEmprestimo(Emprestimo emprestimo) {
 		return new ComprovanteEmprestimoLocadoraVeiculos(emprestimo);
 	}
 
+	/*@ also
+	  @ ensures \result != null; 
+	  @*/
 	@Override
-	public ComprovanteDevolucao gerarComprovanteDevolucao(Emprestimo emprestimo, double valor) {
+	public /*@ pure @*/ ComprovanteDevolucao gerarComprovanteDevolucao(Emprestimo emprestimo, double valor) {
 		return new ComprovanteDevolucaoLocadoraVeiculos(emprestimo, valor);
 	}
 

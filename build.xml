@@ -157,7 +157,7 @@
 		</ajmlc>
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
 		
-		<junit printsummary="yes" fork="false" haltonfailure="no" showoutput="true">
+		<junit printsummary="yes" fork="false" haltonfailure="no" showoutput="false">
 			<classpath>
 					<pathelement path="${dest.dir}"/> <!-- .class do projeto -->
 			        <pathelement location="${app.lib}/junit-4.12.jar" />
