@@ -2,6 +2,10 @@ machine:
   java:
     version: openjdk8
 
+compile:
+  override:
+    - ant build
+
 test:
   override:
-    - ant ajmlc-e-testes-junit
+    - ant testes

@@ -180,8 +180,12 @@
 		
 	</target>
 	
-	<target name="build-testes-junit">
+	<target name="build" depends="clean,prepare">
+		<javac debug="true" classpathref="classesjml" srcdir="src/main/java" destdir="bin" includeantruntime="false"/>
 		<javac debug="true" classpathref="classesjml" srcdir="src/test/java" destdir="bin" includeantruntime="false"/>
+	</target>
+	
+	<target name="testes">
 		<junit printsummary="yes" fork="false" haltonfailure="no" showoutput="true">
 			<classpath>
 					<pathelement path="${dest.dir}"/> <!-- .class do projeto -->
