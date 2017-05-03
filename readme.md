@@ -2,7 +2,7 @@
 Framework para criação de aplicações que envolvem gerência de prazos para controle de aluguéis e empréstimos desenvolvido pelos discentes *Lucas Cristiano Calixto Dantas* e *Sidemar Fideles Cezario* como trabalho para obtenção da nota da terceira unidade da disciplina de *Projeto Detalhado de Software*, ministrada pelo professor *Uira Kulesza*, da *Universidade Federal do Rio Grande do Norte (UFRN)* .
 
 ### Versão Atual
-0.1.0
+0.2.0
 
 ### Tecnologias
 O framework foi desenvolvido utilizando as seguintes tecnologias:
